@@ -7,6 +7,7 @@ import com.raven.form.Form_1;
 import com.raven.form.Form_TamTruTamVang;
 import com.raven.form.Form_ThongKeNhanKhau;
 import com.raven.form.Form_ThongTinHo;
+import com.raven.form.Form_ThongTinNhanKhau;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -23,13 +24,19 @@ public class Main extends javax.swing.JFrame {
                     showForm(new Form_ThongTinHo());
                 }
                 else if(index == 1){
-                    showForm(new Form_TamTruTamVang());
+                    showForm(new Form_ThongTinNhanKhau());
                 }
                 else if(index == 2){
-                    showForm(new Form_ThongKeNhanKhau());
+                    showForm(new Form_TamTruTamVang());
                 }
                 else if(index == 3){
+                    showForm(new Form_ThongKeNhanKhau());
+                }
+                else if(index == 4){
                     System.out.println("Log out");
+                }
+                else if(index == 5){
+                    System.out.println("Exit");
                 }
                 else{  
                     showForm(new Form(index));

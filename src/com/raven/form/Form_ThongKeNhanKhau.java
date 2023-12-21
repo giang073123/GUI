@@ -24,18 +24,15 @@ public class Form_ThongKeNhanKhau extends javax.swing.JPanel {
     private void init(){
                 chart2.addLegend("Nam", new Color(5, 125, 0), new Color(95, 209, 69));
         chart2.addLegend("Nữ", new Color(186, 37, 37), new Color(241, 100, 120));
-        chart2.addData(new ModelChart("January", new double[]{500, 200}));
-        chart2.addData(new ModelChart("February", new double[]{600, 750}));
-        chart2.addData(new ModelChart("March", new double[]{200, 350}));
-        chart2.addData(new ModelChart("April", new double[]{480, 150}));
-        chart2.addData(new ModelChart("May", new double[]{350, 540}));
-        chart2.addData(new ModelChart("June", new double[]{190, 280}));
-        chart2.addData(new ModelChart("July", new double[]{500, 200}));
-        chart2.addData(new ModelChart("August", new double[]{600, 750}));
-        chart2.addData(new ModelChart("September", new double[]{200, 350}));
-        chart2.addData(new ModelChart("October", new double[]{480, 150}));
-        chart2.addData(new ModelChart("November", new double[]{400, 540}));
-        chart2.addData(new ModelChart("December", new double[]{150, 250}));
+        chart2.addData(new ModelChart("0-12", new double[]{500, 200}));
+        chart2.addData(new ModelChart("13-17", new double[]{600, 750}));
+        chart2.addData(new ModelChart("18-24", new double[]{200, 350}));
+        chart2.addData(new ModelChart("25-34", new double[]{480, 150}));
+        chart2.addData(new ModelChart("35-44", new double[]{350, 540}));
+        chart2.addData(new ModelChart("45-54", new double[]{190, 280}));
+        chart2.addData(new ModelChart("55-64", new double[]{500, 200}));
+        chart2.addData(new ModelChart("65+", new double[]{600, 750}));
+        chart2.start();
     }
 
     /**
@@ -49,27 +46,8 @@ public class Form_ThongKeNhanKhau extends javax.swing.JPanel {
 
         roundPanel1 = new com.raven.swing.RoundPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        chart1 = new com.raven.chart.Chart();
         jPanel2 = new javax.swing.JPanel();
         chart2 = new com.raven.chart.Chart();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jTabbedPane1.addTab("Thống kê nhân khẩu theo độ tuổi ", jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -84,7 +62,7 @@ public class Form_ThongKeNhanKhau extends javax.swing.JPanel {
                 .addComponent(chart2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Thống kê nhân khẩu theo giới tính ", jPanel2);
+        jTabbedPane1.addTab("Thống kê nhân khẩu theo độ tuổi và giới tính ", jPanel2);
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -111,9 +89,7 @@ public class Form_ThongKeNhanKhau extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.chart.Chart chart1;
     private com.raven.chart.Chart chart2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.raven.swing.RoundPanel roundPanel1;

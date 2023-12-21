@@ -1,6 +1,8 @@
 
 package com.raven.form;
 
+import java.awt.Container;
+
 
 
 
@@ -18,9 +20,56 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         table1.addRow(new Object[]{"8",  "Đỗ Văn B", "Nam","02/03/1990","Cháu","Việt Nam", "Kinh", "111111111111"});
         table1.addRow(new Object[]{"9", "Nguyễn Thị B", "Nữ","02/03/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
         table1.addRow(new Object[]{"10", "Nguyễn Văn E", "Nam","02/03/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
-
+            jButton3.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton3ActionPerformed(evt);
+        }
+    });
+                        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton2ActionPerformed(evt);
+        }
+    });
+                        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton6ActionPerformed(evt);
+        }
+    });
     }
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    // Create an instance of Form_ThongTinChiTiet
+    Form_LichSu formLichSu = new Form_LichSu();
 
+    // Get the parent container (JFrame or another container)
+    Container parentContainer = this.getParent();
+
+    // Remove the current panel (Form_ThongTinHo) from the parent container
+    parentContainer.remove(this);
+
+    // Add the new panel (Form_ThongTinChiTiet) to the parent container
+    parentContainer.add(formLichSu);
+
+    // Repaint the container to reflect the changes
+    parentContainer.revalidate();
+    parentContainer.repaint();
+}
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    // Create an instance of Form_ThongTinChiTiet
+    Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang();
+
+    // Get the parent container (JFrame or another container)
+    Container parentContainer = this.getParent();
+
+    // Remove the current panel (Form_ThongTinHo) from the parent container
+    parentContainer.remove(this);
+
+    // Add the new panel (Form_ThongTinChiTiet) to the parent container
+    parentContainer.add(formKhaiBaoTamVang);
+
+    // Repaint the container to reflect the changes
+    parentContainer.revalidate();
+    parentContainer.repaint();
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -57,6 +106,9 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         table1 = new com.raven.swing.Table();
         jButton4 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        searchText1 = new com.raven.swing.SearchText();
+        jButton6 = new javax.swing.JButton();
 
         roundPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -211,7 +263,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel22))
@@ -236,22 +288,31 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
             new String [] {
                 "STT", "Họ tên", "Giới tính", "Ngày tháng năm sinh", "Quan hệ với chủ hộ", "Quốc tịch", "Dân tộc ", "CMT/CCCD"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane2.setViewportView(table1);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Tách hộ");
+        jButton4.setText("Xóa nhân khẩu");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel23.setText("CCCD:");
+
+        searchText1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchText1ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton6.setText("Thoát");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
             }
         });
 
@@ -260,32 +321,45 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         roundPanel3Layout.setHorizontalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jButton2)
-                .addGap(20, 20, 20)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane2)
                 .addGap(5, 5, 5))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(15, 15, 15)
+                .addComponent(jButton2)
+                .addGap(15, 15, 15)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jButton6)
+                .addGap(16, 16, 16))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel23)
+                .addGap(18, 18, 18)
+                .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
+                    .addComponent(jLabel23)
+                    .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -298,8 +372,8 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(roundPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -319,12 +393,35 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void searchText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchText1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+            Form_ThongTinHo formThongTinHo = new Form_ThongTinHo();
+
+    // Get the parent container (JFrame or another container)
+    Container parentContainer = this.getParent();
+
+    // Remove the current panel (Form_ThongTinHo) from the parent container
+    parentContainer.remove(this);
+
+    // Add the new panel (Form_ThongTinChiTiet) to the parent container
+    parentContainer.add(formThongTinHo);
+
+    // Repaint the container to reflect the changes
+    parentContainer.revalidate();
+    parentContainer.repaint();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -340,6 +437,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -351,6 +449,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
+    private com.raven.swing.SearchText searchText1;
     private com.raven.swing.Table table1;
     // End of variables declaration//GEN-END:variables
 
