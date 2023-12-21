@@ -30,11 +30,13 @@ public class Menu extends javax.swing.JPanel {
     }
     public void initMenu(EventMenu event){
         this.event = event;
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/human.jpg")), "Dữ liệu nhân khẩu", 0,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.jpg")), "Dữ liệu tạm trú, tạm vắng ", 1,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Thống kê nhân khẩu", 2,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/house.jpg")), "Dữ liệu hộ khẩu", 0,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/human.jpg")), "Dữ liệu nhân khẩu", 1,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.png")), "Dữ liệu tạm trú, tạm vắng ", 2, 15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/analysis.jpg")), "Thống kê nhân khẩu", 3,15);
         addEmpty();
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Đăng xuất", 3,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/close.jpg")), "Thoát", 5,15);
         
         
     }
