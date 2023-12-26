@@ -7,8 +7,9 @@ package com.raven.main;
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
 import com.raven.form.Form_TamTruTamVang;
-import com.raven.form.Form_ThuPhiChungCu;
-import com.raven.form.Form_ThuPhiGuiXe;
+import com.raven.form.Form_ThongKeNhanKhau;
+import com.raven.form.Form_ThongTinHo;
+import com.raven.form.Form_ThongTinNhanKhau;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -16,30 +17,33 @@ import java.awt.Component;
  *
  * @author PC Giang
  */
-public class Main_QuanLyThuong extends javax.swing.JFrame {
+public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
 
     /**
-     * Creates new form Main_QuanLyThuong
+     * Creates new form Main_QuanLyNhanKhau
      */
-    public Main_QuanLyThuong() {
+    public Main_QuanLyNhanKhau() {
         initComponents();
-         setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThongTinHo());
                 }
                 else if(index == 1){
-                    showForm(new Form_TamTruTamVang());
+                    showForm(new Form_ThongTinNhanKhau());
                 }
                 else if(index == 2){
-                    showForm(new Form_ThuPhiGuiXe());
+                    showForm(new Form_TamTruTamVang());
                 }
                 else if(index == 3){
-                    System.out.println("Log out");
+                    showForm(new Form_ThongKeNhanKhau());
                 }
                 else if(index == 4){
+                    System.out.println("Log out");
+                }
+                else if(index == 5){
                     System.out.println("Exit");
                 }
                 else{  
@@ -56,14 +60,16 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         };
         header1.init(event);
         menu1.initMenu(event);
-        showForm(new Form_ThuPhiChungCu());
+        showForm(new Form_ThongTinHo());
     }
-        private void showForm(Component com){
+    
+    private void showForm(Component com){
          body.removeAll();
          body.add(com);
          body.revalidate();
          body.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,7 +82,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         roundPanel1 = new com.raven.swing.RoundPanel();
         header1 = new com.raven.component.Header();
         body = new javax.swing.JPanel();
-        menu1 = new com.raven.component.Menu_QuanLyThuPhi();
+        menu1 = new com.raven.component.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -91,7 +97,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         roundPanel1Layout.setHorizontalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
@@ -102,8 +108,8 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
             .addGroup(roundPanel1Layout.createSequentialGroup()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,20 +144,20 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyNhanKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyNhanKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyNhanKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyNhanKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyThuong().setVisible(true);
+                new Main_QuanLyNhanKhau().setVisible(true);
             }
         });
     }
@@ -159,7 +165,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private com.raven.component.Header header1;
-    private com.raven.component.Menu_QuanLyThuPhi menu1;
+    private com.raven.component.Menu menu1;
     private com.raven.swing.RoundPanel roundPanel1;
     // End of variables declaration//GEN-END:variables
 }

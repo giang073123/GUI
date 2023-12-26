@@ -6,9 +6,10 @@ package com.raven.main;
 
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
-import com.raven.form.Form_TamTruTamVang;
 import com.raven.form.Form_ThuPhiChungCu;
+import com.raven.form.Form_TamTruTamVang;
 import com.raven.form.Form_ThuPhiGuiXe;
+import com.raven.form.Form_ThongTinHo;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -16,14 +17,14 @@ import java.awt.Component;
  *
  * @author PC Giang
  */
-public class Main_QuanLyThuong extends javax.swing.JFrame {
+public class Main_QuanLyThuPhi extends javax.swing.JFrame {
 
     /**
      * Creates new form Main_QuanLyThuong
      */
-    public Main_QuanLyThuong() {
-        initComponents();
-         setBackground(new Color(0, 0, 0, 0));
+    public Main_QuanLyThuPhi() {
+        initComponents();        
+//        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
@@ -57,6 +58,8 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         header1.init(event);
         menu1.initMenu(event);
         showForm(new Form_ThuPhiChungCu());
+        
+
     }
         private void showForm(Component com){
          body.removeAll();
@@ -64,6 +67,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
          body.revalidate();
          body.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,7 +83,6 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         menu1 = new com.raven.component.Menu_QuanLyThuPhi();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         roundPanel1.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -93,7 +96,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -138,20 +141,21 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyThuPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyThuPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyThuPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main_QuanLyThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_QuanLyThuPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyThuong().setVisible(true);
+                new Main_QuanLyThuPhi().setVisible(true);
             }
         });
     }
