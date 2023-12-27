@@ -6,10 +6,10 @@ package com.raven.main;
 
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
-import com.raven.form.Form_TamTruTamVang;
-import com.raven.form.Form_ThongKeNhanKhau;
-import com.raven.form.Form_ThongTinHo;
-import com.raven.form.Form_ThongTinNhanKhau;
+import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
+import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
+import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
+import com.raven.form.QuanLyNhanKhau.Form_ThongTinNhanKhau;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -24,7 +24,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
      */
     public Main_QuanLyNhanKhau() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 0));
+//        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
@@ -42,9 +42,6 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
                 }
                 else if(index == 4){
                     System.out.println("Log out");
-                }
-                else if(index == 5){
-                    System.out.println("Exit");
                 }
                 else{  
                     showForm(new Form(index));
@@ -85,7 +82,6 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
         menu1 = new com.raven.component.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         roundPanel1.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -99,14 +95,14 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
             .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

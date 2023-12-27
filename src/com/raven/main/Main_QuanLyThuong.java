@@ -6,9 +6,11 @@ package com.raven.main;
 
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
-import com.raven.form.Form_TamTruTamVang;
-import com.raven.form.Form_ThuPhiChungCu;
-import com.raven.form.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyThuong.Form_QuanLyThuongHocTap;
+import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -23,24 +25,18 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
      */
     public Main_QuanLyThuong() {
         initComponents();
-         setBackground(new Color(0, 0, 0, 0));
+//         setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_QuanLyThuongTet());
                 }
                 else if(index == 1){
-                    showForm(new Form_TamTruTamVang());
+                    showForm(new Form_QuanLyThuongHocTap());
                 }
                 else if(index == 2){
-                    showForm(new Form_ThuPhiGuiXe());
-                }
-                else if(index == 3){
                     System.out.println("Log out");
-                }
-                else if(index == 4){
-                    System.out.println("Exit");
                 }
                 else{  
                     showForm(new Form(index));
@@ -56,7 +52,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         };
         header1.init(event);
         menu1.initMenu(event);
-        showForm(new Form_ThuPhiChungCu());
+        showForm(new Form_QuanLyThuongTet());
     }
         private void showForm(Component com){
          body.removeAll();
@@ -76,10 +72,9 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         roundPanel1 = new com.raven.swing.RoundPanel();
         header1 = new com.raven.component.Header();
         body = new javax.swing.JPanel();
-        menu1 = new com.raven.component.Menu_QuanLyThuPhi();
+        menu1 = new com.raven.component.Menu_QuanLyThuong();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         roundPanel1.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -91,9 +86,9 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         roundPanel1Layout.setHorizontalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -102,8 +97,8 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
             .addGroup(roundPanel1Layout.createSequentialGroup()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,7 +154,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private com.raven.component.Header header1;
-    private com.raven.component.Menu_QuanLyThuPhi menu1;
+    private com.raven.component.Menu_QuanLyThuong menu1;
     private com.raven.swing.RoundPanel roundPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package com.raven.component;
 
 import com.raven.event.EventMenu;
@@ -9,16 +12,19 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Icon;
-import javax.swing.ImageIcon; 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ *
+ * @author PC Giang
+ */
 public class Menu_QuanLyThuong extends javax.swing.JPanel {
 
     private EventMenu event;
-    
     public Menu_QuanLyThuong() {
-        initComponents();        
+        initComponents();
         setOpaque(false);
         ScrollBarCustom sb = new ScrollBarCustom();
         sb.setForeground(new Color(130, 130, 130, 100));
@@ -27,11 +33,10 @@ public class Menu_QuanLyThuong extends javax.swing.JPanel {
     }
     public void initMenu(EventMenu event){
         this.event = event;
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/human.jpg")), "Lịch sử các khoản thưởng", 0,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.jpg")), "Quản lý thưởng lễ Tết", 1,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Quản lý thưởng học tập", 2,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/lantern.png")), "Quản lý thưởng lễ Tết", 0,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.jpg")), "Quản lý thưởng học tập", 1,15);
         addEmpty();
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Đăng xuất", 3,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
         
         
     }
@@ -61,8 +66,6 @@ public class Menu_QuanLyThuong extends javax.swing.JPanel {
         }
         menu.setSelected(true);
     }
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,6 +148,4 @@ public class Menu_QuanLyThuong extends javax.swing.JPanel {
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     // End of variables declaration//GEN-END:variables
-
-
 }

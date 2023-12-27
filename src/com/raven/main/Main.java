@@ -4,10 +4,10 @@ package com.raven.main;
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
 import com.raven.form.Form_1;
-import com.raven.form.Form_TamTruTamVang;
-import com.raven.form.Form_ThongKeNhanKhau;
-import com.raven.form.Form_ThongTinHo;
-import com.raven.form.Form_ThongTinNhanKhau;
+import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
+import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
+import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
+import com.raven.form.QuanLyNhanKhau.Form_ThongTinNhanKhau;
 import java.awt.Color;
 import java.awt.Component;
 

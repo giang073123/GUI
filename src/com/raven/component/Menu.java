@@ -36,7 +36,6 @@ public class Menu extends javax.swing.JPanel {
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/analysis.jpg")), "Thống kê nhân khẩu", 3,15);
         addEmpty();
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/close.jpg")), "Thoát", 5,15);
         
         
     }
