@@ -4,7 +4,11 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.*;
+
+
 import java.awt.Container;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,25 +16,33 @@ import java.awt.Container;
  */
 public class Form_ThongTinHo extends javax.swing.JPanel {
 
+    ArrayList<ho_gia_dinh> myList = new ArrayList<>();
+    ho_gia_dinh selected_ho = new ho_gia_dinh();
+    Model_HoKhau myModel;
     /**
      * Creates new form Form_2
      */
     public Form_ThongTinHo() {
         initComponents();
-        table.addRow(new Object[]{"1", "1", "Nguyễn Văn A", "0323311344","2", "Hai Bà Trưng"});
-        table.addRow(new Object[]{"2", "2", "Nguyễn Văn B", "0323320344","1", "Hai Bà Trưng"});
-        table.addRow(new Object[]{"3", "3", "Đỗ Thị B", "0323320344","5", "Hai Bà Trưng"});
-        table.addRow(new Object[]{"4", "4", "Hoàng Văn D", "0323320344","7", "Hai Bà Trưng"});
-        table.addRow(new Object[]{"5", "5", "Nguyễn Văn C", "0323320344","8","Hai Bà Trưng"});
-        table.addRow(new Object[]{"6", "6", "Hoàng Thị B", "0323320344","9","Hai Bà Trưng"});
-        table.addRow(new Object[]{"7", "7", "Nguyễn Văn B", "0323320344","10","Hai Bà Trưng"});
-        table.addRow(new Object[]{"8", "8", "Đỗ Văn B", "0323320344","11","Hai Bà Trưng"});
-        table.addRow(new Object[]{"9", "9", "Nguyễn Thị B", "0323320344","15","Hai Bà Trưng"});
-        table.addRow(new Object[]{"10", "10", "Nguyễn Văn E", "0323320344","17","Hai Bà Trưng"});
-        table.addRow(new Object[]{"11", "11", "Đỗ Văn B", "0323320344","18","Hai Bà Trưng"});
-        table.addRow(new Object[]{"12", "12", "Hoàng Thị F", "0323320344","19","Hai Bà Trưng"});
-        table.addRow(new Object[]{"13", "13", "Nguyễn Văn G", "0323320344","20","Hai Bà Trưng"});
+        myModel = new Model_HoKhau();
+
+        updateTable();
+//        table.addRow(new Object[]{"1", "1", "Nguyễn Văn A", "0323311344","2", "Hai Bà Trưng"});
+//        table.addRow(new Object[]{"2", "2", "Nguyễn Văn B", "0323320344","1", "Hai Bà Trưng"});
+//        table.addRow(new Object[]{"3", "3", "Đỗ Thị B", "0323320344","5", "Hai Bà Trưng"});
+//        table.addRow(new Object[]{"4", "4", "Hoàng Văn D", "0323320344","7", "Hai Bà Trưng"});
+//        table.addRow(new Object[]{"5", "5", "Nguyễn Văn C", "0323320344","8","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"6", "6", "Hoàng Thị B", "0323320344","9","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"7", "7", "Nguyễn Văn B", "0323320344","10","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"8", "8", "Đỗ Văn B", "0323320344","11","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"9", "9", "Nguyễn Thị B", "0323320344","15","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"10", "10", "Nguyễn Văn E", "0323320344","17","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"11", "11", "Đỗ Văn B", "0323320344","18","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"12", "12", "Hoàng Thị F", "0323320344","19","Hai Bà Trưng"});
+//        table.addRow(new Object[]{"13", "13", "Nguyễn Văn G", "0323320344","20","Hai Bà Trưng"});
             // Link the jButton2ActionPerformed method to the "Xem chi tiết" button
+
+
     jButton2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton2ActionPerformed(evt);
@@ -42,6 +54,19 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
         }
     });
     }
+
+
+    private void updateTable(){
+        int i=1;
+        myList = myModel.ho_gia_dinh_getds();
+        for(ho_gia_dinh f : myList){
+            nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
+
+            table.addRow(new Object[]{i,f.getMa_Ho(),chuho.getHo_ten(),f.getCCCD_Chuho(),f.getSo_nha(),f.getDuong_()});
+        }
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
