@@ -271,6 +271,10 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             }
         });
 
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+
+        jDateChooser2.setDateFormatString("yyyy-MM-dd");
+
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton4.setText("Xác nhận");
 

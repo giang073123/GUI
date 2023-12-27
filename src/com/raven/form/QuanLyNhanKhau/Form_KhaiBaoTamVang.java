@@ -72,6 +72,10 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
             }
         });
 
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+
+        jDateChooser2.setDateFormatString("yyyy-MM-dd");
+
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel11.setText("Lý do:");
 

@@ -62,12 +62,9 @@
                               </Group>
                               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jComboBox_TrangThai" min="-2" pref="152" max="-2" attributes="0"/>
-                                      <EmptySpace pref="392" max="32767" attributes="0"/>
-                                  </Group>
                                   <Component id="searchText_MaHo" max="32767" attributes="0"/>
                                   <Component id="jDateChooser_NgaySinh" max="32767" attributes="0"/>
+                                  <Component id="jComboBox_TrangThai" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -240,6 +237,9 @@
       </AuxValues>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_NgaySinh">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

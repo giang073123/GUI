@@ -86,6 +86,8 @@ public class Form_LichSu extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Ngày thay đổi:");
 
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setText("Thoát");
 

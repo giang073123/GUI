@@ -136,7 +136,15 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
             new String [] {
                 "Mã hộ", "Diện tích", "Số tiền", "Trạng thái thu", "Ngày thu"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(table1);
 
         jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -288,7 +296,15 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
             new String [] {
                 "Mã khoản thu", "Tên khoản thu", "Phí dịch vụ", "Phí quản lý", "Ngày tạo", "Ngày kết thúc", "Tổng thu", "Ghi chú"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(table2);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -314,6 +330,8 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
         );
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
         jButton_XemChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XemChiTiet.setText("Xem chi tiết");

@@ -2,8 +2,6 @@
 package com.raven.main;
 
 import com.raven.event.EventMenu;
-import com.raven.form.Form;
-import com.raven.form.Form_1;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
 import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
@@ -39,7 +37,7 @@ public class Main extends javax.swing.JFrame {
                     System.out.println("Exit");
                 }
                 else{  
-                    showForm(new Form(index));
+//                    showForm(new Form(index));
                 }
             }
         };
