@@ -19,28 +19,14 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel_MaSo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTextField_MaSo" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Component id="jButton_QuayLai" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="760" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel_Ten" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="searchText_Ten" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1_TenKhoanThuong" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField_TenKhoanThuong" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jLabel_Ten" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="searchText_Ten" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel_CCCD" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -52,6 +38,17 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton_TimKiem" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1_TenKhoanThuong" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_MaSo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel_MaSoKT" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_TenKT" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -60,17 +57,17 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1_TenKhoanThuong" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_TenKhoanThuong" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel1_TenKhoanThuong" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_TenKT" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_MaSo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_MaSo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_MaSoKT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_Ten" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchText_Ten" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -84,7 +81,7 @@
               <Component id="jScrollPane2" min="-2" pref="386" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton_QuayLai" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,14 +101,14 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="8" rowCount="0">
-                <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
-                <Column editable="true" title="CCCD" type="java.lang.String"/>
-                <Column editable="true" title="M&#xe3; h&#x1ed9;" type="java.lang.String"/>
-                <Column editable="true" title="Tr&#x1b0;&#x1edd;ng h&#x1ecd;c" type="java.lang.String"/>
-                <Column editable="true" title="Th&#xe0;nh t&#xed;ch" type="java.lang.Float"/>
-                <Column editable="true" title="Minh ch&#x1ee9;ng" type="java.lang.String"/>
-                <Column editable="true" title="Gi&#xe1; tr&#x1ecb; ph&#x1ea7;n qu&#xe0;" type="java.lang.Integer"/>
-                <Column editable="true" title="Ng&#xe0;y th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
+                <Column editable="false" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
+                <Column editable="false" title="CCCD" type="java.lang.String"/>
+                <Column editable="false" title="M&#xe3; h&#x1ed9;" type="java.lang.Integer"/>
+                <Column editable="false" title="Tr&#x1b0;&#x1edd;ng h&#x1ecd;c" type="java.lang.String"/>
+                <Column editable="false" title="Th&#xe0;nh t&#xed;ch" type="java.lang.Float"/>
+                <Column editable="false" title="Minh ch&#x1ee9;ng" type="java.lang.String"/>
+                <Column editable="false" title="Gi&#xe1; tr&#x1ecb; ph&#x1ea7;n qu&#xe0;" type="java.lang.Integer"/>
+                <Column editable="false" title="Ng&#xe0;y th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -231,19 +228,6 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ed1;:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_TenKhoanThuong">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_TenKhoanThuongActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_MaSo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="jButton_QuayLai">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -254,6 +238,22 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_QuayLaiActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_TenKT">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel_TenKT"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_MaSoKT">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel_MaKT"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

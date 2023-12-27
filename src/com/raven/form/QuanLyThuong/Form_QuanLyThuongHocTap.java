@@ -5,6 +5,8 @@
 package com.raven.form.QuanLyThuong;
 
 import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongHocTap;
+
+import javax.swing.*;
 import java.awt.Container;
 
 /**
@@ -81,11 +83,11 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "CCCD", "Mã hộ", "Trường học", "Thành tích", "Minh chứng", "Giá trị phần quà", "Ngày thưởng"
+                "Mã số", "Tên", "Thưởng HSG", "Thưởng HSTT", "Thành tích khác", "Ngày tạo", "Ngày kết thúc", "Tổng thưởng", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,11 +167,18 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(table);
@@ -189,7 +198,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
         jLabel_TieuDe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_TieuDe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_TieuDe.setText("Danh sách lịch sử các khoản thưởng tết");
+        jLabel_TieuDe.setText("Danh sách lịch sử các khoản thưởng học tập");
 
         jButton_XemChiTiet1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XemChiTiet1.setText("Xem chi tiết");

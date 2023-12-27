@@ -34,10 +34,8 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton8 = new javax.swing.JButton();
-        jTextField_TenKhoanThuong = new javax.swing.JTextField();
         jLabel_MaSo = new javax.swing.JLabel();
         jLabel_TenKhoanThuong = new javax.swing.JLabel();
-        jTextField_MaSo = new javax.swing.JTextField();
         jLabel_HoVaTen = new javax.swing.JLabel();
         searchText_HoVaTen = new com.raven.swing.SearchText();
         jLabel_CCCD = new javax.swing.JLabel();
@@ -54,6 +52,8 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
         jLabel_TrangThai = new javax.swing.JLabel();
         jComboBox_TrangThai = new javax.swing.JComboBox<>();
         jComboBox_ThanhTich = new javax.swing.JComboBox<>();
+        jLabel_MaSoKT = new javax.swing.JLabel();
+        jLabel_TenKT = new javax.swing.JLabel();
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton8.setText("Xuất File");
@@ -63,20 +63,11 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
             }
         });
 
-        jTextField_TenKhoanThuong.setText("jTextField1");
-        jTextField_TenKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TenKhoanThuongActionPerformed(evt);
-            }
-        });
-
         jLabel_MaSo.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaSo.setText("Mã số:");
 
         jLabel_TenKhoanThuong.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_TenKhoanThuong.setText("Tên khoản thưởng:");
-
-        jTextField_MaSo.setText("jTextField2");
 
         jLabel_HoVaTen.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_HoVaTen.setText("Họ và tên:");
@@ -124,6 +115,12 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
 
         jComboBox_ThanhTich.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Học sinh giỏi", "Học sinh tiên tiến", "Thành tích khác" }));
 
+        jLabel_MaSoKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_MaSoKT.setText("jLabel_MaKT");
+
+        jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_TenKT.setText("jLabel_TenKT");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,8 +134,8 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
                             .addComponent(jLabel_MaSo))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel_MaSoKT)
+                            .addComponent(jLabel_TenKT)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_HoVaTen)
@@ -166,15 +163,15 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_TenKhoanThuong)
-                    .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_TenKT))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_MaSo)
-                    .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addComponent(jLabel_MaSoKT))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_HoVaTen)
                     .addComponent(searchText_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -209,10 +206,6 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
                 .addGap(82, 82, 82))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField_TenKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenKhoanThuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TenKhoanThuongActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -254,13 +247,13 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_HoVaTen;
     private javax.swing.JLabel jLabel_MaHo;
     private javax.swing.JLabel jLabel_MaSo;
+    private javax.swing.JLabel jLabel_MaSoKT;
     private javax.swing.JLabel jLabel_MinhChung;
+    private javax.swing.JLabel jLabel_TenKT;
     private javax.swing.JLabel jLabel_TenKhoanThuong;
     private javax.swing.JLabel jLabel_ThanhTich;
     private javax.swing.JLabel jLabel_TrangThai;
     private javax.swing.JLabel jLabel_TruongHoc;
-    private javax.swing.JTextField jTextField_MaSo;
-    private javax.swing.JTextField jTextField_TenKhoanThuong;
     private com.raven.swing.SearchText searchText_CCCD;
     private com.raven.swing.SearchText searchText_HoVaTen;
     private com.raven.swing.SearchText searchText_MaHo;

@@ -84,15 +84,22 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "Giá trị phần quà", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Tổng thưởng", "Ghi chú"
+                "Mã số", "Tên", "Giá trị phần quà", "Ngày tạo", "Ngày kết thúc", "Tổng thưởng", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(table_DanhSachKhoanThuong);
@@ -168,7 +175,7 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -32,12 +32,10 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
         jLabel_CCCD = new javax.swing.JLabel();
         jLabel_MaHo = new javax.swing.JLabel();
         jLabel_NgaySinh = new javax.swing.JLabel();
-        jTextField_TenKhoanThuong = new javax.swing.JTextField();
         jLabel_MaSo = new javax.swing.JLabel();
         searchText_CCCD = new com.raven.swing.SearchText();
         searchText_MaHo = new com.raven.swing.SearchText();
         jLabel_TenKhoanThuong = new javax.swing.JLabel();
-        jTextField_MaSo = new javax.swing.JTextField();
         jButton_XacNhan = new javax.swing.JButton();
         jButton_Huy = new javax.swing.JButton();
         jLabel_HoVaTen = new javax.swing.JLabel();
@@ -45,6 +43,8 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
         jLabel_TrangThai = new javax.swing.JLabel();
         jComboBox_TrangThai = new javax.swing.JComboBox<>();
         jDateChooser_NgaySinh = new com.toedter.calendar.JDateChooser();
+        jLabel_TenKT = new javax.swing.JLabel();
+        jLabel_MaSoKT = new javax.swing.JLabel();
 
         jLabel_CCCD.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_CCCD.setText("CCCD:");
@@ -55,20 +55,11 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
         jLabel_NgaySinh.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_NgaySinh.setText("Ngày sinh");
 
-        jTextField_TenKhoanThuong.setText("jTextField1");
-        jTextField_TenKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TenKhoanThuongActionPerformed(evt);
-            }
-        });
-
         jLabel_MaSo.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaSo.setText("Mã số:");
 
         jLabel_TenKhoanThuong.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_TenKhoanThuong.setText("Tên khoản thưởng:");
-
-        jTextField_MaSo.setText("jTextField2");
 
         jButton_XacNhan.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XacNhan.setText("Xác nhận");
@@ -101,22 +92,16 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
 
         jDateChooser_NgaySinh.setDateFormatString("yyyy-MM-dd");
 
+        jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_TenKT.setText("jLabel_TenKT");
+
+        jLabel_MaSoKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_MaSoKT.setText("jLabel_MaKT");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_MaSo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_TenKhoanThuong)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(536, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -129,14 +114,6 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_CCCD)
-                                    .addComponent(jLabel_HoVaTen))
-                                .addGap(76, 76, 76)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(searchText_HoVaTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(searchText_CCCD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel_MaHo)
                                     .addComponent(jLabel_NgaySinh)
                                     .addComponent(jLabel_TrangThai))
@@ -144,21 +121,38 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(searchText_MaHo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jDateChooser_NgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox_TrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jComboBox_TrangThai, 0, 525, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_CCCD)
+                                    .addComponent(jLabel_HoVaTen)
+                                    .addComponent(jLabel_MaSo))
+                                .addGap(76, 76, 76)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(searchText_HoVaTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(searchText_CCCD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel_MaSoKT)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel_TenKhoanThuong)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel_TenKT)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_TenKhoanThuong)
-                    .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel_TenKT))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSo)
-                    .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel_MaSoKT))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_HoVaTen)
                     .addComponent(searchText_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,13 +176,9 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_XacNhan)
                     .addComponent(jButton_Huy))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField_TenKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenKhoanThuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TenKhoanThuongActionPerformed
 
     private void jButton_XacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XacNhanActionPerformed
         // TODO add your handling code here:
@@ -225,11 +215,11 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_HoVaTen;
     private javax.swing.JLabel jLabel_MaHo;
     private javax.swing.JLabel jLabel_MaSo;
+    private javax.swing.JLabel jLabel_MaSoKT;
     private javax.swing.JLabel jLabel_NgaySinh;
+    private javax.swing.JLabel jLabel_TenKT;
     private javax.swing.JLabel jLabel_TenKhoanThuong;
     private javax.swing.JLabel jLabel_TrangThai;
-    private javax.swing.JTextField jTextField_MaSo;
-    private javax.swing.JTextField jTextField_TenKhoanThuong;
     private com.raven.swing.SearchText searchText_CCCD;
     private com.raven.swing.SearchText searchText_HoVaTen;
     private com.raven.swing.SearchText searchText_MaHo;
