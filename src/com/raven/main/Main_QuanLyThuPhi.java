@@ -6,10 +6,12 @@ package com.raven.main;
 
 import com.raven.event.EventMenu;
 import com.raven.form.Form;
-import com.raven.form.Form_ThuPhiChungCu;
-import com.raven.form.Form_TamTruTamVang;
-import com.raven.form.Form_ThuPhiGuiXe;
-import com.raven.form.Form_ThongTinHo;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
+import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiDienNuoc;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiTheoDot;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -32,16 +34,16 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
                     showForm(new Form_ThuPhiChungCu());
                 }
                 else if(index == 1){
-                    showForm(new Form_TamTruTamVang());
+                    showForm(new Form_ThuPhiTheoDot());
                 }
                 else if(index == 2){
                     showForm(new Form_ThuPhiGuiXe());
                 }
                 else if(index == 3){
-                    System.out.println("Log out");
+                    showForm(new Form_ThuPhiDienNuoc());
                 }
                 else if(index == 4){
-                    System.out.println("Exit");
+                    System.out.println("Log out");
                 }
                 else{  
                     showForm(new Form(index));

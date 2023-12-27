@@ -32,7 +32,7 @@ public class Menu_QuanLyThuPhi extends javax.swing.JPanel {
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Quản lý thu phí gửi xe", 2,15);
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Quản lý thu phí điện, nước, internet", 3,15);
         addEmpty();
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Đăng xuất", 4,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
         
         
     }
