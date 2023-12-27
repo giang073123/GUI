@@ -79,12 +79,12 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
                 "Mã hộ", "Số tiền", "Ngày thu"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table1);

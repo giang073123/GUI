@@ -131,7 +131,15 @@ private void jButton_TaoKhoanThuActionPerformed(java.awt.event.ActionEvent evt) 
             new String [] {
                 "Mã khoản thu", "Tên khoản thu", "Ngày tạo", "Tổng thu", "Ghi chú"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(table1);
 
         jButton_XoaKT.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -227,7 +235,15 @@ private void jButton_TaoKhoanThuActionPerformed(java.awt.event.ActionEvent evt) 
             new String [] {
                 "Mã khoản thu", "Tên khoản thu", "Ngày tạo", "Ngày kết thúc", "Tổng thu", "Ghi chú"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(table3);
 
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
@@ -256,6 +272,8 @@ private void jButton_TaoKhoanThuActionPerformed(java.awt.event.ActionEvent evt) 
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(54, Short.MAX_VALUE)))
         );
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
         jButton_XemChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XemChiTiet.setText("Xem chi tiết");
