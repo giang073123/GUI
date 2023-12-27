@@ -146,7 +146,7 @@
                             <Column editable="false" title="T&#xea;n " type="java.lang.String"/>
                             <Column editable="false" title="Lo&#x1ea1;i" type="java.lang.String"/>
                             <Column editable="false" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.String"/>
-                            <Column editable="false" title="T&#x1ed5;ng thu" type="java.lang.Integer"/>
+                            <Column editable="false" title="T&#x1ed5;ng thu" type="java.lang.Long"/>
                             <Column editable="false" title="Ghi ch&#xfa;" type="java.lang.String"/>
                           </Table>
                         </Property>
@@ -245,6 +245,9 @@
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_ChonNgay">
+                  <Properties>
+                    <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel_Loai">
                   <Properties>

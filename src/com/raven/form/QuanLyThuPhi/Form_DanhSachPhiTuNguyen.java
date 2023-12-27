@@ -116,7 +116,15 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
             new String [] {
                 "Mã hộ", "Số tiền", "Ngày thu"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(table1);
 
         jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

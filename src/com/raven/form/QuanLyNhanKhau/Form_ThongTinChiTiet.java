@@ -290,7 +290,15 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
             new String [] {
                 "STT", "Họ tên", "Giới tính", "Ngày tháng năm sinh", "Quan hệ với chủ hộ", "Quốc tịch", "Dân tộc ", "CMT/CCCD"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(table1);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N

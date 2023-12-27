@@ -78,6 +78,8 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Ngày tháng năm sinh:");
 
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel5.setText("Giới tính:");
 
@@ -105,6 +107,8 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel12.setText("Quan hệ với chủ hộ:");
+
+        jDateChooser2.setDateFormatString("yyyy-MM-dd");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel13.setText("Ngày đăng ký thường trú:");

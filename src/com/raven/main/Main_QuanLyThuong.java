@@ -5,7 +5,6 @@
 package com.raven.main;
 
 import com.raven.event.EventMenu;
-import com.raven.form.Form;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
 import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
@@ -39,7 +38,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
                     System.out.println("Log out");
                 }
                 else{  
-                    showForm(new Form(index));
+//                    showForm(new Form(index));
                 }
             }
         };

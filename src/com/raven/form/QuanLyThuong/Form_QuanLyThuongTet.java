@@ -84,11 +84,11 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "CCCD", "Mã hộ", "Trường học", "Thành tích", "Minh chứng", "Giá trị phần quà", "Ngày thưởng"
+                "Mã số", "Họ và tên", "Giá trị phần quà", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Tổng thưởng", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -168,7 +168,7 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -179,6 +179,8 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel12.setText("Chọn ngày:");
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setText("Tìm kiếm");

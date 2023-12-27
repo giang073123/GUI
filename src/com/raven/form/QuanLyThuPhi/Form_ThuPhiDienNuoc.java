@@ -77,7 +77,7 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -128,6 +128,8 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
         jLabel_ChonNgay.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_ChonNgay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_ChonNgay.setText("Chọn ngày:");
+
+        jDateChooser_ChonNgay.setDateFormatString("yyyy-MM-dd");
 
         jLabel_Loai.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_Loai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
