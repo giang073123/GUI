@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jcalendar-1.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Jcalendar/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../miglayout-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../TimingFramework-0.55.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
