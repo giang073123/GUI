@@ -58,7 +58,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
                     showForm(new Form_QuanLyTaiKhoan());

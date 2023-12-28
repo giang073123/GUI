@@ -4,6 +4,7 @@
  */
 package com.raven.main;
 
+import Model.NhanKhau.Model_HoKhau;
 import com.raven.event.EventHeader;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
@@ -30,11 +31,12 @@ public class Main_Admin extends javax.swing.JFrame {
      */
     public Main_Admin() {
         initComponents();
+        Model_HoKhau model= new Model_HoKhau();
         menu1.setEvent(new MenuEvent() {
             @Override
             public void selected(int index, int subIndex) {
                 if (index == 0 && subIndex == 1) {
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 } 
                 else if (index == 0 && subIndex == 2) {
                     showForm(new Form_ThongTinNhanKhau());
@@ -73,7 +75,7 @@ public class Main_Admin extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 }
                  else if(index == 1){
                     showForm(new Form_QuanLyTaiKhoan());
@@ -82,7 +84,7 @@ public class Main_Admin extends javax.swing.JFrame {
             }
         };
         header1.init(eventHeader);
-        showForm(new Form_ThongTinHo());
+        showForm(new Form_ThongTinHo(model));
     }
 
     private void showForm(Component com) {
