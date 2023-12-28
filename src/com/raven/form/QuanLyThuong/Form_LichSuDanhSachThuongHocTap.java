@@ -44,9 +44,9 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
         jButton_TimKiem = new javax.swing.JButton();
         jLabel1_TenKhoanThuong = new javax.swing.JLabel();
         jLabel_MaSo = new javax.swing.JLabel();
-        jTextField_TenKhoanThuong = new javax.swing.JTextField();
-        jTextField_MaSo = new javax.swing.JTextField();
         jButton_QuayLai = new javax.swing.JButton();
+        jLabel_TenKT = new javax.swing.JLabel();
+        jLabel_MaSo1 = new javax.swing.JLabel();
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -59,11 +59,18 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(table_DanhSach);
@@ -109,15 +116,6 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
         jLabel_MaSo.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaSo.setText("Mã số:");
 
-        jTextField_TenKhoanThuong.setText("jTextField1");
-        jTextField_TenKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TenKhoanThuongActionPerformed(evt);
-            }
-        });
-
-        jTextField_MaSo.setText("jTextField2");
-
         jButton_QuayLai.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_QuayLai.setText("Quay lại");
         jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +124,12 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
             }
         });
 
+        jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_TenKT.setText("jLabel_TenKT");
+
+        jLabel_MaSo1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_MaSo1.setText("jLabel_MaSo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,23 +137,13 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_MaSo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton_QuayLai)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel_Ten)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchText_Ten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1_TenKhoanThuong)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel_Ten)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel_CCCD)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -159,21 +153,29 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchText_MaHo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_TimKiem)))
+                        .addComponent(jButton_TimKiem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1_TenKhoanThuong)
+                            .addComponent(jLabel_MaSo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_MaSo1)
+                            .addComponent(jLabel_TenKT))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1_TenKhoanThuong)
-                    .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_TenKT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSo)
-                    .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel_MaSo1))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Ten)
                     .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,7 +188,7 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton_QuayLai)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,10 +207,6 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
     private void jButton_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_TimKiemActionPerformed
-
-    private void jTextField_TenKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenKhoanThuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TenKhoanThuongActionPerformed
 
     private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuayLaiActionPerformed
  Form_QuanLyThuongHocTap formQuanLyThuongHocTap = new Form_QuanLyThuongHocTap();
@@ -235,10 +233,10 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_CCCD;
     private javax.swing.JLabel jLabel_MaHo;
     private javax.swing.JLabel jLabel_MaSo;
+    private javax.swing.JLabel jLabel_MaSo1;
     private javax.swing.JLabel jLabel_Ten;
+    private javax.swing.JLabel jLabel_TenKT;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField_MaSo;
-    private javax.swing.JTextField jTextField_TenKhoanThuong;
     private com.raven.swing.SearchText searchText_CCCD;
     private com.raven.swing.SearchText searchText_MaHo;
     private com.raven.swing.SearchText searchText_Ten;

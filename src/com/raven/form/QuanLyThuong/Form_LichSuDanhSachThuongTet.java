@@ -40,9 +40,9 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
         jButton_TimKiem = new javax.swing.JButton();
         jLabel_TenKhoanThuong = new javax.swing.JLabel();
         jLabel_MaSo = new javax.swing.JLabel();
-        jTextField_TenKhoanThuong = new javax.swing.JTextField();
-        jTextField_MaSo = new javax.swing.JTextField();
         jButton_QuayLai = new javax.swing.JButton();
+        jLabel_TenKT1 = new javax.swing.JLabel();
+        jLabel_MaSo2 = new javax.swing.JLabel();
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -55,11 +55,18 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(table_DanhSach);
@@ -105,15 +112,6 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
         jLabel_MaSo.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaSo.setText("Mã số:");
 
-        jTextField_TenKhoanThuong.setText("jTextField1");
-        jTextField_TenKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TenKhoanThuongActionPerformed(evt);
-            }
-        });
-
-        jTextField_MaSo.setText("jTextField1");
-
         jButton_QuayLai.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_QuayLai.setText("Quay lại");
         jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
@@ -122,35 +120,44 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
             }
         });
 
+        jLabel_TenKT1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_TenKT1.setText("jLabel_TenKT");
+
+        jLabel_MaSo2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_MaSo2.setText("jLabel_MaSo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_TenKhoanThuong)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_MaSo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_Ten)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_CCCD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchText_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel_MaHo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchText_MaHo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addComponent(jButton_TimKiem)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_TenKhoanThuong, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel_Ten)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel_MaSo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel_MaSo2))
+                            .addComponent(jLabel_TenKT1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jLabel_CCCD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchText_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel_MaHo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchText_MaHo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jButton_TimKiem)
                 .addGap(15, 15, 15))
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -162,15 +169,15 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_TenKhoanThuong)
-                    .addComponent(jTextField_TenKhoanThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_TenKT1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSo)
-                    .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(jLabel_MaSo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Ten)
                     .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +186,7 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
                     .addComponent(jLabel_MaHo)
                     .addComponent(searchText_MaHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_TimKiem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(jButton_QuayLai)
@@ -220,10 +227,6 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
     parentContainer.repaint();
     }//GEN-LAST:event_jButton_QuayLaiActionPerformed
 
-    private void jTextField_TenKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenKhoanThuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TenKhoanThuongActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_QuayLai;
@@ -231,11 +234,11 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_CCCD;
     private javax.swing.JLabel jLabel_MaHo;
     private javax.swing.JLabel jLabel_MaSo;
+    private javax.swing.JLabel jLabel_MaSo2;
     private javax.swing.JLabel jLabel_Ten;
+    private javax.swing.JLabel jLabel_TenKT1;
     private javax.swing.JLabel jLabel_TenKhoanThuong;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField_MaSo;
-    private javax.swing.JTextField jTextField_TenKhoanThuong;
     private com.raven.swing.SearchText searchText_CCCD;
     private com.raven.swing.SearchText searchText_MaHo;
     private com.raven.swing.SearchText searchText_Ten;
