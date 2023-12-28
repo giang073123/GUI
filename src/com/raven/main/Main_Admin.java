@@ -98,6 +98,9 @@ public class Main_Admin extends javax.swing.JFrame {
         roundPanel1 = new com.raven.swing.RoundPanel();
         body = new javax.swing.JPanel();
         roundPanel2 = new com.raven.swing.RoundPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         menu1 = new com.raven.swing.Menu();
         header1 = new com.raven.component.Header_QuanLyTaiKhoan();
 
@@ -110,15 +113,48 @@ public class Main_Admin extends javax.swing.JFrame {
 
         roundPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel4.setFont(new java.awt.Font("Segoe Script", 0, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("SE02");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("PHẦN MỀM QUẢN LÝ DÂN CƯ");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(49, 49, 49))
+        );
+
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
         roundPanel2Layout.setHorizontalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
@@ -199,6 +235,9 @@ public class Main_Admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private com.raven.component.Header_QuanLyTaiKhoan header1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel2;
     private com.raven.swing.Menu menu1;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
