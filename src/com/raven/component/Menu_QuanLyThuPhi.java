@@ -27,10 +27,10 @@ public class Menu_QuanLyThuPhi extends javax.swing.JPanel {
     }
     public void initMenu(EventMenu event){
         this.event = event;
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/human.jpg")), "Quản lý thu phí chung cư", 0,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.jpg")), "Quản lý khoản thu tự nguyện", 1,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Quản lý thu phí gửi xe", 2,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/noti.png")), "Quản lý thu phí điện, nước, internet", 3,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/building.jpg")), "Quản lý thu phí chung cư", 0,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/charity.jpg")), "Quản lý khoản thu tự nguyện", 1,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/car.jpg")), "Quản lý thu phí gửi xe", 2,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/electricity.png")), "Quản lý thu phí điện, nước, internet", 3,15);
         addEmpty();
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
         

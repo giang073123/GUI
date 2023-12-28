@@ -47,8 +47,8 @@
                   <Component id="menu1" min="-2" pref="300" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="body" alignment="0" pref="851" max="32767" attributes="0"/>
-                      <Component id="header1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="body" pref="851" max="32767" attributes="0"/>
+                      <Component id="header1" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -57,16 +57,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="header1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="body" pref="643" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="body" min="-2" pref="657" max="-2" attributes="0"/>
               </Group>
-              <Component id="menu1" alignment="0" max="32767" attributes="0"/>
+              <Component id="menu1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.raven.component.Header" name="header1">
-        </Component>
         <Container class="javax.swing.JPanel" name="body">
           <Properties>
             <Property name="opaque" type="boolean" value="false"/>
@@ -75,6 +73,8 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
         </Container>
         <Component class="com.raven.component.Menu_QuanLyThuong" name="menu1">
+        </Component>
+        <Component class="com.raven.component.Header_QuanLyThuong" name="header1">
         </Component>
       </SubComponents>
     </Container>

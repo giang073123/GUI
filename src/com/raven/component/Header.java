@@ -4,7 +4,8 @@
  */
 package com.raven.component;
 
-import com.raven.event.EventMenu;
+import com.raven.event.EventHeader;
+import com.raven.event.EventHeader;
 import com.raven.swing.ButtonMenu;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,7 +22,7 @@ import net.miginfocom.swing.MigLayout;
 
 
 public class Header extends javax.swing.JPanel {
-    private EventMenu event; 
+    private EventHeader event; 
     public Header() {
         initComponents();
         setOpaque(false);
@@ -31,11 +32,10 @@ public class Header extends javax.swing.JPanel {
     setLayout(new MigLayout("inset 0", "[fill, 70][grow, right]", "[fill, 40]"));
 
     }
-    public void init(EventMenu event){
+    public void init(EventHeader event){
         this.event = event;
-        addMenu("Home", 0);
-        addMenu("Help",1);
-        addMenu("About",2);
+        addMenu("Quản lý nhân khẩu", 0);
+        addMenu("Quản lý tài khoản",1);
             add(buttonBadges1, "cell 1 0");
     add(buttonBadges2, "cell 1 0");
 
