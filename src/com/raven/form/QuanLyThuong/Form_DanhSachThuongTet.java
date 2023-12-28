@@ -56,7 +56,6 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
     private void initComponents() {
 
         searchText_CCCD = new com.raven.swing.SearchText();
-        jTextField_MaSo = new javax.swing.JTextField();
         searchText_Ten = new com.raven.swing.SearchText();
         searchText_MaHo = new com.raven.swing.SearchText();
         jButton_TimKiem = new javax.swing.JButton();
@@ -67,21 +66,20 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel_MaSo = new javax.swing.JLabel();
         jLabel_TenKhoanThuongTet = new javax.swing.JLabel();
         jLabel_CCCD = new javax.swing.JLabel();
-        jTextField_TenKhoanThuongTet = new javax.swing.JTextField();
         jLabel_MaHo = new javax.swing.JLabel();
         jButton_QuayLai = new javax.swing.JButton();
         jButton_Them = new javax.swing.JButton();
         jButton_Xoa = new javax.swing.JButton();
         jButton_XuatFileExcel = new javax.swing.JButton();
         jButton_ThongKe = new javax.swing.JButton();
+        jLabel_TenKT = new javax.swing.JLabel();
+        jLabel_MaSo1 = new javax.swing.JLabel();
 
         searchText_CCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchText_CCCDActionPerformed(evt);
             }
         });
-
-        jTextField_MaSo.setText("jTextField2");
 
         searchText_Ten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +112,7 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -142,13 +140,6 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
 
         jLabel_CCCD.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_CCCD.setText("CCCD: ");
-
-        jTextField_TenKhoanThuongTet.setText("jTextField1");
-        jTextField_TenKhoanThuongTet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TenKhoanThuongTetActionPerformed(evt);
-            }
-        });
 
         jLabel_MaHo.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaHo.setText("Mã hộ:");
@@ -188,6 +179,12 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
             }
         });
 
+        jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_TenKT.setText("jLabel_TenKT");
+
+        jLabel_MaSo1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_MaSo1.setText("jLabel_MaSo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,14 +192,6 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_MaSo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_TenKhoanThuongTet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_TenKhoanThuongTet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel_Ten)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,7 +205,15 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchText_MaHo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_TimKiem)))
+                        .addComponent(jButton_TimKiem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_TenKhoanThuongTet)
+                            .addComponent(jLabel_MaSo))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_MaSo1)
+                            .addComponent(jLabel_TenKT))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,15 +236,15 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_TenKhoanThuongTet)
-                    .addComponent(jTextField_TenKhoanThuongTet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel_TenKT))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSo)
-                    .addComponent(jTextField_MaSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(jLabel_MaSo1))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Ten)
                     .addComponent(searchText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,7 +263,7 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
                     .addComponent(jButton_ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_XuatFileExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -289,10 +286,6 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_ChinhSuaActionPerformed
-
-    private void jTextField_TenKhoanThuongTetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenKhoanThuongTetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TenKhoanThuongTetActionPerformed
 
     private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
         Form_ThemDanhSachTet formThemDanhSachTet = new Form_ThemDanhSachTet();
@@ -348,11 +341,11 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel jLabel_CCCD;
     private javax.swing.JLabel jLabel_MaHo;
     private javax.swing.JLabel jLabel_MaSo;
+    private javax.swing.JLabel jLabel_MaSo1;
     private javax.swing.JLabel jLabel_Ten;
+    private javax.swing.JLabel jLabel_TenKT;
     private javax.swing.JLabel jLabel_TenKhoanThuongTet;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField_MaSo;
-    private javax.swing.JTextField jTextField_TenKhoanThuongTet;
     private com.raven.swing.SearchText searchText_CCCD;
     private com.raven.swing.SearchText searchText_MaHo;
     private com.raven.swing.SearchText searchText_Ten;

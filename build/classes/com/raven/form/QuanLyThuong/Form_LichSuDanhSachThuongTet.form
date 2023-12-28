@@ -18,33 +18,39 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel_TenKhoanThuong" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField_TenKhoanThuong" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel_TenKhoanThuong" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel_Ten" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="searchText_Ten" min="-2" pref="153" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel_MaSo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel_MaSo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jLabel_MaSo2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel_TenKT1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField_MaSo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel_Ten" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="searchText_Ten" min="-2" pref="153" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel_CCCD" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="searchText_CCCD" min="-2" pref="156" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel_MaHo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="searchText_MaHo" min="-2" pref="152" max="-2" attributes="0"/>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
-                      <Component id="jButton_TimKiem" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <Component id="jLabel_CCCD" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="searchText_CCCD" min="-2" pref="156" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel_MaHo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="searchText_MaHo" min="-2" pref="152" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <Component id="jButton_TimKiem" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -60,17 +66,17 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_TenKhoanThuong" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_TenKhoanThuong" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_TenKT1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_MaSo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_MaSo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_MaSo2" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_Ten" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchText_Ten" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -80,7 +86,7 @@
                   <Component id="searchText_MaHo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="339" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="jButton_QuayLai" min="-2" max="-2" attributes="0"/>
@@ -104,13 +110,13 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="7" rowCount="0">
-                <Column editable="true" title="M&#xe3; s&#x1ed1;" type="java.lang.String"/>
-                <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
-                <Column editable="true" title="CCCD" type="java.lang.String"/>
-                <Column editable="true" title="M&#xe3; h&#x1ed9;" type="java.lang.String"/>
-                <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
-                <Column editable="true" title="Gi&#xe1; tr&#x1ecb; ph&#x1ea7;n qu&#xe0;" type="java.lang.Integer"/>
-                <Column editable="true" title="Ng&#xe0;y th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
+                <Column editable="false" title="M&#xe3; s&#x1ed1;" type="java.lang.Integer"/>
+                <Column editable="false" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
+                <Column editable="false" title="CCCD" type="java.lang.String"/>
+                <Column editable="false" title="M&#xe3; h&#x1ed9;" type="java.lang.Integer"/>
+                <Column editable="false" title="Ng&#xe0;y sinh" type="java.lang.String"/>
+                <Column editable="false" title="Gi&#xe1; tr&#x1ecb; ph&#x1ea7;n qu&#xe0;" type="java.lang.Integer"/>
+                <Column editable="false" title="Ng&#xe0;y th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -225,19 +231,6 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ed1;:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_TenKhoanThuong">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_TenKhoanThuongActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_MaSo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="jButton_QuayLai">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -248,6 +241,22 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_QuayLaiActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_TenKT1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel_TenKT"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_MaSo2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel_MaSo"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

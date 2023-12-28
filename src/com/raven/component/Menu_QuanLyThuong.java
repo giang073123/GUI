@@ -33,8 +33,8 @@ public class Menu_QuanLyThuong extends javax.swing.JPanel {
     }
     public void initMenu(EventMenu event){
         this.event = event;
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/lantern.png")), "Quản lý thưởng lễ Tết", 0,15);
-        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/clock.jpg")), "Quản lý thưởng học tập", 1,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/lantern.jpg")), "Quản lý thưởng lễ Tết", 0,15);
+        addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/book.jpg")), "Quản lý thưởng học tập", 1,15);
         addEmpty();
         addMenu(new ImageIcon(getClass().getResource("/com/raven/icon/logout.jpg")), "Đăng xuất", 4,15);
         
