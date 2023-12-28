@@ -9,11 +9,9 @@
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_LichSuDanhSachThuongHocTap.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_LichSuDanhSachTuNguyen.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/Header.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/PanelLoading.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyTaiKhoan/Form_QuanLyTaiKhoan.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_ThemKhoanThuongHocTap.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ThongTinChiTiet.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/PanelLogin.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_NhanKhauMoi.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_ThemDanhSachHocTap.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/event/EventMenu.java</file>
@@ -25,6 +23,7 @@
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/main/Main_QuanLyThuPhi.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_DanhSachThuongTet.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ThemNhanKhau.java</file>
+            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/Header_QuanLyThuPhi.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/RoundPanel.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/ButtonBadges.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ThemHo.java</file>
@@ -42,22 +41,19 @@
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_LichSu.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_ThuPhiDienNuoc.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/MenuEvent.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/PasswordField.java</file>
+            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/Header_QuanLyThuong.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_ThuPhiGuiXe.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_TaoKhoanThuGuiXe.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_DanhSachPhiGuiXe.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_DanhSachPhiTuNguyen.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_QuanLyThuongTet.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/event/EventHeader.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/connection/DatabaseConnection.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/EditButton.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/Menu.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ThongKeNhanKhau.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ChiTietNhanKhau.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/model/ModelUser1.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/main/Login.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyTaiKhoan/Form_ThemCanBo.java</file>
-            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/PanelSlide.java</file>
+            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/DangNhap/Form_DangNhap.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/ButtonMenu.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_TaoKhoanThuTuNguyen.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_ThemKhoanThuongTet.java</file>
@@ -75,6 +71,7 @@
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuong/Form_DanhSachThuongHocTap.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/Button.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/MenuItem.java</file>
+            <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/component/Header_QuanLyTaiKhoan.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/swing/ImageAvatar.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyNhanKhau/Form_ThongTinHo.java</file>
             <file>file:/C:/Users/PC%20Giang/Documents/NetBeansProjects/GUI/src/com/raven/form/QuanLyThuPhi/Form_ThemDongDanhSachTuNguyen.java</file>
