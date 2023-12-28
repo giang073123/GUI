@@ -7,7 +7,11 @@ package com.raven.form.QuanLyNhanKhau;
 import Model.NhanKhau.*;
 
 
+import javax.swing.*;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
 
 /**
  *
@@ -27,7 +31,56 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton1ActionPerformed(evt);
         }
+
+
     });
+    }
+
+    // XÁC NHẬN
+    private void jButton2ActionPerformed(ActionEvent e) {
+          if (searchText5.getText().length()<=0 || jTextPane1.getText().length()<=0 || jDateChooser1.getDate()==null || jDateChooser2.getDate()==null)
+          {JOptionPane.showMessageDialog(null,"Hãy nhập đầy đủ thông tin"); return;}
+          else if (jDateChooser1.getDate().compareTo(jDateChooser2.getDate())>=0)
+          {JOptionPane.showMessageDialog(null,"Ngày khai báo không hợp lệ"); return;}
+          else if (myModel.tam_vang_check(nk.getCCCD(), new Date(jDateChooser1.getDate().getTime()) )) {
+              JOptionPane.showMessageDialog(null,"Nhân khẩu hiện đang tạm vắng"); return;
+          }
+
+          tam_vang tv = new tam_vang();
+          tv.setCCCD(nk.getCCCD()); tv.setMa_Ho(nk.getMa_Ho()); tv.setDiachi_tv(searchText5.getText()); tv.setHo_Ten(nk.getHo_ten());
+          tv.setTv_tu_ngay(new Date(jDateChooser1.getDate().getTime()));  tv.setTv_den_ngay(new Date(jDateChooser2.getDate().getTime()));
+          tv.setLy_do(jTextPane1.getText());
+          myModel.tam_vang_insert(tv);
+        JOptionPane.showMessageDialog(null,"Khai báo thành công");
+        exit();
+    }
+
+    private void searchText5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchText5ActionPerformed
+
+
+    // THOÁT
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Create an instance of Form_ThongTinChiTiet
+        exit();
+    }
+
+    private void exit(){
+        Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(nk.getMa_Ho(),myModel);
+
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
+
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formThongTinChiTiet);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
     }
 
     /**
@@ -78,6 +131,13 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
             }
         });
 
+        jButton2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jButton2ActionPerformed(e);
+        }
+    });
+
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
         jDateChooser2.setDateFormatString("yyyy-MM-dd");
@@ -89,6 +149,7 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setText("Xác nhận");
+
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -180,28 +241,10 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchText5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchText5ActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    // Create an instance of Form_ThongTinChiTiet
-    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(nk.getMa_Ho(),myModel);
-
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
-
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formThongTinChiTiet);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
+
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -216,5 +259,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.SearchText searchText5;
+
+    private javax.swing.JButton jButton_CapNhat;
     // End of variables declaration//GEN-END:variables
 }
