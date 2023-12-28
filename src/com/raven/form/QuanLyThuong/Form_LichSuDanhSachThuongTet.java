@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.raven.form;
+package com.raven.form.QuanLyThuong;
 
 import com.raven.form.QuanLyThuong.Form_DanhSachThuongTet;
 import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
