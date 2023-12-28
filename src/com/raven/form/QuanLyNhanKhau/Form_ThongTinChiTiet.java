@@ -4,24 +4,28 @@ package com.raven.form.QuanLyNhanKhau;
 import com.raven.form.QuanLyNhanKhau.Form_KhaiBaoTamVang;
 import com.raven.form.QuanLyNhanKhau.Form_LichSu;
 import java.awt.Container;
+import Model.NhanKhau.*;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 
 
 public class Form_ThongTinChiTiet extends javax.swing.JPanel {
-
-    public Form_ThongTinChiTiet() {
+     Model_HoKhau myModel;
+     private ho_gia_dinh family;
+     private ArrayList<nhan_khau> members;
+    public Form_ThongTinChiTiet(int Ma_Ho, Model_HoKhau model) {
         initComponents();
-        table1.addRow(new Object[]{"1",  "Nguyễn Văn A", "Nam","01/11/1999", "Con", "Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"2",  "Nguyễn Văn B", "Nam","01/02/1999", "Con","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"3",  "Đỗ Thị B", "Nữ","02/03/1988", "Con","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"4",  "Hoàng Văn D", "Nam","12/03/1988", "Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"5",  "Nguyễn Văn C", "Nam","14/03/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"6",  "Hoàng Thị B", "Nữ","02/03/1998","Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"7",  "Nguyễn Văn B", "Nam","02/05/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"8",  "Đỗ Văn B", "Nam","02/03/1990","Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"9", "Nguyễn Thị B", "Nữ","02/03/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
-        table1.addRow(new Object[]{"10", "Nguyễn Văn E", "Nam","02/03/1988","Cháu","Việt Nam", "Kinh", "111111111111"});
+
+        myModel = model;
+        this.family=myModel.ho_gia_dinh_getfamily(Ma_Ho);
+        update_Table();
+        update_family_info();
+
             jButton3.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton3ActionPerformed(evt);
@@ -37,10 +41,66 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
             jButton6ActionPerformed(evt);
         }
     });
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
     }
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+
+    //UPDATE FAMILY INFO
+
+    private void update_family_info(){
+        int i=0;
+        for(nhan_khau m : members){
+            if(m.getQH_chuho().compareTo("Chủ hộ")==0) break;
+            i++;
+        }
+
+        jLabel9.setText(Integer.toString(family.getMa_Ho()));
+        jLabel10.setText(members.get(i).getHo_ten());
+        jLabel11.setText(family.getCCCD_Chuho());
+        jLabel13.setText(Integer.toString(family.getSo_nha()));
+        jLabel15.setText(family.getDuong_());
+        jLabel16.setText(family.getPhuong_());
+        jLabel18.setText(family.getQuan_());
+    }
+
+
+
+    //UPDATE TABLE
+    private  void update_Table(){
+           members = myModel.ho_gia_dinh_getmembers(family.getMa_Ho());
+           int i=1; //stt
+           for (nhan_khau m:members){
+               table1.addRow(new Object[]{i, m.getCCCD(),  m.getHo_ten(), m.getGioi_tinh(),m.getNgay_sinh(), m.getQH_chuho(), "Việt Nam", m.getDan_toc()});
+               i++;
+           }
+    }
+
+
+
+    // THÊM NHÂN KHẨU
+    private void jButton1ActionPerformed(ActionEvent evt) {
+        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
+        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
+        else if (nk.getMa_Ho()>0) {
+            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
+        }
+
+        nk.setMa_Ho(family.getMa_Ho());
+
+    }
+//-------------------------------------------------------------------------------------------------
+
+// LỊCH SỬ THAY ĐỔI
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+
+
     // Create an instance of Form_ThongTinChiTiet
-    Form_LichSu formLichSu = new Form_LichSu();
+    Form_LichSu formLichSu = new Form_LichSu(family.getMa_Ho(),myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -55,9 +115,14 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
     parentContainer.revalidate();
     parentContainer.repaint();
 }
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+//-------------------------------------------------------------------------------------------------
+
+// NÚT KHAI BÁO TAM VẮNG
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     // Create an instance of Form_ThongTinChiTiet
-    Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang();
+    if(table1.getSelectedRow()<0) return;
+
+    Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang(members.get(table1.getSelectedRow()),myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -72,6 +137,8 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     parentContainer.revalidate();
     parentContainer.repaint();
 }
+
+//---------------------------------------------------------------------------------------------
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -141,35 +208,35 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 
         jLabel9.setText("jLabel9");
 
-        jLabel10.setText("jLabel9");
+        jLabel10.setText("jLabel10");
 
-        jLabel11.setText("jLabel9");
+        jLabel11.setText("jLabel11");
 
-        jLabel12.setText("jLabel9");
+        jLabel12.setText("jLabel12");
 
-        jLabel13.setText("jLabel9");
+        jLabel13.setText("jLabel13");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel14.setText("Đường:");
 
-        jLabel15.setText("jLabel9");
+        jLabel15.setText("jLabel15");
 
-        jLabel16.setText("jLabel9");
+        jLabel16.setText("jLabel16");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel17.setText("Quận:");
 
-        jLabel18.setText("jLabel9");
+        jLabel18.setText("jLabel18");
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel19.setText("Tỉnh (Thành phố trực thuộc trung ương):");
 
-        jLabel20.setText("jLabel9");
+        jLabel20.setText("jLabel20");
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel21.setText("Số lượng thành viên:");
 
-        jLabel22.setText("jLabel9");
+        jLabel22.setText("jLabel22");
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -288,11 +355,11 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 
             },
             new String [] {
-                "STT", "Họ tên", "Giới tính", "Ngày tháng năm sinh", "Quan hệ với chủ hộ", "Quốc tịch", "Dân tộc ", "CMT/CCCD"
+                "STT", "CMT/CCCD", "Họ tên", "Giới tính", "Ngày tháng năm sinh", "Quan hệ với chủ hộ", "Quốc tịch", "Dân tộc "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -303,20 +370,16 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton4.setText("Xóa nhân khẩu");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        jButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jButton4ActionPerformed(e);
             }
         });
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel23.setText("CCCD:");
 
-        searchText1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText1ActionPerformed(evt);
-            }
-        });
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton6.setText("Thoát");
@@ -399,19 +462,26 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
+    // XÓA NHÂN KHẨU
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+
+           int s = table1.getSelectedRow();
+           if (members.get(s).getQH_chuho().compareTo("Chủ hộ")==0) family.setCCCD_Chuho("");
+           members.get(s).setQH_chuho(""); members.get(s).setMa_Ho(0);
+           update_Table();
+           update_family_info();
     }//GEN-LAST:event_jButton4ActionPerformed
+    //---------------------------------------------------------------------------------------------
 
-    private void searchText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchText1ActionPerformed
 
+    // THOÁT
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-            Form_ThongTinHo formThongTinHo = new Form_ThongTinHo();
 
-    // Get the parent container (JFrame or another container)
+            Form_ThongTinHo formThongTinHo = new Form_ThongTinHo(myModel);
+
+
+    // Get the parent container (JFrame or another contai
     Container parentContainer = this.getParent();
 
     // Remove the current panel (Form_ThongTinHo) from the parent container

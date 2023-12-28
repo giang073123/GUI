@@ -20,8 +20,8 @@ public class nhan_khau {
     // Constructors, getters, and setters can be added here based on your requirements
 
     // Example constructor
-    public nhan_khau(String CCCD, int Ma_Ho, String Ho_ten, String QH_chuho, String Bi_danh,
-                     String Gioi_tinh, Date Ngay_sinh, String Noi_sinh, String Nguyen_quan,
+    public nhan_khau(String CCCD, int Ma_Ho, String Ho_ten, String QH_chuho,String Gioi_tinh, String Bi_danh,
+                      Date Ngay_sinh, String Noi_sinh, String Nguyen_quan,
                      String Dan_toc, String Nghe_nghiep, Date Ngay_DKTT, String Noi_o_truoc) {
         this.CCCD = CCCD;
         this.Ma_Ho = Ma_Ho;
@@ -39,6 +39,26 @@ public class nhan_khau {
     }
 
     public nhan_khau(){}
+
+    public nhan_khau clone_(){
+        nhan_khau nhanKhau = new nhan_khau();
+
+        nhanKhau.setCCCD(this.getCCCD());
+        nhanKhau.setMa_Ho(this.getMa_Ho());
+        nhanKhau.setHo_ten(this.getHo_ten());
+        nhanKhau.setQH_chuho(this.getQH_chuho());
+        nhanKhau.setBi_danh(this.getBi_danh());
+        nhanKhau.setGioi_tinh(this.getGioi_tinh());
+        nhanKhau.setNgay_sinh(this.getNgay_sinh());
+        nhanKhau.setNoi_sinh(this.getNoi_sinh());
+        nhanKhau.setNguyen_quan(this.getNguyen_quan());
+        nhanKhau.setDan_toc(this.getDan_toc());
+        nhanKhau.setNghe_nghiep(this.getNghe_nghiep());
+        nhanKhau.setNgay_DKTT(this.getNgay_DKTT());
+        nhanKhau.setNoi_o_truoc(this.getNoi_o_truoc());
+
+        return nhanKhau;
+    }
 
     // Example getters and setters
     public String getCCCD() {

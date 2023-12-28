@@ -4,11 +4,18 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import java.awt.Container;
 import Model.NhanKhau.*;
 
-
-import java.awt.Container;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.table.*;
+import javax.swing.JTable;
+
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -17,29 +24,18 @@ import java.util.ArrayList;
 public class Form_ThongTinHo extends javax.swing.JPanel {
 
     ArrayList<ho_gia_dinh> myList = new ArrayList<>();
-    ho_gia_dinh selected_ho = new ho_gia_dinh();
+    //ArrayList<ho_gia_dinh> searchList = new ArrayList<>();
+
     Model_HoKhau myModel;
     /**
      * Creates new form Form_2
      */
-    public Form_ThongTinHo() {
+    public Form_ThongTinHo(Model_HoKhau Model) {
         initComponents();
-        myModel = new Model_HoKhau();
+        myModel = Model;
+        updateMyList();
+        updateTable(myList);
 
-        updateTable();
-//        table.addRow(new Object[]{"1", "1", "Nguyễn Văn A", "0323311344","2", "Hai Bà Trưng"});
-//        table.addRow(new Object[]{"2", "2", "Nguyễn Văn B", "0323320344","1", "Hai Bà Trưng"});
-//        table.addRow(new Object[]{"3", "3", "Đỗ Thị B", "0323320344","5", "Hai Bà Trưng"});
-//        table.addRow(new Object[]{"4", "4", "Hoàng Văn D", "0323320344","7", "Hai Bà Trưng"});
-//        table.addRow(new Object[]{"5", "5", "Nguyễn Văn C", "0323320344","8","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"6", "6", "Hoàng Thị B", "0323320344","9","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"7", "7", "Nguyễn Văn B", "0323320344","10","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"8", "8", "Đỗ Văn B", "0323320344","11","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"9", "9", "Nguyễn Thị B", "0323320344","15","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"10", "10", "Nguyễn Văn E", "0323320344","17","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"11", "11", "Đỗ Văn B", "0323320344","18","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"12", "12", "Hoàng Thị F", "0323320344","19","Hai Bà Trưng"});
-//        table.addRow(new Object[]{"13", "13", "Nguyễn Văn G", "0323320344","20","Hai Bà Trưng"});
             // Link the jButton2ActionPerformed method to the "Xem chi tiết" button
 
 
@@ -53,15 +49,101 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
             jButton3ActionPerformed(evt);
         }
     });
+
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+
     }
 
 
-    private void updateTable(){
-        int i=1;
-        myList = myModel.ho_gia_dinh_getds();
-        for(ho_gia_dinh f : myList){
-            nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
 
+
+    private void updateMyList(){myList = myModel.ho_gia_dinh_getds();}
+
+    private ArrayList<ho_gia_dinh> updateSearchList(){
+        ArrayList<ho_gia_dinh> searchList = new ArrayList<>();
+        for(ho_gia_dinh f:myList){
+            searchList.add(f.clone_());
+        }
+  
+
+        if(miniSearch1.getText().length()>0){
+
+         int maho = Integer.parseInt(miniSearch1.getText());
+
+            Iterator<ho_gia_dinh> it = searchList.iterator();
+            while(it.hasNext()) {
+                ho_gia_dinh f = it.next();
+                if(f.getMa_Ho()!=maho) {
+                    it.remove();
+                }
+
+            }
+        }
+
+        if(miniSearch2.getText().length()>0){
+         String hotenchuho = miniSearch2.getText();
+
+            Iterator<ho_gia_dinh> it = searchList.iterator();
+            while(it.hasNext()) {
+                ho_gia_dinh f = it.next();
+                if(myModel.nhan_khau_get(f.getCCCD_Chuho()).getHo_ten().compareTo(hotenchuho)!=0) {
+                    it.remove();
+                }
+            }
+        }
+
+        if(miniSearch3.getText().length()>0){
+            String CCCDchuho = miniSearch3.getText();
+
+            Iterator<ho_gia_dinh> it = searchList.iterator();
+            while(it.hasNext()) {
+                ho_gia_dinh f = it.next();
+                if(f.getCCCD_Chuho().compareTo(CCCDchuho)!=0) {
+                    it.remove();
+                }
+            }
+        }
+
+        if(miniSearch4.getText().length()>0){
+            int sonha = Integer.parseInt(miniSearch4.getText());
+
+            Iterator<ho_gia_dinh> it = searchList.iterator();
+            while(it.hasNext()) {
+                ho_gia_dinh f = it.next();
+                if(f.getSo_nha()!=sonha) {
+                    it.remove();
+                }
+            }
+        }
+
+
+        if(miniSearch5.getText().length()>0){
+            String duong = miniSearch5.getText();
+
+            Iterator<ho_gia_dinh> it = searchList.iterator();
+            while(it.hasNext()) {
+                ho_gia_dinh f = it.next();
+                if(f.getDuong_().compareTo(duong)!=0) {
+                    it.remove();
+                }
+            }
+        }
+    return searchList;
+
+    }
+
+    private void updateTable(ArrayList<ho_gia_dinh> list){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        int i=1;
+
+        for(ho_gia_dinh f : list){
+            nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
             table.addRow(new Object[]{i,f.getMa_Ho(),chuho.getHo_ten(),f.getCCCD_Chuho(),f.getSo_nha(),f.getDuong_()});
         }
 
@@ -104,7 +186,7 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -258,12 +340,22 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // TÌM KIẾM
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+
+        updateTable(updateSearchList());
     }//GEN-LAST:event_jButton1ActionPerformed
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+//--------------------------------------------------------------------------------------------------------------------
+
+    // HIỂN THỊ THÔNG TIN CHI TIẾT VỀ HỘ ĐƯỢC CHỌN
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet();
+    if(table.getSelectedRow()<0) return;
+    else{
+    int i =table.getSelectedRow();
+
+    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(myList.get(i).getMa_Ho(),myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -277,10 +369,15 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     // Repaint the container to reflect the changes
     parentContainer.revalidate();
     parentContainer.repaint();
+    }
 }
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+//---------------------------------------------------------------------------------------
+
+// THÊM HỘ
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThemHo formThemHo = new Form_ThemHo();
+    Form_ThemHo formThemHo = new Form_ThemHo(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -295,6 +392,16 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
     parentContainer.revalidate();
     parentContainer.repaint();
 }
+//---------------------------------------------------------------------------------------
+
+
+    // XÓA HỘ
+    private void jButton4ActionPerformed(ActionEvent evt) {
+
+    }
+//---------------------------------------------------------------------------------------
+
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

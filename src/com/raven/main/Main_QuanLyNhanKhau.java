@@ -11,7 +11,7 @@ import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
 import com.raven.form.QuanLyNhanKhau.Form_ThongTinNhanKhau;
 import java.awt.Color;
 import java.awt.Component;
-
+import Model.NhanKhau.*;
 /**
  *
  * @author PC Giang
@@ -22,13 +22,15 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
      * Creates new form Main_QuanLyNhanKhau
      */
     public Main_QuanLyNhanKhau() {
+
         initComponents();
+        Model_HoKhau model= new Model_HoKhau();
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
                     showForm(new Form_ThongTinNhanKhau());
@@ -56,7 +58,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
         };
         header1.init(event);
         menu1.initMenu(event);
-        showForm(new Form_ThongTinHo());
+        showForm(new Form_ThongTinHo(model));
     }
     
     private void showForm(Component com){

@@ -4,6 +4,9 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.*;
+
+
 import java.awt.Container;
 
 /**
@@ -11,12 +14,15 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
-
+    Model_HoKhau myModel;
+    nhan_khau nk;
     /**
      * Creates new form Form_KhaiBaoTamVang
      */
-    public Form_KhaiBaoTamVang() {
+    public Form_KhaiBaoTamVang(nhan_khau nk, Model_HoKhau model) {
         initComponents();
+        myModel = model;
+        this.nk=nk;
                         jButton1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton1ActionPerformed(evt);
@@ -180,7 +186,7 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet();
+    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(nk.getMa_Ho(),myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

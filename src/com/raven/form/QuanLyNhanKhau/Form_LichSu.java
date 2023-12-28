@@ -4,6 +4,8 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.Model_HoKhau;
+
 import java.awt.Container;
 
 /**
@@ -11,12 +13,15 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_LichSu extends javax.swing.JPanel {
-
+      Model_HoKhau myModel;
+      int Ma_Ho;
     /**
      * Creates new form Form_LichSu
      */
-    public Form_LichSu() {
+    public Form_LichSu(int Ma_Ho,Model_HoKhau model) {
         initComponents();
+        this.Ma_Ho=Ma_Ho;
+        myModel=model;
         table1.addRow(new Object[]{"1", "Thay địa chỉ nhà", "20/12/2023"});
         table1.addRow(new Object[]{"1", "Thay địa chỉ nhà", "20/12/2023"});
         table1.addRow(new Object[]{"1", "Thay địa chỉ nhà", "20/12/2023"});
@@ -35,7 +40,7 @@ public class Form_LichSu extends javax.swing.JPanel {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet();
+    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(Ma_Ho,myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

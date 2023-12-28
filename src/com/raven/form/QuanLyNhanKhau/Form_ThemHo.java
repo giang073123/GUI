@@ -4,6 +4,10 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.*;
+
+
+import javax.swing.*;
 import java.awt.Container;
 
 /**
@@ -11,15 +15,34 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_ThemHo extends javax.swing.JPanel {
-
+     Model_HoKhau myModel;
     /**
      * Creates new form Form_ThemHo
      */
-    public Form_ThemHo() {
-        initComponents();                        
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+    public Form_ThemHo(Model_HoKhau model) {
+        initComponents();
+        myModel=model;
+
+        // NÚT THÊM HỘ
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton6ActionPerformed(evt);
+            ho_gia_dinh f = new ho_gia_dinh();
+
+            nhan_khau test = myModel.nhan_khau_get(searchText1.getText());
+            if (test==null) {
+                JOptionPane.showMessageDialog(null,"Không có số CCCD này trong dữ liệu nhân khẩu "); return;
+               }
+            else if(test.getMa_Ho()>0){
+                JOptionPane.showMessageDialog(null,"Nhân khẩu có số CCCD này đã thuộc một hộ khác"); return;
+            }
+
+            f.setCCCD_Chuho(searchText1.getText());
+            JOptionPane.showMessageDialog(null,f.getCCCD_Chuho());
+        f.setSo_nha(Integer.valueOf(searchText3.getText()));
+        f.setDien_tich(Float.valueOf(searchText8.getText()) );
+        f.setDuong_(searchText4.getText());
+        f.setPhuong_(searchText5.getText());
+        f.setQuan_(searchText6.getText());
         }
     });
     }
@@ -221,9 +244,11 @@ public class Form_ThemHo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
+    // NÚT THOÁT
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
                 // TODO add your handling code here:
-                    Form_ThongTinHo formThongTinHo = new Form_ThongTinHo();
+                    Form_ThongTinHo formThongTinHo = new Form_ThongTinHo(myModel);
         
             // Get the parent container (JFrame or another container)
             Container parentContainer = this.getParent();
