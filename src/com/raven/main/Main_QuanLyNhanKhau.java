@@ -38,7 +38,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
                     showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
-                    showForm(new Form_ThongTinNhanKhau());
+                    showForm(new Form_ThongTinNhanKhau(model));
                 }
                 else if(index == 2){
                     showForm(new Form_TamTruTamVang());

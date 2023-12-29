@@ -7,6 +7,7 @@ import java.awt.Container;
 import Model.NhanKhau.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -42,11 +43,11 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         }
     });
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+//        jButton1.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//               // jButton1ActionPerformed(evt);
+//            }
+//        });
     }
 
 
@@ -72,6 +73,8 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
     //UPDATE TABLE
     private  void update_Table(){
+        DefaultTableModel model = (DefaultTableModel)table1.getModel();
+        model.setRowCount(0);
            members = myModel.ho_gia_dinh_getmembers(family.getMa_Ho());
            int i=1; //stt
            for (nhan_khau m:members){
@@ -82,18 +85,18 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
 
 
-    // THÊM NHÂN KHẨU
-    private void jButton1ActionPerformed(ActionEvent evt) {
-        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
-        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
-        else if (nk.getMa_Ho()>0) {
-            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
-        }
-
-        nk.setMa_Ho(family.getMa_Ho());
-
-    }
-//-------------------------------------------------------------------------------------------------
+//    // THÊM NHÂN KHẨU
+//    private void jButton1ActionPerformed(ActionEvent evt) {
+//        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
+//        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
+//        else if (nk.getMa_Ho()>0) {
+//            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
+//        }
+//
+//        nk.setMa_Ho(family.getMa_Ho());
+//
+//    }
+////-------------------------------------------------------------------------------------------------
 
 // LỊCH SỬ THAY ĐỔI
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +124,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     // Create an instance of Form_ThongTinChiTiet
     if(table1.getSelectedRow()<0) return;
+   // JOptionPane.showMessageDialog(null,table1.getSelectedRow());
 
     Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang(members.get(table1.getSelectedRow()),myModel);
 
@@ -141,20 +145,26 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 //---------------------------------------------------------------------------------------------
 
 
-    // CẬP NHẬT
-    private void jButton_CapNhatActionPerformed(ActionEvent evt) {
-    }
+//    // CẬP NHẬT
+//    private void jButton_CapNhatActionPerformed(ActionEvent evt) {
+//
+//    }
 
-    // XÓA NHÂN KHẨU
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        int s = table1.getSelectedRow();
-        if (members.get(s).getQH_chuho().compareTo("Chủ hộ")==0) family.setCCCD_Chuho("");
-        members.get(s).setQH_chuho(""); members.get(s).setMa_Ho(0);
-        update_Table();
-        update_family_info();
-    }//GEN-LAST:event_jButton4ActionPerformed
-    //---------------------------------------------------------------------------------------------
+//    // XÓA NHÂN KHẨU
+//    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+//
+//        int s = table1.getSelectedRow();
+//        if (members.get(s).getQH_chuho().compareTo("Chủ hộ")==0) family.setCCCD_Chuho("");
+//        if (members.get(s).getMa_Ho()==family.getMa_Ho()){
+//            JOptionPane.showMessageDialog(null,"Nhân khẩu cần chuyển hộ hoặc chuyển đi nơi khác để xóa");
+//            return;
+//        }
+//        members.get(s).setQH_chuho("");
+//        myModel.nhan_khau_update(members.get(s));
+//        update_Table();
+//        update_family_info();
+//    }//GEN-LAST:event_jButton4ActionPerformed
+//    //---------------------------------------------------------------------------------------------
 
 
     // THOÁT
@@ -216,7 +226,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel23 = new javax.swing.JLabel();
         searchText1 = new com.raven.swing.SearchText();
         jButton6 = new javax.swing.JButton();
-        jButton_CapNhat = new javax.swing.JButton();
+        jButton_CapNhat = new javax.swing.JButton(); jButton_CapNhat.setVisible(false);
 
         roundPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -381,7 +391,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         roundPanel3.setBackground(new java.awt.Color(250, 250, 250));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton1.setText("Thêm nhân khẩu");
+        jButton1.setText("Thêm nhân khẩu"); jButton1.setVisible(false);
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setText("Khai báo tạm vắng");
@@ -400,21 +410,22 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         jScrollPane2.setViewportView(table1);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Xóa nhân khẩu");
+        jButton4.setText("Xóa nhân khẩu"); jButton4.setVisible(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                //jButton4ActionPerformed(evt);
             }
         });
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel23.setText("CCCD:");
+        jLabel23.setText("CCCD:"); jLabel23.setVisible(false);
 
         searchText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                // searchText1ActionPerformed(evt);
             }
         });
+        searchText1.setVisible(false);
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton6.setText("Thoát");
@@ -428,7 +439,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         jButton_CapNhat.setText("Cập nhật thay đổi");
         jButton_CapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CapNhatActionPerformed(evt);
+                //jButton_CapNhatActionPerformed(evt);
             }
         });
 

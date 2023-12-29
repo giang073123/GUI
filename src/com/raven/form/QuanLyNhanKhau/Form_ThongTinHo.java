@@ -255,7 +255,7 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
         jButton3.setText("Thêm hộ");
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Xóa hộ");
+        jButton4.setText("Xóa hộ"); jButton4.setVisible(false);
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);

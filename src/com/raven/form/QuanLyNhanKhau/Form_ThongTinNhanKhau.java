@@ -4,35 +4,32 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.*;
 import com.raven.form.QuanLyNhanKhau.Form_ChiTietNhanKhau;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
  * @author PC Giang
  */
 public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
+    Model_HoKhau myModel;
+    ArrayList<nhan_khau> myList = new ArrayList<>();
 
     /**
      * Creates new form Form_ThongTinNhanKhau
      */
-    public Form_ThongTinNhanKhau() {
+    public Form_ThongTinNhanKhau(Model_HoKhau model) {
         initComponents();
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
-        table.addRow(new Object[]{"1", "Hoàng Thị B", "23323320344"});
+        myModel=model;
+        updateMyList();
+        updateTable(myList);
                     // Link the jButton2ActionPerformed method to the "Xem chi tiết" button
         jButton2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,6 +41,140 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
             jButton3ActionPerformed(evt);
         }
     });
+
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+    }
+
+
+    private void updateMyList(){myList = myModel.nhan_khau_getds();}
+
+    private ArrayList<nhan_khau> updateSearchList(){
+        ArrayList<nhan_khau> searchList = new ArrayList<>();
+        for(nhan_khau nk:myList){
+            searchList.add(nk.clone_());
+        }
+
+
+        if(miniSearch1.getText().length()>0){
+
+            int maho = Integer.parseInt(miniSearch1.getText());
+
+            Iterator<nhan_khau> it = searchList.iterator();
+            while(it.hasNext()) {
+                nhan_khau f = it.next();
+                if(f.getMa_Ho()!=maho) {
+                    it.remove();
+                }
+
+            }
+        }
+
+        if(miniSearch2.getText().length()>0){
+            String hoten = miniSearch2.getText();
+
+            Iterator<nhan_khau> it = searchList.iterator();
+            while(it.hasNext()) {
+                nhan_khau f = it.next();
+                if(f.getHo_ten().compareTo(hoten)!=0) {
+                    it.remove();
+                }
+            }
+        }
+
+        if(miniSearch3.getText().length()>0){
+            String CCCD = miniSearch3.getText();
+
+            Iterator<nhan_khau> it = searchList.iterator();
+            while(it.hasNext()) {
+                nhan_khau f = it.next();
+                if(f.getCCCD().compareTo(CCCD)!=0) {
+                    it.remove();
+                }
+            }
+        }
+
+        return searchList;
+
+    }
+
+    private void updateTable(ArrayList<nhan_khau> list){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+
+        for(nhan_khau nk : list){
+            //nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
+            table.addRow(new Object[]{nk.getMa_Ho(),nk.getHo_ten(),nk.getCCCD()});
+        }
+    }
+
+
+
+    //  TÌM KIẾM NHÂN KHẨU
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        updateTable(updateSearchList());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    // THÊM NHÂN KHẨU MỚI
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Create an instance of Form_ThongTinChiTiet
+        Form_NhanKhauMoi formNhanKhauMoi = new Form_NhanKhauMoi(myModel);
+
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
+
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formNhanKhauMoi);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
+//-------------------------------------------------------------------------------------------------
+
+    // XEM CHI TIẾT
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Create an instance of Form_ThongTinChiTiet
+        if(table.getSelectedRow()<0) return;
+        else {
+            int i = table.getSelectedRow();
+           // JOptionPane.showMessageDialog(null,i+myList.get(i).getHo_ten());
+            Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau(myModel,myList.get(i));
+
+            // Get the parent container (JFrame or another container)
+            Container parentContainer = this.getParent();
+
+            // Remove the current panel (Form_ThongTinHo) from the parent container
+            parentContainer.remove(this);
+
+            // Add the new panel (Form_ThongTinChiTiet) to the parent container
+            parentContainer.add(formChiTietNhanKhau);
+
+            // Repaint the container to reflect the changes
+            parentContainer.revalidate();
+            parentContainer.repaint();
+        }
+    }
+
+    //XÓA NHÂN KHẨU
+    private void jButton4ActionPerformed(ActionEvent evt) {
+        if(table.getSelectedRow()<0) return;
+        else {
+            int i = table.getSelectedRow();
+            JOptionPane.showMessageDialog(null,myList.get(i).getCCCD());
+
+            myModel.nhan_khau_delete(myList.get(i).getCCCD());
+            updateMyList();
+            updateTable(myList);
+        }
     }
 
     /**
@@ -222,43 +353,8 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    // Create an instance of Form_ThongTinChiTiet
-    Form_NhanKhauMoi formNhanKhauMoi = new Form_NhanKhauMoi();
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
 
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formNhanKhauMoi);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    // Create an instance of Form_ThongTinChiTiet
-    Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau();
-
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
-
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formChiTietNhanKhau);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

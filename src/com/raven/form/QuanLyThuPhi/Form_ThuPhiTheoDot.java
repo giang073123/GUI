@@ -4,6 +4,7 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
 import com.raven.form.QuanLyThuPhi.Form_DanhSachPhiTuNguyen;
 import java.awt.Container;
 
@@ -12,12 +13,14 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_ThuPhiTheoDot extends javax.swing.JPanel {
+    Model_ThuPhi myModel;
 
     /**
      * Creates new form Form_ThuPhiTheoDot
      */
-    public Form_ThuPhiTheoDot() {
+    public Form_ThuPhiTheoDot(Model_ThuPhi tp) {
         initComponents();
+        myModel=tp;
         table1.addRow(new Object[]{"12431", "Thu phí", "27/12/2023","27/02/2024","1000000","Không"});
         table1.addRow(new Object[]{"12431", "Thu phí", "27/12/2023","27/02/2024","1000000","Không"});
         table1.addRow(new Object[]{"12431", "Thu phí", "27/12/2023","27/02/2024","1000000","Không"});
@@ -48,7 +51,7 @@ public class Form_ThuPhiTheoDot extends javax.swing.JPanel {
     }
 private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_LichSuDanhSachTuNguyen formLichSuDanhSachTuNguyen= new Form_LichSuDanhSachTuNguyen();
+    Form_LichSuDanhSachTuNguyen formLichSuDanhSachTuNguyen= new Form_LichSuDanhSachTuNguyen(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -65,7 +68,7 @@ private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
 }
 private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_DanhSachPhiTuNguyen formDanhSachPhiTuNguyen = new Form_DanhSachPhiTuNguyen();
+    Form_DanhSachPhiTuNguyen formDanhSachPhiTuNguyen = new Form_DanhSachPhiTuNguyen(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -82,7 +85,7 @@ private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) 
 }
 private void jButton_TaoKhoanThuActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_TaoKhoanThuTuNguyen formTaoKhoanThuTuNguyen = new Form_TaoKhoanThuTuNguyen();
+    Form_TaoKhoanThuTuNguyen formTaoKhoanThuTuNguyen = new Form_TaoKhoanThuTuNguyen(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

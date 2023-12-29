@@ -4,7 +4,9 @@
  */
 package com.raven.main;
 
-import Model.NhanKhau.Model_HoKhau;
+import Model.NhanKhau.*;
+
+import Model.ThuPhi.*;
 import com.raven.event.EventHeader;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
@@ -31,15 +33,16 @@ public class Main_Admin extends javax.swing.JFrame {
      */
     public Main_Admin() {
         initComponents();
-        Model_HoKhau model= new Model_HoKhau();
+        Model_HoKhau model_nk= new Model_HoKhau();
+        Model_ThuPhi model_tp = new Model_ThuPhi();
         menu1.setEvent(new MenuEvent() {
             @Override
             public void selected(int index, int subIndex) {
                 if (index == 0 && subIndex == 1) {
-                    showForm(new Form_ThongTinHo(model));
+                    showForm(new Form_ThongTinHo(model_nk));
                 } 
                 else if (index == 0 && subIndex == 2) {
-                    showForm(new Form_ThongTinNhanKhau());
+                    showForm(new Form_ThongTinNhanKhau(model_nk));
                 } 
                 else if (index == 0 && subIndex == 3) {
                     showForm(new Form_TamTruTamVang());
@@ -48,16 +51,16 @@ public class Main_Admin extends javax.swing.JFrame {
                     showForm(new Form_ThongKeNhanKhau());
                 } 
                 else if (index == 1 && subIndex == 1) {
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThuPhiChungCu(model_tp));
                 } 
                 else if (index == 1 && subIndex == 2) {
-                    showForm(new Form_ThuPhiTheoDot());
+                    showForm(new Form_ThuPhiTheoDot(model_tp));
                 }
                 else if (index == 1 && subIndex == 3) {
-                    showForm(new Form_ThuPhiGuiXe());
+                    showForm(new Form_ThuPhiGuiXe(model_tp));
                 } 
                 else if (index == 1 && subIndex == 4) {
-                    showForm(new Form_ThuPhiDienNuoc());
+                    showForm(new Form_ThuPhiDienNuoc(model_tp));
                 } 
                 else if (index == 2 && subIndex == 1) {
                     showForm(new Form_QuanLyThuongTet());
@@ -75,7 +78,7 @@ public class Main_Admin extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThongTinHo(model));
+                    showForm(new Form_ThongTinHo(model_nk));
                 }
                  else if(index == 1){
                     showForm(new Form_QuanLyTaiKhoan());
@@ -84,7 +87,7 @@ public class Main_Admin extends javax.swing.JFrame {
             }
         };
         header1.init(eventHeader);
-        showForm(new Form_ThongTinHo(model));
+        showForm(new Form_ThongTinHo(model_nk));
     }
 
     private void showForm(Component com) {

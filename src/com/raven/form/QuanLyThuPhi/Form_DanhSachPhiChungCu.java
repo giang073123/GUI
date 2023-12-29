@@ -4,28 +4,38 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.*;
+
 import java.awt.Container;
+import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC Giang
  */
 public class Form_DanhSachPhiChungCu extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
+    ArrayList<thu_tien_phichungcu> myList = new ArrayList<>() ;
+    int myMS;
+    khoan_thu_phichungcu myKT;
     /**
      * Creates new form Form_DanhSachPhiChungCu
      */
-    public Form_DanhSachPhiChungCu() {
+    public Form_DanhSachPhiChungCu( Model_ThuPhi model,khoan_thu_phichungcu kthu) {
+        myModel=model;
+        myKT = kthu;
+        myMS=myKT.getMS_KThu();
+
+       // myList = (thu_tien_phichungcu) myModel.thu_tien_Danhsach(new thu_tien_phichungcu(),MS_KThu);
         initComponents();
-        table1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Đã thu", "Chưa thu"})));
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
+        updateData();
+        updateTable();
+
+        updateInfo();
+
                 jButton_Thoat.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_ThoatActionPerformed(evt);
@@ -34,9 +44,34 @@ public class Form_DanhSachPhiChungCu extends javax.swing.JPanel {
 
     }
 
+    private void updateData(){
+        ArrayList<thu_tien> tmpList = myModel.thu_tien_Danhsach(new thu_tien_phichungcu(),myMS);
+        for(thu_tien t:tmpList){
+            myList.add((thu_tien_phichungcu) t);
+
+        }
+    }
+
+    private void updateTable(){
+        DefaultTableModel model = (DefaultTableModel)table1.getModel();
+        model.setRowCount(0);
+        int i=1;
+        // "Mã hộ", "Diện tích", "Số tiền", "Trạng thái thu", "Ngày thu"
+        for(thu_tien_phichungcu tt : myList){
+            table1.addRow(new Object[]{tt.getMa_Ho(),tt.getDien_tich(),tt.getSo_tien(),tt.getTrangthai_Thu(),tt.getNgay_thu()});
+        }
+    }
+
+    private void updateInfo(){
+         jLabel_MaKT.setText(Integer.toString(myKT.getMS_KThu()) );
+         jLabel_TenKT.setText(myKT.getTen_KThu());
+         jLabel_PhiDV.setText(Integer.toString(myKT.getPhi_dichvu()));
+        jLabel_PhiQL.setText(Integer.toString(myKT.getPhi_quanly()));
+    }
+
 private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThuPhiChungCu formThuPhiChungCu = new Form_ThuPhiChungCu();
+    Form_ThuPhiChungCu formThuPhiChungCu = new Form_ThuPhiChungCu(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

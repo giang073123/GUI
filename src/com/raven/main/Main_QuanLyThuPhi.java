@@ -4,6 +4,7 @@
  */
 package com.raven.main;
 
+import Model.ThuPhi.Model_ThuPhi;
 import com.raven.event.EventHeader;
 import com.raven.event.EventMenu;
 import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
@@ -21,7 +22,7 @@ import java.awt.Component;
  * @author PC Giang
  */
 public class Main_QuanLyThuPhi extends javax.swing.JFrame {
-
+    Model_ThuPhi myModel= new Model_ThuPhi();
     
     public Main_QuanLyThuPhi() {
         initComponents();        
@@ -30,16 +31,16 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
-                    showForm(new Form_ThuPhiTheoDot());
+                    showForm(new Form_ThuPhiTheoDot(myModel));
                 }
                 else if(index == 2){
-                    showForm(new Form_ThuPhiGuiXe());
+                    showForm(new Form_ThuPhiGuiXe(myModel));
                 }
                 else if(index == 3){
-                    showForm(new Form_ThuPhiDienNuoc());
+                    showForm(new Form_ThuPhiDienNuoc(myModel));
                 }
                 else if(index == 4){
                     System.out.println("Log out");
@@ -53,7 +54,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
                     showForm(new Form_QuanLyTaiKhoan());
@@ -63,7 +64,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
         };
         header1.init(eventHeader);
         menu1.initMenu(event);
-        showForm(new Form_ThuPhiChungCu());
+        showForm(new Form_ThuPhiChungCu(myModel));
         
 
     }

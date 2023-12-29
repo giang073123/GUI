@@ -4,24 +4,47 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
+import Model.ThuPhi.*;
+
+import javax.swing.*;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author PC Giang
  */
 public class Form_TaoKhoanThuChungCu extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
+    khoan_thu_phichungcu myKT = new khoan_thu_phichungcu();
     /**
      * Creates new form Form_TaoKhoanThuMoi
      */
-    public Form_TaoKhoanThuChungCu() {
+    public Form_TaoKhoanThuChungCu(Model_ThuPhi model) {
+        myModel=model;
         initComponents();
         jButton1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton1ActionPerformed(evt);
         }
     });
+
+        // LUU THONG TIN
+        jButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                     if(searchText2.getText().isEmpty() || searchText3.getText().isEmpty() || searchText4.getText().isEmpty() || jTextArea1.getText().isEmpty()){
+                         JOptionPane.showMessageDialog(null,"Hãy nhập đủ các thông tin yêu cầu"); return;
+                     }
+                     myKT.setTen_KThu(searchText2.getText()); myKT.setPhi_dichvu(Integer.parseInt(searchText3.getText()));
+                myKT.setPhi_quanly(Integer.parseInt(searchText4.getText()));
+                myKT.setGhi_chu(jTextArea1.getText());
+                myModel.khoan_thu_Taomoi(myKT);
+                exit();
+            }
+        });
     }
 
     /**
@@ -142,9 +165,14 @@ public class Form_TaoKhoanThuChungCu extends javax.swing.JPanel {
             .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    exit();
+}
+
+public void exit(){
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThuPhiChungCu formThuPhiChungCu = new Form_ThuPhiChungCu();
+    Form_ThuPhiChungCu formThuPhiChungCu = new Form_ThuPhiChungCu(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

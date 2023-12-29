@@ -4,57 +4,162 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+
+import Model.NhanKhau.ho_gia_dinh;
+import Model.NhanKhau.nhan_khau;
+import Model.ThuPhi.*;
 import com.raven.form.QuanLyThuPhi.Form_TaoKhoanThuChungCu;
 import com.raven.form.QuanLyThuPhi.Form_DanhSachPhiChungCu;
-import java.awt.Container;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC Giang
  */
 public class Form_ThuPhiChungCu extends javax.swing.JPanel {
+    Model_ThuPhi myModel;
+    khoan_thu_phichungcu myKT;
+    ArrayList<thu_tien_phichungcu> myList = new ArrayList<>();
+    ArrayList<khoan_thu_phichungcu> history = new ArrayList<>();
+
 
     /**
      * Creates new form Form_ThuPhiChungCu
      */
-    public Form_ThuPhiChungCu() {
+    public Form_ThuPhiChungCu(Model_ThuPhi tp) {
+        myModel = tp;
         initComponents();
-        addSampleRows();
+        getdata();  // get data for mylist
+
+        updateTable1(myList);
         checkRowCount();
-        
+        updateInfo();
+
+        getHistory();
+        updateTable2();
+
         jButton_TaoKT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
-        }); 
-                jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_XemChiTietActionPerformed(evt);
-        }
-    });
+        });
+        jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XemChiTietActionPerformed(evt);
+            }
+        });
+
+        // TABLE MODEL LISTENER
+        table1.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int idx = e.getFirstRow();
+                if (table1.getModel().getValueAt(idx, 3).toString().compareTo("Đã thu") != 0) {
+                } else {
+                    myList.get(idx).setTrangthai_Thu(table1.getModel().getValueAt(idx, 3).toString());
+                    myModel.thu_tien_CapNhat(myList.get(idx));
+                }
+            }
+        });
+
+        // NUT TIM KIEM
+        jButton_TimKiem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //JOptionPane.showMessageDialog(null,searchText1.getText());
+                if (searchText1.getText().length() < 1) {
+                    if (table1.getRowCount() > 1) {
+                    } else {
+                        updateTable1(myList);
+                    }
+                } else {
+                    int i = 0;
+                    for (thu_tien_phichungcu t : myList) {
+                        if (t.getMa_Ho() == Integer.parseInt(searchText1.getText())) {
+                            Rectangle rect = table1.getCellRect(i, 0, true);
+                            jScrollPane1.getViewport().scrollRectToVisible(rect);
+
+                            break;
+                        }
+                        i++;
+                    }
+                }
+            }
+
+        });
+
+        // KET THUC KHOAN THU
+        jButton_KetThucKT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                myModel.khoan_thu_Ketthuc("khoan_thu_phichungcu", myKT.getMS_KThu());
+                getdata();
+                updateTable1(myList);
+                checkRowCount();
+            }
+        });
+
+
+        // XEM CHI TIET KHOAN THU QUA KHU
+//        jButton_XemChiTiet.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//            }
+//        });
+
 
     }
 
-    private void addSampleRows() {
-        table1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Đã thu", "Chưa thu"})));
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
-        table1.addRow(new Object[]{"12431", "1", "1000000","Ðã thu","22/12/2023"});
+    // KHOAN THU HIEN TAI
+    private void getdata(){
+
+
+        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_phichungcu(),"Chưa kết thúc");
+        if (tmplist.size()==0) return;
+        ArrayList<thu_tien> list =myModel.thu_tien_Danhsach(new thu_tien_phichungcu(),tmplist.get(0).getMS_KThu());
+        Iterator<thu_tien> it = list.iterator();
+        while(it.hasNext()) {
+            myList.add((thu_tien_phichungcu) it.next());
+        }
+    }
+
+    private void updateTable1(ArrayList<thu_tien_phichungcu> list) {
+        if (list.size()==0) return;
+        DefaultTableModel model = (DefaultTableModel)table1.getModel();
+        model.setRowCount(0);
+        int i=1;
+       // "Mã hộ", "Diện tích", "Số tiền", "Trạng thái thu", "Ngày thu"
+        for(thu_tien_phichungcu tt : list){
+            table1.addRow(new Object[]{tt.getMa_Ho(),tt.getDien_tich(),tt.getSo_tien(),tt.getTrangthai_Thu(),tt.getNgay_thu()});
+        }
         
+    }
+
+    private void updateTable2(){
+        DefaultTableModel model = (DefaultTableModel)table2.getModel();
+        model.setRowCount(0);
+        int i=1;
+        for(khoan_thu_phichungcu kt : history){
+            table2.addRow(new Object[]{kt.getMS_KThu(),kt.getTen_KThu(),kt.getPhi_dichvu(),kt.getPhi_quanly(),kt.getNgaytao_KThu(),kt.getNgaykthuc_KThu(),kt.getTong_thu(),kt.getGhi_chu()});
+        }
+    }
+
+    private void updateInfo(){
+        if (myList.size()==0) return;
+        myKT = (khoan_thu_phichungcu) myModel.khoan_thu_Danhsach(new khoan_thu_phichungcu(),"Chưa kết thúc" ).get(0);
+        jLabel_MaKT.setText(Integer.toString(myKT.getMS_KThu())); jLabel_TenKT.setText(myKT.getTen_KThu()); jLabel_PhiQL.setText(Integer.toString(myKT.getPhi_quanly())); jLabel_PhiDV.setText(Integer.toString(myKT.getPhi_dichvu()));
     }
         private void checkRowCount() {
         if (table1.getRowCount() == 0) {
@@ -94,6 +199,18 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
             
         }
     }
+
+    //KHOAN THU QUA KHU
+    private void getHistory(){
+        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_phichungcu(),"Đã kết thúc");
+        if (tmplist.size()==0) return;
+     //   ArrayList<thu_tien> list =myModel.thu_tien_Danhsach(new thu_tien_phichungcu(),tmplist.get(0).getMS_KThu());
+        Iterator<khoan_thu> it = tmplist.iterator();
+        while(it.hasNext()) {
+            history.add((khoan_thu_phichungcu) it.next());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,6 +262,9 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+
+        table1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Đã thu", "Chưa thu"})));
+
         jScrollPane1.setViewportView(table1);
 
         jLabel_TenKT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -405,7 +525,7 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_TaoKhoanThuChungCu formTaoKhoanThuMoi = new Form_TaoKhoanThuChungCu();
+    Form_TaoKhoanThuChungCu formTaoKhoanThuMoi = new Form_TaoKhoanThuChungCu(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -422,7 +542,9 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 }
 private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_DanhSachPhiChungCu formDanhSachPhiChungCu= new Form_DanhSachPhiChungCu();
+
+
+    Form_DanhSachPhiChungCu formDanhSachPhiChungCu= new Form_DanhSachPhiChungCu(myModel,history.get(table2.getSelectedRow()));
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

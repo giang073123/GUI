@@ -4,6 +4,7 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
 import com.raven.form.QuanLyThuPhi.Form_LichSuDanhSachDienNuoc;
 import com.raven.form.QuanLyThuPhi.Form_ThemKhoanThuDienNuoc;
 import com.raven.form.QuanLyThuPhi.Form_DanhSachDienNuocHienTai;
@@ -14,12 +15,13 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
     /**
      * Creates new form Form_ThuPhiDienNuoc
      */
-    public Form_ThuPhiDienNuoc() {
+    public Form_ThuPhiDienNuoc(Model_ThuPhi tp) {
         initComponents();
+        myModel=tp;
         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_XemChiTietActionPerformed(evt);
@@ -331,7 +333,7 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_KetThucActionPerformed
 
     private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
-         Form_DanhSachDienNuocHienTai formDanhSachDienNuocHienTai = new Form_DanhSachDienNuocHienTai();
+         Form_DanhSachDienNuocHienTai formDanhSachDienNuocHienTai = new Form_DanhSachDienNuocHienTai(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -352,7 +354,7 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XoaActionPerformed
 
     private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
-        Form_ThemKhoanThuDienNuoc formThemKhoanThuDienNuoc = new Form_ThemKhoanThuDienNuoc();
+        Form_ThemKhoanThuDienNuoc formThemKhoanThuDienNuoc = new Form_ThemKhoanThuDienNuoc(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -373,7 +375,7 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XemChiTiet1ActionPerformed
 
     private void jButton_XemChiTiet2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet2ActionPerformed
-        Form_LichSuDanhSachDienNuoc formLichSuDanhSachDienNuoc = new Form_LichSuDanhSachDienNuoc();
+        Form_LichSuDanhSachDienNuoc formLichSuDanhSachDienNuoc = new Form_LichSuDanhSachDienNuoc(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

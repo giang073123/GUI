@@ -4,25 +4,102 @@
  */
 package com.raven.form.QuanLyNhanKhau;
 
+import Model.NhanKhau.Model_HoKhau;
+import Model.NhanKhau.nhan_khau;
+import com.raven.swing.*;
+
+import javax.swing.*;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  *
  * @author PC Giang
  */
 public class Form_NhanKhauMoi extends javax.swing.JPanel {
-
+    Model_HoKhau myModel;
+    ArrayList<SearchText> stList = new ArrayList<>();
     /**
      * Creates new form Form_NhanKhauMoi
      */
-    public Form_NhanKhauMoi() {
+    public Form_NhanKhauMoi(Model_HoKhau model) {
         initComponents();
+        myModel=model;
+
+
                                 jButton1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton1ActionPerformed(evt);
         }
     });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
     }
+
+
+    // LUU THONG TIN
+    private void jButton2ActionPerformed(ActionEvent evt) {
+           for(int i=0;i<9;i++){
+               if(i==1 || i==7) continue;
+
+               if(stList.get(i).getText().length()<1){
+                   JOptionPane.showMessageDialog(null,"Hãy nhập đủ thông tin yêu cầu");
+                   return;
+               }
+           }
+
+
+
+           if(myModel.nhan_khau_get(searchText6.getText())==null){}
+           else{ JOptionPane.showMessageDialog(null,"Số CCCD đã tồn tại trong dữ liệu dân cư"); return;}
+
+        nhan_khau newnk = new nhan_khau();
+
+        newnk.setCCCD(searchText6.getText());
+        newnk.setHo_ten(searchText1.getText());
+        newnk.setBi_danh(searchText2.getText());
+        newnk.setGioi_tinh(jCheckBox1.isSelected()?jCheckBox1.getText():jCheckBox2.getText());
+        newnk.setNgay_sinh(new java.sql.Date(jDateChooser1.getDate().getTime()));
+        newnk.setNoi_sinh(searchText4.getText());
+        newnk.setNguyen_quan(searchText5.getText());
+        newnk.setDan_toc(searchText3.getText());
+        newnk.setNghe_nghiep(searchText7.getText());
+        newnk.setNgay_DKTT(new java.sql.Date(jDateChooser2.getDate().getTime()));
+        newnk.setNoi_o_truoc(searchText9.getText());
+
+         myModel.nhan_khau_insert(newnk);
+        JOptionPane.showMessageDialog(null,"Thêm nhân khẩu thành công");
+        exit();
+    }
+
+// THOAT
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        exit();
+    }
+
+    private void exit(){
+        // Create an instance of Form_ThongTinChiTiet
+        Form_ThongTinNhanKhau formThongTinNhanKhau = new Form_ThongTinNhanKhau(myModel);
+
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
+
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formThongTinNhanKhau);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,12 +180,12 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
         jLabel10.setText("Nghề nghiệp:");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel11.setText("Mã hộ:");
+        jLabel11.setText("Mã hộ:"); jLabel11.setVisible(false); searchText8.setVisible(false);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel12.setText("Quan hệ với chủ hộ:");
+        jLabel12.setText("Quan hệ với chủ hộ:"); jLabel12.setVisible(false); searchText10.setVisible(false);
 
-        jDateChooser2.setDateFormatString("yyyy-MM-dd");
+        jDateChooser2.setDateFormatString("yyyy-MM-dd"); jDateChooser2.setSize(jDateChooser1.getWidth(),jDateChooser1.getHeight());
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel13.setText("Ngày đăng ký thường trú:");
@@ -255,24 +332,32 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        stList.add(searchText1);
+        stList.add(searchText2);
+        stList.add(searchText3);
+        stList.add(searchText4);
+        stList.add(searchText5);
+        stList.add(searchText6);
+        stList.add(searchText7);
+        stList.add(searchText8);
+        stList.add(searchText9);
+        stList.add(searchText10);
+
+//        searchText1.setText("1");
+//        searchText2.setText("2");
+//        searchText3.setText("3");
+//        searchText4.setText("4");
+//        searchText5.setText("5");
+//        searchText6.setText("6");
+//        searchText7.setText("7");
+//        searchText8.setText("8");
+//        searchText9.setText("9");
+//        searchText10.setText("10");
+
+
     }// </editor-fold>//GEN-END:initComponents
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    // Create an instance of Form_ThongTinChiTiet
-    Form_ThongTinNhanKhau formThongTinNhanKhau = new Form_ThongTinNhanKhau();
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
-
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formThongTinNhanKhau);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

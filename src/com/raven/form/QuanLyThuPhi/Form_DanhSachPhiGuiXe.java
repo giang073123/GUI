@@ -4,6 +4,8 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
+
 import java.awt.Container;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -13,11 +15,11 @@ import javax.swing.JComboBox;
  * @author PC Giang
  */
 public class Form_DanhSachPhiGuiXe extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
     /**
      * Creates new form Form_DanhSachPhiGuiXe
      */
-    public Form_DanhSachPhiGuiXe() {
+    public Form_DanhSachPhiGuiXe( Model_ThuPhi model) {
         initComponents();
         table1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Đã thu", "Chưa thu"})));
         table1.addRow(new Object[]{"12431", "1000000","Ðã thu","22/12/2023"});
@@ -34,7 +36,7 @@ public class Form_DanhSachPhiGuiXe extends javax.swing.JPanel {
     }
 private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThuPhiGuiXe formThuPhiGuiXe = new Form_ThuPhiGuiXe();
+    Form_ThuPhiGuiXe formThuPhiGuiXe = new Form_ThuPhiGuiXe(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

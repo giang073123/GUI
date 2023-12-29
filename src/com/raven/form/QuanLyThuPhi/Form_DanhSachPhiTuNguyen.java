@@ -4,6 +4,8 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
+
 import java.awt.Container;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -13,11 +15,12 @@ import javax.swing.JComboBox;
  * @author PC Giang
  */
 public class Form_DanhSachPhiTuNguyen extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
     /**
      * Creates new form Form_DanhSachPhiTuNguyen
      */
-    public Form_DanhSachPhiTuNguyen() {
+    public Form_DanhSachPhiTuNguyen( Model_ThuPhi model) {
+        myModel=model;
         initComponents();
         addSampleRows();
         
@@ -36,7 +39,7 @@ public class Form_DanhSachPhiTuNguyen extends javax.swing.JPanel {
 
 private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThuPhiTheoDot formThuPhiTheoDot = new Form_ThuPhiTheoDot();
+    Form_ThuPhiTheoDot formThuPhiTheoDot = new Form_ThuPhiTheoDot(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -53,7 +56,7 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
 }
 private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_ThemDongDanhSachTuNguyen formThemDongDanhSachTuNguyen = new Form_ThemDongDanhSachTuNguyen();
+    Form_ThemDongDanhSachTuNguyen formThemDongDanhSachTuNguyen = new Form_ThemDongDanhSachTuNguyen(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

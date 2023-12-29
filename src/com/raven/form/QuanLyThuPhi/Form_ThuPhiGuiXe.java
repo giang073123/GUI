@@ -4,6 +4,7 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
 import com.raven.form.QuanLyThuPhi.Form_TaoKhoanThuGuiXe;
 import com.raven.form.QuanLyThuPhi.Form_DanhSachPhiGuiXe;
 import java.awt.Container;
@@ -15,12 +16,13 @@ import javax.swing.JComboBox;
  * @author PC Giang
  */
 public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
     /**
      * Creates new form Form_ThuPhiTuNguyen
      */
-    public Form_ThuPhiGuiXe() {
+    public Form_ThuPhiGuiXe(Model_ThuPhi tp) {
         initComponents();
+        myModel=tp;
         addSampleRows();
         checkRowCount();
         jButton_TaoKT2.addActionListener(new java.awt.event.ActionListener() {
@@ -530,7 +532,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_CapNhat3ActionPerformed
 private void jButton_TaoKT2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_TaoKhoanThuGuiXe formTaoKhoanThuMoi = new Form_TaoKhoanThuGuiXe();
+    Form_TaoKhoanThuGuiXe formTaoKhoanThuMoi = new Form_TaoKhoanThuGuiXe(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -547,7 +549,7 @@ private void jButton_TaoKT2ActionPerformed(java.awt.event.ActionEvent evt) {
 }
 private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
-    Form_DanhSachPhiGuiXe formDanhSachPhiGuiXe = new Form_DanhSachPhiGuiXe();
+    Form_DanhSachPhiGuiXe formDanhSachPhiGuiXe = new Form_DanhSachPhiGuiXe(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

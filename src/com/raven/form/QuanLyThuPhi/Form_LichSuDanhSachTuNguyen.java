@@ -4,6 +4,7 @@
  */
 package com.raven.form.QuanLyThuPhi;
 
+import Model.ThuPhi.Model_ThuPhi;
 import com.raven.form.QuanLyThuPhi.Form_DanhSachPhiTuNguyen;
 import com.raven.form.QuanLyThuPhi.Form_ThuPhiTheoDot;
 import java.awt.Container;
@@ -13,11 +14,12 @@ import java.awt.Container;
  * @author dangk
  */
 public class Form_LichSuDanhSachTuNguyen extends javax.swing.JPanel {
-
+    Model_ThuPhi myModel;
     /**
      * Creates new form Form_LichSuDanhSachTuNguyen
      */
-    public Form_LichSuDanhSachTuNguyen() {
+    public Form_LichSuDanhSachTuNguyen(Model_ThuPhi model) {
+        myModel=model;
         initComponents();
         jButton_Thoat.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +172,7 @@ public class Form_LichSuDanhSachTuNguyen extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XuatFileActionPerformed
 
     private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThoatActionPerformed
-    Form_ThuPhiTheoDot formThuPhiTheoDot = new Form_ThuPhiTheoDot();
+    Form_ThuPhiTheoDot formThuPhiTheoDot = new Form_ThuPhiTheoDot(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
