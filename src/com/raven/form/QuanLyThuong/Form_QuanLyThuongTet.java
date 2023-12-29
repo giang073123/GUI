@@ -4,8 +4,8 @@
  */
 package com.raven.form.QuanLyThuong;
 
-import com.raven.form.Form_LichSuDanhSachThuongTet;
-import com.raven.form.Form_ThemKhoanThuongTet;
+import com.raven.form.QuanLyThuong.Form_LichSuDanhSachThuongTet;
+import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongTet;
 import com.raven.form.QuanLyThuong.Form_DanhSachThuongTet;
 import java.awt.Container;
 

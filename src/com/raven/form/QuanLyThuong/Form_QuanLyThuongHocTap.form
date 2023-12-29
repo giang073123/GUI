@@ -121,13 +121,13 @@
                       <Table columnCount="9" rowCount="0">
                         <Column editable="true" title="M&#xe3; s&#x1ed1;" type="java.lang.Integer"/>
                         <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
-                        <Column editable="true" title="CCCD" type="java.lang.Integer"/>
-                        <Column editable="true" title="M&#xe3; h&#x1ed9;" type="java.lang.Integer"/>
-                        <Column editable="true" title="Tr&#x1b0;&#x1edd;ng h&#x1ecd;c" type="java.lang.String"/>
-                        <Column editable="true" title="Th&#xe0;nh t&#xed;ch" type="java.lang.String"/>
-                        <Column editable="true" title="Minh ch&#x1ee9;ng" type="java.lang.String"/>
-                        <Column editable="true" title="Gi&#xe1; tr&#x1ecb; ph&#x1ea7;n qu&#xe0;" type="java.lang.Integer"/>
-                        <Column editable="true" title="Ng&#xe0;y th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
+                        <Column editable="true" title="H&#x1ecd;c sinh gi&#x1ecf;i" type="java.lang.Integer"/>
+                        <Column editable="true" title="H&#x1ecd;c sinh ti&#xea;n ti&#x1ebf;n" type="java.lang.Integer"/>
+                        <Column editable="true" title="Kh&#xe1;c" type="java.lang.Integer"/>
+                        <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.String"/>
+                        <Column editable="true" title="Ng&#xe0;y k&#x1ebf;t th&#xfa;c" type="java.lang.String"/>
+                        <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
+                        <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -381,7 +381,7 @@
                   <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch l&#x1ecb;ch s&#x1eed; c&#xe1;c kho&#x1ea3;n th&#x1b0;&#x1edf;ng t&#x1ebf;t"/>
+                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch l&#x1ecb;ch s&#x1eed; c&#xe1;c kho&#x1ea3;n th&#x1b0;&#x1edf;ng h&#x1ecd;c t&#x1ead;p"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_XemChiTiet1">

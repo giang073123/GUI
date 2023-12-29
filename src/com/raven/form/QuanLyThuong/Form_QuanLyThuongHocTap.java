@@ -81,11 +81,11 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "CCCD", "Mã hộ", "Trường học", "Thành tích", "Minh chứng", "Giá trị phần quà", "Ngày thưởng"
+                "Mã số", "Họ và tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -196,7 +196,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
         jLabel_TieuDe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_TieuDe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_TieuDe.setText("Danh sách lịch sử các khoản thưởng tết");
+        jLabel_TieuDe.setText("Danh sách lịch sử các khoản thưởng học tập");
 
         jButton_XemChiTiet1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XemChiTiet1.setText("Xem chi tiết");
@@ -265,7 +265,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
     private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
         // TODO add your handling code here:    // Create an instance of Form_ThongTinChiTiet
-        Form_DanhSachThuongTet formDanhSachThuongTet = new Form_DanhSachThuongTet();
+        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -274,7 +274,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongTet);
+        parentContainer.add(formDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
@@ -303,7 +303,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet1ActionPerformed
-//        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet();
+        Form_LichSuDanhSachThuongHocTap formLichSuDanhSachThuongHocTap = new Form_LichSuDanhSachThuongHocTap();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -312,7 +312,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-//        parentContainer.add(formLichSuDanhSachThuongTet);
+        parentContainer.add(formLichSuDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
