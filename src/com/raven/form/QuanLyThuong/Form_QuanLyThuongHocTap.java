@@ -3,9 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.raven.form.QuanLyThuong;
+import com.raven.model.QuanLyThuongHocTap;
 
-import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongHocTap;
+import com.raven.model.QuanLyThuongHocTapDAO;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Container;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.List;
 
 /**
  *
@@ -18,26 +24,59 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
      */
     public Form_QuanLyThuongHocTap() {
         initComponents();
+        loadKhoanThuongData();
         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_XemChiTietActionPerformed(evt);
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XemChiTietActionPerformed(evt);
+            }
+        });
+        jButton_ThemKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ThemKhoanThuongActionPerformed(evt);
+            }
+        });
+        jButton_XemChiTiet1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XemChiTiet1ActionPerformed(evt);
+            }
+        });
+    }
+    public void loadKhoanThuongData() {
+        QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+        try {
+            List<QuanLyThuongHocTap> data = dao.getActiveAwards();
+            DefaultTableModel model = (DefaultTableModel) table_DanhSachKhoanThuong.getModel();
+            model.setRowCount(0); // Clear old data
+            for (QuanLyThuongHocTap award : data) {
+                model.addRow(new Object[]{
+                        award.getMsKThg(),
+                        award.getTenKThg(),
+                        award.getThuongHsgDacBiet(),
+                        award.getThuongHstt(),
+                        award.getThuongKhac(),
+                        award.getNgayTaoKThg(),
+                        award.getNgayKetThucKThg(),
+                        award.getTongThuong(),
+                        award.getGhiChu()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the error
         }
-    });
-                jButton_ThemKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_ThemKhoanThuongActionPerformed(evt);
-        }
-    });
-                jButton_XemChiTiet1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_XemChiTiet1ActionPerformed(evt);
-        }
-    });
+    }
+    public void showPanel(javax.swing.JPanel panelToShow) {
+        // Add the specified panel to the parent container
+        Container parentContainer = this.getParent();
+        parentContainer.remove(this);
+        parentContainer.add(panelToShow);
+        parentContainer.revalidate();
+        parentContainer.repaint();
     }
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -77,21 +116,22 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         table_DanhSachKhoanThuong.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã số", "Họ và tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Ghi chú"
-            }
+                },
+                new String [] {
+                        "Mã số", "Tên", "Thưởng HSG", "Thưởng HSTT", "Thành tích khác", "Ngày tạo", "Ngày kết thúc", "Tổng thưởng", "Ghi chú"
+                }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+
         jScrollPane2.setViewportView(table_DanhSachKhoanThuong);
 
         jButton_XemChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -117,37 +157,37 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel_DanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jButton_XemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton_ThemKhoanThuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton_Xoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton_KetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel_DanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(63, 63, 63)
+                                                .addComponent(jButton_XemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(15, 15, 15)
+                                                .addComponent(jButton_ThemKhoanThuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(15, 15, 15)
+                                                .addComponent(jButton_Xoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(15, 15, 15)
+                                                .addComponent(jButton_KetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(49, 49, 49)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel_DanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_KetThuc)
-                    .addComponent(jButton_Xoa)
-                    .addComponent(jButton_XemChiTiet)
-                    .addComponent(jButton_ThemKhoanThuong))
-                .addGap(34, 34, 34))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel_DanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton_KetThuc)
+                                        .addComponent(jButton_Xoa)
+                                        .addComponent(jButton_XemChiTiet)
+                                        .addComponent(jButton_ThemKhoanThuong))
+                                .addGap(34, 34, 34))
         );
 
         jTabbedPane1.addTab("Khoản thưởng học tập", jPanel1);
@@ -157,18 +197,18 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã số", "Tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Tổng thưởng", "Ghi chú"
-            }
+                },
+                new String [] {
+                        "Mã số", "Tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Tổng thưởng", "Ghi chú"
+                }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -209,36 +249,36 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton_XemChiTiet1)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
-            .addComponent(jLabel_TieuDe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jButton_XemChiTiet1)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(57, Short.MAX_VALUE))
+                        .addComponent(jLabel_TieuDe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel_TieuDe, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton_XemChiTiet1)
-                .addContainerGap(43, Short.MAX_VALUE))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_TieuDe, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(41, 41, 41)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jButton_XemChiTiet1)
+                                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Lịch sử thưởng học tập", jPanel2);
@@ -246,26 +286,27 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
-    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucActionPerformed
+
+    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_KetThucActionPerformed
+    }
 
-    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
+    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_XoaActionPerformed
+    }
 
-    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
+    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:    // Create an instance of Form_ThongTinChiTiet
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
+        Form_DanhSachThuongTet formDanhSachThuongTet = new Form_DanhSachThuongTet();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -274,14 +315,14 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongHocTap);
+        parentContainer.add(formDanhSachThuongTet);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }//GEN-LAST:event_jButton_XemChiTietActionPerformed
+    }
 
-    private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemKhoanThuongActionPerformed
+    private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {
         Form_ThemKhoanThuongHocTap formThemKhoanThuongHocTap = new Form_ThemKhoanThuongHocTap();
 
         // Get the parent container (JFrame or another container)
@@ -296,14 +337,14 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }//GEN-LAST:event_jButton_ThemKhoanThuongActionPerformed
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
-    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet1ActionPerformed
-        Form_LichSuDanhSachThuongHocTap formLichSuDanhSachThuongHocTap = new Form_LichSuDanhSachThuongHocTap();
+    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
+//        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -312,15 +353,15 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formLichSuDanhSachThuongHocTap);
+//        parentContainer.add(formLichSuDanhSachThuongTet);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }//GEN-LAST:event_jButton_XemChiTiet1ActionPerformed
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_KetThuc;
     private javax.swing.JButton jButton_ThemKhoanThuong;
@@ -338,5 +379,5 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.raven.swing.Table table;
     private com.raven.swing.Table table_DanhSachKhoanThuong;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }
