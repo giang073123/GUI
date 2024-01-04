@@ -3,13 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.raven.form.DangNhap;
+import com.raven.main.*;
+
+import javax.swing.JOptionPane;
+import Service.connectDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author dangk
  */
 public class Form_DangNhap extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Form_DangNhap
      */
@@ -223,6 +232,39 @@ public class Form_DangNhap extends javax.swing.JFrame {
 
     private void jButton_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DangNhapActionPerformed
         // TODO add your handling code here:
+        if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(null,"Hãy nhập đủ thông tin đăng nhập"); return;
+                     }
+        connectDB conDB = new connectDB();
+        Connection conn= conDB.connect();
+        
+        String username = usernameField.getText();
+	String pw = String.valueOf(passwordField.getPassword());
+				
+				 try {   
+		    		 String sql = "select * from can_bo";
+		    		 PreparedStatement stm = conn.prepareStatement(sql);
+                                 //stm.setString(1,username); 
+                                 //stm.setString(2,pw);
+		    		 ResultSet my_rs = stm.executeQuery(sql);
+		    		 if(my_rs.next()) { 
+                                     
+                                     JOptionPane.showMessageDialog(null,"Đăng nhập thành công.");
+                                     String chucvu = my_rs.getString(5);
+                                    if(chucvu.compareTo("Tổ trưởng")==0 ||chucvu.compareTo("Tổ phó")==0 ){ Main_Admin m =new Main_Admin(); m.setVisible(true); this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý nhân khẩu")==0 ){ Main_QuanLyNhanKhau m =new Main_QuanLyNhanKhau(); this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý phát thưởng")==0 ){ Main_QuanLyThuong m =new Main_QuanLyThuong(); this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý thu phí")==0 ){ Main_QuanLyThuPhi m =new Main_QuanLyThuPhi(); this.dispose();}
+                                 }
+		    		 else JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu.");
+		    		 
+		    	 } catch (SQLException ex) {
+		    	     // handle any errors
+		    	    // JOptionPane.showMessageDialog(null,"Hãy kiểm tra lại kết nối");
+                            ex.printStackTrace();
+		    	 }
+                     
+        
     }//GEN-LAST:event_jButton_DangNhapActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
@@ -231,6 +273,7 @@ public class Form_DangNhap extends javax.swing.JFrame {
 
     private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThoatActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton_ThoatActionPerformed
 
     private void showiconMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showiconMousePressed

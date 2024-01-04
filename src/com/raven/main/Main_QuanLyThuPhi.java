@@ -7,13 +7,13 @@ package com.raven.main;
 import Model.ThuPhi.Model_ThuPhi;
 import com.raven.event.EventHeader;
 import com.raven.event.EventMenu;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
+import com.raven.form.QuanLyThuPhi.Phichungcu.Form_ThuPhiChungCu;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyThuPhi.Phiguixe.Form_ThuPhiGuiXe;
 import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
 import com.raven.form.QuanLyTaiKhoan.Form_QuanLyTaiKhoan;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiDienNuoc;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiTheoDot;
+import com.raven.form.QuanLyThuPhi.Diennuoc.Form_ThuPhiDienNuoc;
+import com.raven.form.QuanLyThuPhi.Phitunguyen.Form_ThuPhiTheoDot;
 import java.awt.Color;
 import java.awt.Component;
 
