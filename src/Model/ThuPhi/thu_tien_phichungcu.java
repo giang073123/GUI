@@ -37,15 +37,23 @@ public class thu_tien_phichungcu extends thu_tien {
     }
 
     @Override
-    public void setDataForStm(PreparedStatement statement){     // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE  (không cần thao tác INSERT)
+    public void setDataForStm(PreparedStatement statement, String trang_thai){     // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE  (không cần thao tác INSERT)
         try {
-            this.setNgay_thu(java.sql.Date.valueOf(LocalDate.now()));
+            if(trang_thai.compareTo("Đã thu")==0){
+               
+            this.setNgay_thu(java.sql.Date.valueOf(LocalDate.now()));          
             statement.setFloat(1, this.getDien_tich());
             statement.setInt(2, this.getSo_tien());
-            statement.setString(3, this.getTrangthai_Thu());
-            statement.setDate(4, new Date(this.getNgay_thu().getTime()));
-            statement.setInt(5, this.getMS_KThu());
-            statement.setInt(6, this.getMa_Ho());
+            statement.setDate(3, new Date(this.getNgay_thu().getTime()));
+            statement.setInt(4, this.getMS_KThu());
+            statement.setInt(5, this.getMa_Ho());
+            }
+            else{
+            statement.setFloat(1, this.getDien_tich());
+            statement.setInt(2, this.getSo_tien());     // SỐ TIỀN MỚI ĐƯỢC TÍNH TOÁN TRONG PHẦN  XỬ LÝ SỰ KIỆN
+            statement.setInt(3, this.getMS_KThu());
+            statement.setInt(4, this.getMa_Ho());
+            }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -54,9 +62,17 @@ public class thu_tien_phichungcu extends thu_tien {
 
 
     @Override
-    public String updateQuery(){return "UPDATE ds_thu_tien_phichungcu "
+    public String updateQuery(String trang_thai){
+        String query="";
+        if(trang_thai.compareTo("Đã thu")==0){
+        query= "UPDATE ds_thu_tien_phichungcu "
             + "SET Dien_tich = ? ,"
-            + "So_tien = ?, Trangthai_Thu = ?, Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
+            + "So_tien = ?, Trangthai_Thu = 'Đã thu', Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
+        else query= "UPDATE ds_thu_tien_phichungcu "
+            + "SET Dien_tich = ? ,"
+            + "So_tien = ?, Trangthai_Thu = 'Chưa thu', Ngay_thu = null WHERE MS_KThu = ? AND Ma_Ho = ? ";
+     return query;
+    }
 
 
 

@@ -30,12 +30,12 @@ public abstract class thu_tien {
 
     }
 
-    public void setDataForStm(PreparedStatement stm){}
+    public void setDataForStm(PreparedStatement stm, String trang_thai){}
 
 
     // public String insertQuery(){ return null;}
 
-    public String updateQuery(){ return null;}
+    public String updateQuery(String trang_thai){ return null;}
 
     public thu_tien Clone_() {
         return null;

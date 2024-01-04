@@ -123,10 +123,10 @@ public class Model_ThuPhi{
 
     }
 
-    //   2.2. Thêm hàng vào danh sách    // Chỉ dùng cho Quản lý thu tự nguyện
-    public void thu_tien_ThemHang(thu_tien_khac tt) {
+    //   2.2. Thêm dòng, xóa dòng    // Chỉ dùng cho Quản lý thu tự nguyện
+    public void thu_tien_ThemDong(thu_tien_khac tt) {
         String sql = tt.insertQuery();
-
+        tt.setLoai_KThu("Thu phí tự nguyện");
         System.out.println(sql);
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, tt.getMS_KThu());
@@ -134,7 +134,7 @@ public class Model_ThuPhi{
             statement.setString(3, tt.getLoai_KThu());
             statement.setInt(4, tt.getSo_tien());
             statement.setString(5, tt.getTrangthai_Thu());
-            statement.setDate(6, new Date(tt.getNgay_thu().getTime()));
+            statement.setDate(6, tt.getNgay_thu());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -142,14 +142,30 @@ public class Model_ThuPhi{
         }
 
     }
+    
+    public void thu_tien_XoaDong(thu_tien_khac tt){
+        String sql = "delete from ds_thu_tien_khac where MS_KThu=? and Ma_Ho=?";
 
-    //    2.3. Cập nhật danh sách
-    public void thu_tien_CapNhat(thu_tien tt) {   //-> Method này sẽ viết code riêng cho các class khoản thu
-        String sql = tt.updateQuery();
-        JOptionPane.showMessageDialog(null,tt.getTrangthai_Thu());
         System.out.println(sql);
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            tt.setDataForStm(statement);
+            statement.setInt(1, tt.getMS_KThu());
+            statement.setInt(2, tt.getMa_Ho());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    
+    }
+
+    //    2.3. Cập nhật danh sách
+    public void thu_tien_CapNhat(thu_tien tt, String trang_thai) {   //-> Method này sẽ viết code riêng cho các class khoản thu
+        String sql = tt.updateQuery(trang_thai);
+        
+       // JOptionPane.showMessageDialog(null,tt.getTrangthai_Thu()+"Model_ThuPhi.thu_tien_Capnhat");
+        System.out.println(sql);
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            tt.setDataForStm(statement,trang_thai);
             statement.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -159,9 +175,30 @@ public class Model_ThuPhi{
 
 
     //3. Method cho Đăng ký xe
+    public ArrayList<dang_ky_xe> getDKxe(){
+         ArrayList<dang_ky_xe> ds = new ArrayList<>();
+        String sql = "Select * from dang_ky_xe ";
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            // Set the parameters for the prepared statement
+            ResultSet resultSet = stm.executeQuery();
+        while(resultSet.next()){           
+            dang_ky_xe dk = new dang_ky_xe();
+            dk.setMa_Ho(resultSet.getInt("Ma_Ho"));
+            dk.setSo_luong_xedap(resultSet.getInt("So_luong_xedap"));
+            dk.setSo_luong_xemay(resultSet.getInt("So_luong_xemay"));
+            dk.setSo_luong_oto(resultSet.getInt("So_luong_oto"));
+            
+            ds.add(dk);
+        }
 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+         
+         return ds;
+    }
 
-    void dang_ky_xe_update(dang_ky_xe dk){
+    public void dang_ky_xe_update(dang_ky_xe dk){
         String sql = "Update dang_ky_xe set So_luong_xedap =?, So_luong_xemay = ?, So_luong_oto=? where Ma_Ho=? ";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set the parameters for the prepared statement
@@ -196,23 +233,42 @@ public class Model_ThuPhi{
 //        khoan_thu_phichungcu kt = new khoan_thu_phichungcu();
 //        kt.setTen_KThu("khoản thu chung cư mới 2"); kt.setPhi_dichvu(5000); kt.setPhi_quanly(5000); kt.setGhi_chu("");
 //                m.khoan_thu_Taomoi(kt);
+////
+//        thu_tien_guixe tt= new thu_tien_guixe();
 //
-        thu_tien_guixe tt= new thu_tien_guixe();
-
-        ArrayList<thu_tien> list = m.thu_tien_Danhsach(tt, 6);
-
-        ArrayList<thu_tien_guixe> mylist = new ArrayList<>();
-
-        for(thu_tien t:list){
-            mylist.add((thu_tien_guixe) t);
-
-        }
+//        ArrayList<thu_tien> list = m.thu_tien_Danhsach(tt, 6);
+//
+//        ArrayList<thu_tien_guixe> mylist = new ArrayList<>();
+//
+//        for(thu_tien t:list){
+//            mylist.add((thu_tien_guixe) t);
+//
+//        }
 
         // mylist.get(0).setTrangthai_Thu("Đã thu"); mylist.get(0).setNgay_thu(Date.valueOf(LocalDate.now()));
 
         //  m.thu_tien_CapNhat(mylist.get(0));
-        System.out.println(mylist.get(0).getMS_KThu());
-
+        boolean check=false;
+        try {
+            float num = Float.parseFloat("abc");
+        } catch (NumberFormatException e) {
+            check = false;
+        }
+        System.out.println(check);
+        
+        
+        //   DRAFT CHO KIỂM TRA THAY ĐỔI HỢP LỆ TRONG BẢNG
+//          boolean check=false;  // KIỂM TRA DIỆN TÍCH CÓ NHẬP ĐÚNG ĐỊNH DẠNG SỐ KHÔNG
+//                    try {
+//                       float num = Float.parseFloat(table1.getModel().getValueAt(idx, 1).toString());
+//                       } catch (NumberFormatException exc) {
+//                        check = false;
+//                       }
+//                    if(!check) { 
+//                        JOptionPane.showMessageDialog(null,"Diện tích nhập không đúng định dạng"); 
+//                        table1.getModel().setValueAt(myList.get(idx).getDien_tich(),idx,1);
+//                        return;
+//                    }
 
     }
 

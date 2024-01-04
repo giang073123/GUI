@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -43,17 +44,27 @@ public class thu_tien_guixe extends thu_tien {
     }
 
     @Override
-    public void setDataForStm(PreparedStatement statement){    // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE  (không cần thao tác INSERT)
+    public void setDataForStm(PreparedStatement statement,String trang_thai){    // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE  (không cần thao tác INSERT)
         try {
-            this.setTrangthai_Thu("Đã thu");
-            statement.setInt(1, this.getSo_luong_xedap());
-            statement.setInt(2, this.getSo_luong_xemay());
-            statement.setInt(3, this.getSo_luong_oto());
-            statement.setInt(4, this.getSo_tien());
-            statement.setString(5, this.getTrangthai_Thu());
-            statement.setDate(6, new Date(this.getNgay_thu().getTime()));
-            statement.setInt(7, this.getMS_KThu());
-            statement.setInt(8, this.getMa_Ho());
+             if(trang_thai.compareTo("Đã thu")==0){
+                this.setNgay_thu(java.sql.Date.valueOf(LocalDate.now()));
+                statement.setInt(1, this.getSo_luong_xedap());          // NẾU THÔNG TIN VỀ SỐ LƯỢNG XE KHÔNG SAI, CHỈ CẦN THAY ĐỔI TRẠNG THÁI THU
+                statement.setInt(2, this.getSo_luong_xemay());          // THÌ CẦN GÌ UPDATE MẤY TRƯỜNG THÔNG TIN NÀY
+                statement.setInt(3, this.getSo_luong_oto());
+                statement.setInt(4, this.getSo_tien());
+                statement.setDate(5, new Date(this.getNgay_thu().getTime()));
+                statement.setInt(6, this.getMS_KThu());
+                statement.setInt(7, this.getMa_Ho());
+             }
+             else{
+                statement.setInt(1, this.getSo_luong_xedap());         
+                statement.setInt(2, this.getSo_luong_xemay());          
+                statement.setInt(3, this.getSo_luong_oto());
+                statement.setInt(4, this.getSo_tien());              
+                statement.setInt(5, this.getMS_KThu());
+                statement.setInt(6, this.getMa_Ho());
+                
+             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -62,10 +73,21 @@ public class thu_tien_guixe extends thu_tien {
 
 
     @Override
-    public String updateQuery(){return "UPDATE ds_thu_tien_guixe "
-            + "SET So_luong_xedap = ?, So_luong_xemay = ?,  So_luong_oto = ?, "
-            + "So_tien = ?, Trangthai_Thu = ?, Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
-
+    public String updateQuery(String trang_thai){
+        String query="";
+        if(trang_thai.compareTo("Đã thu")==0){
+           query= "UPDATE ds_thu_tien_guixe "
+                 + "SET So_luong_xedap = ?, So_luong_xemay = ?,  So_luong_oto = ?, "
+                 + "So_tien = ?, Trangthai_Thu = 'Đã thu', Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
+        else query= "UPDATE ds_thu_tien_guixe "
+                 + "SET So_luong_xedap = ?, So_luong_xemay = ?,  So_luong_oto = ?, "
+                 + "So_tien = ?, Trangthai_Thu = 'Chưa thu', Ngay_thu = null WHERE MS_KThu = ? AND Ma_Ho = ? ";
+        
+        return query;
+    }
+    
+    
+    
     @Override
     public thu_tien Clone_() {
         return new thu_tien_guixe();

@@ -36,15 +36,22 @@ public class thu_tien_khac extends thu_tien {
     }
 
     @Override
-    public void setDataForStm(PreparedStatement statement){    // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE
+    public void setDataForStm(PreparedStatement statement, String trang_thai){    // CHÚ Ý: CHỈ Dùng cho thao tác UPDATE, insert dòng cho thu tự nguyện ở trong Model
         try {
-
-            statement.setString(1, this.getLoai_KThu());
-            statement.setInt(2, this.getSo_tien());
-            statement.setString(3, this.getTrangthai_Thu());
-            statement.setDate(4, new Date(this.getNgay_thu().getTime()));
-            statement.setInt(5, this.getMS_KThu());
-            statement.setInt(6, this.getMa_Ho());
+            
+            if(trang_thai.compareTo("Đã thu")==0){
+                 statement.setString(1, this.getLoai_KThu());
+                 statement.setInt(2, this.getSo_tien());
+                 statement.setDate(3, new Date(this.getNgay_thu().getTime()));
+                 statement.setInt(4, this.getMS_KThu());
+                 statement.setInt(5, this.getMa_Ho());
+            }
+            else{
+                 statement.setString(1, this.getLoai_KThu());
+                 statement.setInt(2, this.getSo_tien());
+                 statement.setInt(3, this.getMS_KThu());
+                 statement.setInt(4, this.getMa_Ho());
+            }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -56,9 +63,19 @@ public class thu_tien_khac extends thu_tien {
             + " So_tien, Trangthai_Thu, Ngay_thu) "
             + "VALUES (?, ?, ?, ?, ?,?)";}
 
+    
     @Override
-    public String updateQuery(){return "UPDATE ds_thu_tien_guixe SET"
-            + "So_tien = ?, Trangthai_Thu = ?, Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
+    public String updateQuery(String trang_thai){
+        String query="";
+        if(trang_thai.compareTo("Đã thu")==0){
+        query= "UPDATE ds_thu_tien_khac "
+                + "Loai_KThu = ?"
+                + "So_tien = ?, Trangthai_Thu = 'Đã thu', Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
+        else query= "UPDATE ds_thu_tien_khac "
+            + "Loai_KThu = ?"
+            + "So_tien = ?, Trangthai_Thu = 'Chưa thu', Ngay_thu = null WHERE MS_KThu = ? AND Ma_Ho = ? ";
+     return query;
+    }
 
     @Override
     public thu_tien Clone_() {
