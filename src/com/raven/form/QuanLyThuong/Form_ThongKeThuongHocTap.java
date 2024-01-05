@@ -12,16 +12,10 @@ import java.awt.Container;
  */
 public class Form_ThongKeThuongHocTap extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_ThongKeThuongHocTap
-     */
+
     public Form_ThongKeThuongHocTap() {
-        initComponents();
-        jButton_QuayLai1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_QuayLai1ActionPerformed(evt);
-        }
-    });
+
+
     }
 
     /**
@@ -175,7 +169,6 @@ public class Form_ThongKeThuongHocTap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XuatFile1ActionPerformed
 
     private void jButton_QuayLai1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuayLai1ActionPerformed
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap= new Form_DanhSachThuongHocTap();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -184,7 +177,6 @@ public class Form_ThongKeThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();

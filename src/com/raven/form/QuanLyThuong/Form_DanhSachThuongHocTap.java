@@ -7,10 +7,12 @@ package com.raven.form.QuanLyThuong;
 import java.awt.Container;
 import com.raven.model.DanhSachThuongHocTapDAO;
 import com.raven.model.DanhSachThuongHocTap;
+import com.raven.model.QuanLyThuongHocTap;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import com.raven.model.QuanLyThuongHocTap; // Adjust the package path if different.
 
 /**
  *
@@ -18,12 +20,12 @@ import javax.swing.JOptionPane;
  */
 public class Form_DanhSachThuongHocTap extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DanhSachThuongHocTap
-     */
-    public Form_DanhSachThuongHocTap() {
+    private QuanLyThuongHocTap award;
+    public Form_DanhSachThuongHocTap(QuanLyThuongHocTap award) {
+        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap(award);
+        this.award = award;
         initComponents();
-        loadAwardData();
+        loadAwardData(award.getMsKThg());
         jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_QuayLaiActionPerformed(evt);
@@ -40,49 +42,36 @@ public class Form_DanhSachThuongHocTap extends javax.swing.JPanel {
         }
     });
     }
-    private void loadAwardData() {
+    private void loadAwardData(int msKThg) {
         DanhSachThuongHocTapDAO dao = new DanhSachThuongHocTapDAO();
         DefaultTableModel model = (DefaultTableModel) table_DanhSachChiTiet.getModel();
-        model.setRowCount(0); // Clear existing data
+        model.setRowCount(0); // Clear existing data from the table
+        jLabel_MaSo.setText(String.valueOf(award.getMsKThg()));
+        jLabel_TenKT.setText(award.getTenKThg());
         try {
-            List<DanhSachThuongHocTap> awards = dao.getAllAwards();
-            for (DanhSachThuongHocTap award : awards) {
-                Object[] row = new Object[] {
-                        award.getHoTen(),
-                        award.getCccd(),
-                        award.getMaHo(),
-                        award.getTruongHoc(),
-                        award.getThanhTich(),
-                        award.getMinhChung(),
-                        award.getTrangThaiKhoanThuong(),
-                        award.getGiaTriPhanQua(),
-                        award.getNgayThuong()
-                };
-                model.addRow(row);
+            List<DanhSachThuongHocTap> awardDetails = dao.getAwardDetails(msKThg);
+            for (DanhSachThuongHocTap detail : awardDetails) {
+                // Populate the table with award details
+                model.addRow(new Object[]{detail.getHoTen(), detail.getCccd(), /* other properties */});
             }
         } catch (SQLException ex) {
+            // Handle the exception (show an error message, log the error, etc.)
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi khi truy xuất cơ sở dữ liệu: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error loading award data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+
+
     private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
-    // Create an instance of Form_ThongTinChiTiet
-    Form_QuanLyThuongHocTap formQuanLyThuongHocTap = new Form_QuanLyThuongHocTap();
-
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
-
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formQuanLyThuongHocTap);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
+        // Assuming you want to create a new instance of Form_QuanLyThuongHocTap and show it
+        Form_QuanLyThuongHocTap formQuanLyThuongHocTap = new Form_QuanLyThuongHocTap();
+        Container parentContainer = this.getParent();
+        parentContainer.remove(this);
+        parentContainer.add(formQuanLyThuongHocTap);
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -317,22 +306,16 @@ public class Form_DanhSachThuongHocTap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_TimKiemActionPerformed
 
-    private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
+    private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {
+        // Assuming Form_ThemDanhSachHocTap does not require any parameters
         Form_ThemDanhSachHocTap formThemDanhSachHocTap = new Form_ThemDanhSachHocTap();
+        Container parentContainer = this.getParent();
+        parentContainer.remove(this);
+        parentContainer.add(formThemDanhSachHocTap);
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
-
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
-
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formThemDanhSachHocTap);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-    }//GEN-LAST:event_jButton_ThemActionPerformed
 
     private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
         // TODO add your handling code here:

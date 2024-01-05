@@ -213,20 +213,7 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XacNhanActionPerformed
 
     private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
 
-        // Get the parent container (JFrame or another container)
-        Container parentContainer = this.getParent();
-
-        // Remove the current panel (Form_ThongTinHo) from the parent container
-        parentContainer.remove(this);
-
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongHocTap);
-
-        // Repaint the container to reflect the changes
-        parentContainer.revalidate();
-        parentContainer.repaint();
     }//GEN-LAST:event_jButton_HuyActionPerformed
 
     private void jComboBox_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_TrangThaiActionPerformed

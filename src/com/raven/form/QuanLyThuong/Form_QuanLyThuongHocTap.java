@@ -6,7 +6,7 @@ package com.raven.form.QuanLyThuong;
 
 import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongHocTap;
 import com.raven.model.QuanLyThuongHocTapDAO;
-import com.raven.model.QuanLyThuongHocTap;
+import com.raven.model.QuanLyThuongHocTap; // Adjust the package path if different.
 import java.util.List;
 import java.awt.Container;
 import javax.swing.table.DefaultTableModel;
@@ -17,33 +17,22 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import java.util.Date;
 
-/**
- *
- * @author PC Giang
- */
+
 public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_QuanLyThuongHocTap
-     */
+    private Form_DanhSachThuongHocTap instance;
+    private QuanLyThuongHocTap someAward;
+
+    // Declare award at the class level
+    private QuanLyThuongHocTap award;
+
+
     public Form_QuanLyThuongHocTap() {
         initComponents();
         loadKhoanThuongData();
-        jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_XemChiTietActionPerformed(evt);
-            }
-        });
-        jButton_ThemKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ThemKhoanThuongActionPerformed(evt);
-            }
-        });
-        jButton_XemChiTiet1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_XemChiTiet1ActionPerformed(evt);
-            }
-        });
+
+
+
     }
 
     public void loadKhoanThuongData() {
@@ -96,11 +85,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
         jButton_KetThuc.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_KetThuc.setText("Kết thúc khoản thưởng");
-        jButton_KetThuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_KetThucActionPerformed(evt);
-            }
-        });
+
 
         jButton_Xoa.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_Xoa.setText("Xóa khoản thưởng");
@@ -109,7 +94,16 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
                 jButton_XoaActionPerformed(evt);
             }
         });
-
+        jButton_ThemKhoanThuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ThemKhoanThuongActionPerformed(evt);
+            }
+        });
+        jButton_XemChiTiet1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XemChiTiet1ActionPerformed(evt);
+            }
+        });
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         table_DanhSachKhoanThuong.setModel(new javax.swing.table.DefaultTableModel(
@@ -134,9 +128,31 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         jButton_XemChiTiet.setText("Xem chi tiết");
         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_XemChiTietActionPerformed(evt);
+                int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+                if (selectedRow >= 0) {
+                    int msKThg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
+                    QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                    try {
+                        QuanLyThuongHocTap award = dao.getKhoanThuongById(msKThg);
+                        if (award != null) {
+                            // Open the detail form with the award information
+                            Form_DanhSachThuongHocTap formChiTiet = new Form_DanhSachThuongHocTap(award);
+                            Container parentContainer = Form_QuanLyThuongHocTap.this.getParent();
+                            parentContainer.remove(Form_QuanLyThuongHocTap.this);
+                            parentContainer.add(formChiTiet);
+                            parentContainer.revalidate();
+                            parentContainer.repaint();
+                        }
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(Form_QuanLyThuongHocTap.this, "Lỗi khi truy xuất dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(Form_QuanLyThuongHocTap.this, "Vui lòng chọn một khoản thưởng để xem chi tiết.");
+                }
             }
         });
+
+
 
         jLabel_DanhSach.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_DanhSach.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -292,30 +308,55 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_KetThucActionPerformed
+
+    }
 
     private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy mã số của khoản thưởng từ bảng
+            int msKThg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
+
+            // Xác nhận trước khi xóa
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa khoản thưởng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                    dao.deleteKhoanThuong(msKThg);
+                    JOptionPane.showMessageDialog(this, "Đã xóa khoản thưởng thành công!");
+
+                    // Cập nhật lại bảng sau khi xóa
+                    loadKhoanThuongData();
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa khoản thưởng: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khoản thưởng để xóa.");
+        }
     }//GEN-LAST:event_jButton_XoaActionPerformed
 
-    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
-        // TODO add your handling code here:    // Create an instance of Form_ThongTinChiTiet
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
+    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+        if (selectedRow >= 0) {
+            int msKThg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
+            QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+            try {
+                QuanLyThuongHocTap award = dao.getKhoanThuongById(msKThg);
+                if (award != null) {
+                    // Pass the award object to the constructor of Form_DanhSachThuongHocTap
+                    Form_DanhSachThuongHocTap formChiTiet = new Form_DanhSachThuongHocTap(award);
+                    // ... rest of your code
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(Form_QuanLyThuongHocTap.this, "Lỗi khi truy xuất dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(Form_QuanLyThuongHocTap.this, "Vui lòng chọn một khoản thưởng để xem chi tiết.");
+        }
+    }
 
-        // Get the parent container (JFrame or another container)
-        Container parentContainer = this.getParent();
-
-        // Remove the current panel (Form_ThongTinHo) from the parent container
-        parentContainer.remove(this);
-
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongHocTap);
-
-        // Repaint the container to reflect the changes
-        parentContainer.revalidate();
-        parentContainer.repaint();
-    }//GEN-LAST:event_jButton_XemChiTietActionPerformed
 
     private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemKhoanThuongActionPerformed
         Form_ThemKhoanThuongHocTap formThemKhoanThuongHocTap = new Form_ThemKhoanThuongHocTap();

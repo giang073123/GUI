@@ -5,7 +5,16 @@
 package com.raven.form.QuanLyThuong;
 
 import java.awt.Container;
-
+import com.raven.model.QuanLyThuongHocTapDAO;
+import com.raven.model.QuanLyThuongHocTap; // Adjust the package path if different.
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
+import java.sql.SQLException;
+import com.raven.model.QuanLyThuongTetDAO;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import java.util.Date;
 /**
  *
  * @author dangk
@@ -87,7 +96,11 @@ public class Form_ThemKhoanThuongHocTap extends javax.swing.JPanel {
 
         jButton_XacNhan.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XacNhan.setText("Xác nhận");
-
+        jButton_XacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XacNhanActionPerformed(evt);
+            }
+        });
         jButton_QuayLai.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_QuayLai.setText("Quay lại");
         jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +186,37 @@ public class Form_ThemKhoanThuongHocTap extends javax.swing.JPanel {
     private void searchText_GhiChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_GhiChuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchText_GhiChuActionPerformed
+    private void jButton_XacNhanActionPerformed(java.awt.event.ActionEvent evt) {
+        String tenKThg = searchText_TenKhoanThuong.getText();
+        int thuongHsgDacBiet;
+        int thuongHstt;
+        int thuongKhac;
+
+        try {
+            thuongHsgDacBiet = Integer.parseInt(searchText_HocSinhGioi.getText());
+            thuongHstt = Integer.parseInt(searchText_HocSinhTT.getText());
+            thuongKhac = Integer.parseInt(searchText_TienKhac.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Số tiền thưởng phải là số nguyên. Vui lòng nhập lại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String ghiChu = searchText_GhiChu.getText();
+
+        // Kiểm tra tính hợp lệ của dữ liệu đầu vào (ví dụ: không để trống tên khoản thưởng)
+        if (tenKThg.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khoản thưởng không được để trống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+            dao.addKhoanThuong(tenKThg, thuongHsgDacBiet, thuongHstt, thuongKhac, ghiChu);
+            JOptionPane.showMessageDialog(this, "Đã thêm khoản thưởng thành công!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Thêm không thành công, vui lòng nhập lại: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuayLaiActionPerformed
         Form_QuanLyThuongHocTap formQuanLyThuongHocTap = new Form_QuanLyThuongHocTap();
