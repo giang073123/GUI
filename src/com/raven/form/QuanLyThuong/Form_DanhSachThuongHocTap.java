@@ -5,6 +5,12 @@
 package com.raven.form.QuanLyThuong;
 
 import java.awt.Container;
+import com.raven.model.DanhSachThuongHocTapDAO;
+import com.raven.model.DanhSachThuongHocTap;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +23,7 @@ public class Form_DanhSachThuongHocTap extends javax.swing.JPanel {
      */
     public Form_DanhSachThuongHocTap() {
         initComponents();
+        loadAwardData();
         jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_QuayLaiActionPerformed(evt);
@@ -33,7 +40,33 @@ public class Form_DanhSachThuongHocTap extends javax.swing.JPanel {
         }
     });
     }
-private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void loadAwardData() {
+        DanhSachThuongHocTapDAO dao = new DanhSachThuongHocTapDAO();
+        DefaultTableModel model = (DefaultTableModel) table_DanhSachChiTiet.getModel();
+        model.setRowCount(0); // Clear existing data
+        try {
+            List<DanhSachThuongHocTap> awards = dao.getAllAwards();
+            for (DanhSachThuongHocTap award : awards) {
+                Object[] row = new Object[] {
+                        award.getHoTen(),
+                        award.getCccd(),
+                        award.getMaHo(),
+                        award.getTruongHoc(),
+                        award.getThanhTich(),
+                        award.getMinhChung(),
+                        award.getTrangThaiKhoanThuong(),
+                        award.getGiaTriPhanQua(),
+                        award.getNgayThuong()
+                };
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi khi truy xuất cơ sở dữ liệu: " + ex.getMessage());
+        }
+    }
+
+    private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
     // Create an instance of Form_ThongTinChiTiet
     Form_QuanLyThuongHocTap formQuanLyThuongHocTap = new Form_QuanLyThuongHocTap();
 

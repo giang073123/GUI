@@ -3,15 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.raven.form.QuanLyThuong;
-import com.raven.model.QuanLyThuongHocTap;
 
+import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongHocTap;
 import com.raven.model.QuanLyThuongHocTapDAO;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Container;
-import java.sql.SQLException;
-import java.util.Vector;
+import com.raven.model.QuanLyThuongHocTap;
 import java.util.List;
+import java.awt.Container;
+import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
+import java.sql.SQLException;
+import com.raven.model.QuanLyThuongTetDAO;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import java.util.Date;
 
 /**
  *
@@ -41,6 +45,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
             }
         });
     }
+
     public void loadKhoanThuongData() {
         QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
         try {
@@ -56,7 +61,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
                         award.getThuongKhac(),
                         award.getNgayTaoKThg(),
                         award.getNgayKetThucKThg(),
-                        award.getTongThuong(),
+                        award.getTrangThai(), // Add this to display the status
                         award.getGhiChu()
                 });
             }
@@ -65,18 +70,10 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
             // Handle the error
         }
     }
-    public void showPanel(javax.swing.JPanel panelToShow) {
-        // Add the specified panel to the parent container
-        Container parentContainer = this.getParent();
-        parentContainer.remove(this);
-        parentContainer.add(panelToShow);
-        parentContainer.revalidate();
-        parentContainer.repaint();
-    }
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -120,18 +117,17 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
                 },
                 new String [] {
-                        "Mã số", "Tên", "Thưởng HSG", "Thưởng HSTT", "Thành tích khác", "Ngày tạo", "Ngày kết thúc", "Tổng thưởng", "Ghi chú"
+                        "Mã số", "Họ và tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Ghi chú"
                 }
         ) {
             Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-
         jScrollPane2.setViewportView(table_DanhSachKhoanThuong);
 
         jButton_XemChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -293,20 +289,19 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
-    }// </editor-fold>
+    }// </editor-fold>//GEN-END:initComponents
 
-
-    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucActionPerformed
         // TODO add your handling code here:
-    }
+    }//GEN-LAST:event_jButton_KetThucActionPerformed
 
-    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
         // TODO add your handling code here:
-    }
+    }//GEN-LAST:event_jButton_XoaActionPerformed
 
-    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
         // TODO add your handling code here:    // Create an instance of Form_ThongTinChiTiet
-        Form_DanhSachThuongTet formDanhSachThuongTet = new Form_DanhSachThuongTet();
+        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -315,14 +310,14 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongTet);
+        parentContainer.add(formDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }
+    }//GEN-LAST:event_jButton_XemChiTietActionPerformed
 
-    private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemKhoanThuongActionPerformed
         Form_ThemKhoanThuongHocTap formThemKhoanThuongHocTap = new Form_ThemKhoanThuongHocTap();
 
         // Get the parent container (JFrame or another container)
@@ -337,14 +332,14 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }
+    }//GEN-LAST:event_jButton_ThemKhoanThuongActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
-//        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet();
+    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet1ActionPerformed
+        Form_LichSuDanhSachThuongHocTap formLichSuDanhSachThuongHocTap = new Form_LichSuDanhSachThuongHocTap();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -353,15 +348,15 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.remove(this);
 
         // Add the new panel (Form_ThongTinChiTiet) to the parent container
-//        parentContainer.add(formLichSuDanhSachThuongTet);
+        parentContainer.add(formLichSuDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes
         parentContainer.revalidate();
         parentContainer.repaint();
-    }
+    }//GEN-LAST:event_jButton_XemChiTiet1ActionPerformed
 
 
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_KetThuc;
     private javax.swing.JButton jButton_ThemKhoanThuong;
@@ -379,5 +374,5 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.raven.swing.Table table;
     private com.raven.swing.Table table_DanhSachKhoanThuong;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
 }

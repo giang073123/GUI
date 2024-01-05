@@ -10,7 +10,7 @@ public class QuanLyThuongHocTap {
     private int thuongKhac;
     private Date ngayTaoKThg;
     private Date ngayKetThucKThg;
-    private String trangThaiKhoanThuong;
+    private String trangThai; // This should match the column name in your database.
     private int tongThuong;
     private String ghiChu;
 
@@ -22,7 +22,7 @@ public class QuanLyThuongHocTap {
     // Constructor với tất cả các thuộc tính
     public QuanLyThuongHocTap(int msKThg, String tenKThg, int thuongHsgDacBiet,
                               int thuongHstt, int thuongKhac, Date ngayTaoKThg,
-                              Date ngayKetThucKThg, String trangThaiKhoanThuong, // Thêm tham số này
+                              Date ngayKetThucKThg, String trangThai, // Thêm tham số này
                               int tongThuong, String ghiChu) {
         this.msKThg = msKThg;
         this.tenKThg = tenKThg;
@@ -31,7 +31,7 @@ public class QuanLyThuongHocTap {
         this.thuongKhac = thuongKhac;
         this.ngayTaoKThg = ngayTaoKThg;
         this.ngayKetThucKThg = ngayKetThucKThg;
-        this.trangThaiKhoanThuong = trangThaiKhoanThuong; // Gán giá trị cho thuộc tính mới
+        this.trangThai = trangThai; // Gán giá trị cho thuộc tính mới
         this.tongThuong = tongThuong;
         this.ghiChu = ghiChu;
     }
@@ -49,11 +49,16 @@ public class QuanLyThuongHocTap {
     public String getTenKThg() {
         return tenKThg;
     }
+    public String getTrangThai() {
 
+        return trangThai;
+    }
     public void setTenKThg(String tenKThg) {
         this.tenKThg = tenKThg;
     }
-
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
     // Getter và Setter cho thuongHsgDacBiet
     public int getThuongHsgDacBiet() {
         return thuongHsgDacBiet;
@@ -98,16 +103,8 @@ public class QuanLyThuongHocTap {
     public void setNgayKetThucKThg(Date ngayKetThucKThg) {
         this.ngayKetThucKThg = ngayKetThucKThg;
     }
-    public String getTrangThaiKhoanThuong() {
-        return trangThaiKhoanThuong;
-    }
 
-    // Setter cho trangThaiKhoanThuong
-    public void setTrangThaiKhoanThuong(String trangThaiKhoanThuong) {
-        this.trangThaiKhoanThuong = trangThaiKhoanThuong;
-    }
 
-    // Getter và Setter cho tongThuong
     public int getTongThuong() {
         return tongThuong;
     }
@@ -136,7 +133,7 @@ public class QuanLyThuongHocTap {
                 ", thuongKhac=" + thuongKhac +
                 ", ngayTaoKThg=" + ngayTaoKThg +
                 ", ngayKetThucKThg=" + ngayKetThucKThg +
-                ", trangThaiKhoanThuong='" + trangThaiKhoanThuong + '\'' + // In ra trạng thái khoản thưởng
+                ", trangThai='" + trangThai + '\'' + // In ra trạng thái khoản thưởng
                 ", tongThuong=" + tongThuong +
                 ", ghiChu='" + ghiChu + '\'' +
                 '}';

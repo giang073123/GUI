@@ -30,7 +30,11 @@
             this.jTabbedPane1 = tabbedPane; // Initialized via constructor
             initComponents();
             setupChangeListener();
-            loadLichSuKhoanThuongDaKetThuc();
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    loadLichSuKhoanThuongDaKetThuc();
+                }
+            });
         }
         private void setupChangeListener() {
             jTabbedPane1.addChangeListener(new ChangeListener() {
@@ -59,17 +63,27 @@
 
         private void loadLichSuKhoanThuongDaKetThuc() {
             QuanLyThuongTetDAO dao = new QuanLyThuongTetDAO();
-            try {
-                Vector<Vector<Object>> data = dao.layKhoanThuongDaKetThuc();
-                model.setRowCount(0); // Clear the existing data
-                for (Vector<Object> row : data) {
-                    model.addRow(row); // Add new data row by row
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        Vector<Vector<Object>> data = dao.layKhoanThuongDaKetThuc();
+                        model.setRowCount(0); // Clear the existing data
+                        for (Vector<Object> row : data) {
+                            model.addRow(row); // Add new data row by row
+                        }
+                        // Assuming that 'model' is already set as the model for 'table_LichSuThuongLeTet'
+                        table_LichSuThuongLeTet.repaint();
+                        table_LichSuThuongLeTet.revalidate();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(Form_LichSuDanhSachThuongTet.this, "Lỗi khi tải dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
+            });
         }
+
+
+
         public void showPanel(JPanel panelToShow) {
             Container parentContainer = this.getParent();
             if (panelToShow instanceof Form_LichSuDanhSachThuongTet) {
@@ -79,7 +93,9 @@
         }
         private void initComponents() {
             this.model = new DefaultTableModel(columnNames, 0);
-            this.table_LichSuThuongLeTet = new JTable(model);
+            this.table_LichSuThuongLeTet.setModel(model);
+            JScrollPane scrollPane = new JScrollPane(table_LichSuThuongLeTet);
+            add(scrollPane);
             JScrollPane jScrollPane2 = new JScrollPane(table_LichSuThuongLeTet);
             JLabel jLabel_Ten = new JLabel();
             searchText_Ten = new com.raven.swing.SearchText();
