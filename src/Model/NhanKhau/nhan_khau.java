@@ -16,13 +16,14 @@ public class nhan_khau {
     private String Nghe_nghiep; // Nghe_nghiep
     private Date Ngay_DKTT; // Ngay_DKTT
     private String Noi_o_truoc; // Noi_o_truoc
+    private String Trang_thai_nhan_khau; //
 
     // Constructors, getters, and setters can be added here based on your requirements
 
     // Example constructor
     public nhan_khau(String CCCD, int Ma_Ho, String Ho_ten, String QH_chuho,String Gioi_tinh, String Bi_danh,
                       Date Ngay_sinh, String Noi_sinh, String Nguyen_quan,
-                     String Dan_toc, String Nghe_nghiep, Date Ngay_DKTT, String Noi_o_truoc) {
+                     String Dan_toc, String Nghe_nghiep, Date Ngay_DKTT, String Noi_o_truoc, String Trang_thai_nhan_khau) {
         this.CCCD = CCCD;
         this.Ma_Ho = Ma_Ho;
         this.Ho_ten = Ho_ten;
@@ -36,7 +37,10 @@ public class nhan_khau {
         this.Nghe_nghiep = Nghe_nghiep;
         this.Ngay_DKTT = Ngay_DKTT;
         this.Noi_o_truoc = Noi_o_truoc;
+        this.Trang_thai_nhan_khau = Trang_thai_nhan_khau;
     }
+
+   
 
     public nhan_khau(){}
 
@@ -163,6 +167,14 @@ public class nhan_khau {
 
     public void setNoi_o_truoc(String Noi_o_truoc) {
         this.Noi_o_truoc = Noi_o_truoc;
+    }
+    
+    public String getTrang_thai_nhan_khau() {
+        return Trang_thai_nhan_khau;
+    }
+
+    public void setTrang_thai_nhan_khau(String Trang_thai_nhan_khau) {
+        this.Trang_thai_nhan_khau = Trang_thai_nhan_khau;
     }
 
     // Feel free to add more methods or customize this class based on your needs

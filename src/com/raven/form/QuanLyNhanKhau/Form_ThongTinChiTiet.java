@@ -21,33 +21,38 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
      private ArrayList<nhan_khau> members;
     public Form_ThongTinChiTiet(int Ma_Ho, Model_HoKhau model) {
         initComponents();
-
+        
+        jLabel5.setVisible(false); jLabel12.setVisible(false); jLabel19.setVisible(false); jLabel20.setVisible(false);jLabel21.setVisible(false);jLabel22.setVisible(false);
+        jLabel23.setVisible(true); searchText1.setVisible(true); jButton1.setVisible(true); jButton4.setVisible(true);
+        
         myModel = model;
         this.family=myModel.ho_gia_dinh_getfamily(Ma_Ho);
         update_Table();
         update_family_info();
 
-            jButton3.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
-        }
-    });
-                        jButton2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-        }
-    });
-                        jButton6.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton6ActionPerformed(evt);
-        }
-    });
+        // XEM LỊCH SỬ THAY ĐỔI
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  jButton3ActionPerformed(evt);
+            }
+        });
+            
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  jButton2ActionPerformed(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  jButton6ActionPerformed(evt);
+           }
+        });
 
-//        jButton1.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//               // jButton1ActionPerformed(evt);
-//            }
-//        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
     }
 
 
@@ -85,18 +90,18 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
 
 
-//    // THÊM NHÂN KHẨU
-//    private void jButton1ActionPerformed(ActionEvent evt) {
-//        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
-//        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
-//        else if (nk.getMa_Ho()>0) {
-//            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
-//        }
-//
-//        nk.setMa_Ho(family.getMa_Ho());
-//
-//    }
-////-------------------------------------------------------------------------------------------------
+    // THÊM NHÂN KHẨU
+    private void jButton1ActionPerformed(ActionEvent evt) {
+        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
+        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
+        else if (nk.getMa_Ho()>0) {
+            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
+        }
+
+        nk.setMa_Ho(family.getMa_Ho());
+
+    }
+//-------------------------------------------------------------------------------------------------
 
 // LỊCH SỬ THAY ĐỔI
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {

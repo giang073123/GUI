@@ -303,6 +303,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a h&#x1ed9;"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jButton4.setVisible(true);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

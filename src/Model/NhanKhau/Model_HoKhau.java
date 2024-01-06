@@ -35,11 +35,11 @@ public class Model_HoKhau {
 
 
     //   1.1 Lấy toàn bo danh sách hộ khẩu
-    public ArrayList<ho_gia_dinh> ho_gia_dinh_getds() {
+    public ArrayList<ho_gia_dinh> ho_gia_dinh_getds() {   // CHỈ LẤY DANH SÁCH CÁC HỘ ĐANG THƯỜNG TRÚ
         ArrayList<ho_gia_dinh> families = new ArrayList<>();
 
         try {
-            PreparedStatement stm = conn.prepareStatement("select * from ho_gia_dinh ");
+            PreparedStatement stm = conn.prepareStatement("select * from ho_gia_dinh where Trang_thai_ho = 'Thường trú'  ");
             ResultSet resultSet = stm.executeQuery();
 
             // Iterate through the result set and populate the ArrayList
@@ -52,6 +52,7 @@ public class Model_HoKhau {
                 family.setDuong_(resultSet.getString("Duong_"));
                 family.setPhuong_(resultSet.getString("Phuong_"));
                 family.setQuan_(resultSet.getString("Quan_"));
+                family.setTrang_thai_ho(resultSet.getString("Trang_thai_ho"));
 
                 families.add(family);
             }
@@ -92,7 +93,7 @@ public class Model_HoKhau {
     //1.2. Tạo hộ mới
     public void ho_gia_dinh_taomoi(ho_gia_dinh f){
         String sql = "INSERT INTO ho_gia_dinh (CCCD_Chuho, So_nha, Dien_tich, Duong_, Phuong_, Quan_) " +
-                "VALUES (?, ?, truncate(?,2), ?, ?, ?)";
+                "VALUES (?, ?, truncate(?,2), ?, ?, ?)"; // update nhan_khau set Ma_Ho = ? where CCCD =? 
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set values for the prepared statement
@@ -102,6 +103,8 @@ public class Model_HoKhau {
             statement.setString(4, f.getDuong_());
             statement.setString(5, f.getPhuong_());
             statement.setString(6, f.getQuan_());
+//            statement.setInt(8, f.getCCCD_Chuho());
+//            statement.setString(8, f.getCCCD_Chuho());
 
             // Execute the query
             statement.executeUpdate();
@@ -119,8 +122,8 @@ public class Model_HoKhau {
 
     //1.4. Xóa hộ
     public void ho_gia_dinh_delete(int Ma_Ho){
-        String update = "UPDATE nhan_khau SET Ma_Ho = 0, QH_Chuho = '' WHERE Ma_Ho = ?";
-        String delete = "DELETE FROM ho_gia_dinh WHERE Ma_Ho = ?";
+        String update = "UPDATE nhan_khau SET Ma_Ho = null, QH_Chuho = '' WHERE Ma_Ho = ?";
+        String delete = "Update ho_gia_dinh set Trang_thai_ho = 'Đã xóa', CCCD_Chuho = null WHERE Ma_Ho = ?";
 
         try (PreparedStatement updateNhanKhauStatement = conn.prepareStatement(update);
              PreparedStatement deleteHoGiaDinhStatement = conn.prepareStatement(delete)) {
@@ -150,7 +153,7 @@ public class Model_HoKhau {
     public ArrayList<nhan_khau> nhan_khau_getds() {
         ArrayList<nhan_khau> ds_nhankhau = new ArrayList<>();
         try {
-            PreparedStatement stm = conn.prepareStatement("select * from nhan_khau ");
+            PreparedStatement stm = conn.prepareStatement("select * from nhan_khau where Trang_thai_nhan_khau='Thường trú' ");
             ResultSet my_rs = stm.executeQuery();
 
             while (my_rs.next()) {
@@ -168,9 +171,10 @@ public class Model_HoKhau {
                 String Nghe_nghiep = my_rs.getString("Nghe_nghiep");
                 Date Ngay_DKTT = my_rs.getDate("Ngay_DKTT");
                 String Noi_o_truoc = my_rs.getString("Noi_o_truoc");
+                String Trang_thai_nhan_khau = my_rs.getString("Trang_thai_nhan_khau");
                 //System.out.println(Gioi_tinh);
                 nhan_khau nk = new nhan_khau(CCCD, Ma_Ho, Ho_ten, QH_chuho, Gioi_tinh, Bi_danh, Ngay_sinh, Noi_sinh,
-                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc);
+                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc,Trang_thai_nhan_khau);
                 ds_nhankhau.add(nk);
                 //System.out.println(nk.getGioi_tinh());
 
@@ -209,9 +213,10 @@ public class Model_HoKhau {
                 String Nghe_nghiep = my_rs.getString("Nghe_nghiep");
                 Date Ngay_DKTT = my_rs.getDate("Ngay_DKTT");
                 String Noi_o_truoc = my_rs.getString("Noi_o_truoc");
+                String Trang_thai_nhan_khau = my_rs.getString("Trang_thai_nhan_khau");
                 //System.out.println(Gioi_tinh);
                 nhan_khau nk = new nhan_khau(CCCD, Ma_Ho, Ho_ten, QH_chuho, Gioi_tinh, Bi_danh, Ngay_sinh, Noi_sinh,
-                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc);
+                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc,Trang_thai_nhan_khau);
                 members.add(nk);
                 //System.out.println(nk.getGioi_tinh());
 

@@ -8,12 +8,13 @@ public class ho_gia_dinh {
     private String Duong_; // Duong_
     private String Phuong_; // Phuong_
     private String Quan_; // Quan_
+    private String Trang_thai_ho;  //
 
 
 
 
     public ho_gia_dinh(int Ma_Ho, String CCCD_Chuho, int So_nha, double Dien_tich,
-                       String Duong_, String Phuong_, String Quan_) {
+                       String Duong_, String Phuong_, String Quan_,String Trang_thai_ho) {
         this.Ma_Ho = Ma_Ho;
         this.CCCD_Chuho = CCCD_Chuho;
         this.So_nha = So_nha;
@@ -21,6 +22,15 @@ public class ho_gia_dinh {
         this.Duong_ = Duong_;
         this.Phuong_ = Phuong_;
         this.Quan_ = Quan_;
+        this.Trang_thai_ho = Trang_thai_ho;
+    }
+
+    public String getTrang_thai_ho() {
+        return Trang_thai_ho;
+    }
+
+    public void setTrang_thai_ho(String Trang_thai_ho) {
+        this.Trang_thai_ho = Trang_thai_ho;
     }
 
     public ho_gia_dinh(){}

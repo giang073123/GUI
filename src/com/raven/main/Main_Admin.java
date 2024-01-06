@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.raven.main;
-
+//this
 import Model.NhanKhau.*;
 
 import Model.ThuPhi.*;

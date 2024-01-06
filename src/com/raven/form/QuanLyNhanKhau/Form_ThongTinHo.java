@@ -186,7 +186,7 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(null);
 
-        table.setModel(new DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -255,7 +255,8 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
         jButton3.setText("Thêm hộ");
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Xóa hộ"); jButton4.setVisible(false);
+        jButton4.setText("Xóa hộ");
+        jButton4.setVisible(true);
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -354,7 +355,8 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     if(table.getSelectedRow()<0) return;
     else{
     int i =table.getSelectedRow();
-
+    
+    
     Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(myList.get(i).getMa_Ho(),myModel);
 
     // Get the parent container (JFrame or another container)
@@ -397,7 +399,34 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
     // XÓA HỘ
     private void jButton4ActionPerformed(ActionEvent evt) {
-
+        int i;
+        if(table.getSelectedRow()<0) return;
+        else{  i =table.getSelectedRow();}
+             
+        
+         Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa hộ này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                      myModel.ho_gia_dinh_delete(myList.get(i).getMa_Ho());
+                      myList.remove(i);
+                      DefaultTableModel model = (DefaultTableModel) table.getModel();
+                      model.removeRow(i);
+                      JOptionPane.showMessageDialog(null, "Đã xóa hộ");
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
     }
 //---------------------------------------------------------------------------------------
 
