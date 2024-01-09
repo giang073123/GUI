@@ -147,7 +147,8 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
         else {
             int i = table.getSelectedRow();
            // JOptionPane.showMessageDialog(null,i+myList.get(i).getHo_ten());
-            Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau(myModel,myList.get(i));
+           nhan_khau nk = myModel.nhan_khau_get(table.getValueAt(i,2).toString());
+            Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau(myModel,nk);
 
             // Get the parent container (JFrame or another container)
             Container parentContainer = this.getParent();

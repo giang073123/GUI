@@ -24,9 +24,41 @@ public class Form_ThemHo extends javax.swing.JPanel {
         myModel=model;
 
         // NÚT THÊM HỘ
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {                                                  
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ho_gia_dinh f = new ho_gia_dinh();
+            
+            Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn thêm hộ này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                    
+                    try {
+                      Integer.parseInt(searchText3.getText());
+                      Float.parseFloat(searchText8.getText());
+                    } catch (NumberFormatException nfe) {
+                         JOptionPane.showMessageDialog(null,"Các giá trị số không hợp lệ hoặc chưa được nhập "); return;
+                    }
+                    
+                    if(searchText1.getText().length()<1 || searchText4.getText().length()<1 || searchText5.getText().length()<1 || searchText6.getText().length()<1 ){
+                         JOptionPane.showMessageDialog(null,"Hãy nhập đầy đủ thông tin"); return;
+                    }
+                    
+                    if(!myModel.getVal().validate_CCCD(searchText1.getText())){
+                         JOptionPane.showMessageDialog(null,"CCCD không hợp lệ"); return;
+                    }
+                    
+                    if(myModel.check_addr(Integer.valueOf(searchText3.getText()), searchText4.getText(), searchText5.getText(), searchText6.getText())){
+                         JOptionPane.showMessageDialog(null,"Đã có hộ thường trú tại địa chỉ này"); return;
+                    }
+        
+                    
+                     ho_gia_dinh f = new ho_gia_dinh();
 
             nhan_khau test = myModel.nhan_khau_get(searchText1.getText());
             if (test==null) {
@@ -46,6 +78,19 @@ public class Form_ThemHo extends javax.swing.JPanel {
         myModel.ho_gia_dinh_taomoi(f);
         JOptionPane.showMessageDialog(null,"Đã thêm hộ mới");
          exit();
+
+                      
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }         
+            
+            
+           
         }
     });
     }
@@ -96,8 +141,6 @@ public class Form_ThemHo extends javax.swing.JPanel {
         searchText6 = new com.raven.swing.SearchText();
         jLabel9 = new javax.swing.JLabel();
         searchText8 = new com.raven.swing.SearchText();
-
-        roundPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

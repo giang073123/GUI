@@ -1,4 +1,3 @@
-
 package com.raven.form.QuanLyNhanKhau;
 
 import com.raven.form.QuanLyNhanKhau.Form_KhaiBaoTamVang;
@@ -12,40 +11,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
-
-
 public class Form_ThongTinChiTiet extends javax.swing.JPanel {
-     Model_NhanKhau myModel;
-     private ho_gia_dinh family;
-     private ArrayList<nhan_khau> members;
+
+    Model_NhanKhau myModel;
+    private ho_gia_dinh family;
+    private ArrayList<nhan_khau> members;
+
     public Form_ThongTinChiTiet(int Ma_Ho, Model_NhanKhau model) {
         initComponents();
-        
-        jLabel5.setVisible(false); jLabel12.setVisible(false); jLabel19.setVisible(false); jLabel20.setVisible(false);jLabel21.setVisible(false);jLabel22.setVisible(false);
-        jLabel23.setVisible(true); searchText1.setVisible(true); jButton1.setVisible(true); jButton4.setVisible(true);
-        
+        table1.setDefaultEditor(Object.class, null);
+
+        jLabel5.setVisible(false);
+        jLabel12.setVisible(false);
+        jLabel19.setVisible(false);
+        jLabel20.setVisible(false);
+        jLabel21.setVisible(false);
+        jLabel22.setVisible(false);
+        jLabel23.setVisible(true);
+        searchText1.setVisible(true);
+        jButton1.setVisible(true);
+        jButton4.setVisible(true);
+
         myModel = model;
-        this.family=myModel.ho_gia_dinh_getfamily(Ma_Ho);
+        this.family = myModel.ho_gia_dinh_getfamily(Ma_Ho);
         update_Table();
         update_family_info();
 
         // XEM LỊCH SỬ THAY ĐỔI
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  jButton3ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-            
+
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  jButton2ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  jButton6ActionPerformed(evt);
-           }
+                jButton6ActionPerformed(evt);
+            }
         });
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -53,15 +60,21 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
     }
 
-
     //UPDATE FAMILY INFO
-
-    private void update_family_info(){
-        int i=0;
-        for(nhan_khau m : members){
-            if(m.getQH_chuho().compareTo("Chủ hộ")==0) break;
+    private void update_family_info() {
+        int i = 0;
+        for (nhan_khau m : members) {
+            if (m.getQH_chuho().compareTo("Chủ hộ") == 0) {
+                break;
+            }
             i++;
         }
 
@@ -74,28 +87,27 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jLabel18.setText(family.getQuan_());
     }
 
-
-
     //UPDATE TABLE
-    private  void update_Table(){
-        DefaultTableModel model = (DefaultTableModel)table1.getModel();
+    private void update_Table() {
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
         model.setRowCount(0);
-           members = myModel.ho_gia_dinh_getmembers(family.getMa_Ho());
-           int i=1; //stt
-           for (nhan_khau m:members){
-               table1.addRow(new Object[]{i, m.getCCCD(),  m.getHo_ten(), m.getGioi_tinh(),m.getNgay_sinh(), m.getQH_chuho(), "Việt Nam", m.getDan_toc()});
-               i++;
-           }
+        members = myModel.ho_gia_dinh_getmembers(family.getMa_Ho());
+        int i = 1; //stt
+        for (nhan_khau m : members) {
+            table1.addRow(new Object[]{i, m.getCCCD(), m.getHo_ten(), m.getGioi_tinh(), m.getNgay_sinh(), m.getQH_chuho(), "Việt Nam", m.getDan_toc()});
+            i++;
+        }
     }
-
-
 
     // THÊM NHÂN KHẨU
     private void jButton1ActionPerformed(ActionEvent evt) {
         nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
-        if(nk==null){ JOptionPane.showMessageDialog(null,"Không tồn tại số CCCD này trong dữ liệu nhân khẩu"); return;}
-        else if (nk.getMa_Ho()>0) {
-            JOptionPane.showMessageDialog(null,"Nhân khẩu này đã thuộc một hộ khác"); return;
+        if (nk == null) {
+            JOptionPane.showMessageDialog(null, "Không tồn tại số CCCD này trong dữ liệu nhân khẩu");
+            return;
+        } else if (nk.getMa_Ho() > 0) {
+            JOptionPane.showMessageDialog(null, "Nhân khẩu này đã thuộc một hộ khác");
+            return;
         }
 
         nk.setMa_Ho(family.getMa_Ho());
@@ -104,79 +116,102 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 //-------------------------------------------------------------------------------------------------
 
 // LỊCH SỬ THAY ĐỔI
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
+        // Create an instance of Form_ThongTinChiTiet
+        Form_LichSu formLichSu = new Form_LichSu(family.getMa_Ho(), myModel);
 
-    // Create an instance of Form_ThongTinChiTiet
-    Form_LichSu formLichSu = new Form_LichSu(family.getMa_Ho(),myModel);
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
 
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formLichSu);
 
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formLichSu);
-
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
 //-------------------------------------------------------------------------------------------------
 
 // NÚT KHAI BÁO TAM VẮNG
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-    // Create an instance of Form_ThongTinChiTiet
-    if(table1.getSelectedRow()<0) return;
-   // JOptionPane.showMessageDialog(null,table1.getSelectedRow());
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Create an instance of Form_ThongTinChiTiet
+        if (table1.getSelectedRow() < 0) {
+            return;
+        }
+        // JOptionPane.showMessageDialog(null,table1.getSelectedRow());
 
-    Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang(members.get(table1.getSelectedRow()),myModel);
+        Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang(members.get(table1.getSelectedRow()), myModel);
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
 
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
 
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formKhaiBaoTamVang);
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formKhaiBaoTamVang);
 
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
-}
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    }
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if (table1.getSelectedRow() < 0) {
+            return;
+        }
+
+        Object[] options = {"Xác nhận", "Hủy"};
+        int choosen = JOptionPane.showOptionDialog(null,
+                "Bạn có chắc chắn muốn nhân khẩu này",
+                "Xác nhận",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (choosen == JOptionPane.YES_OPTION) {
+            int s = table1.getSelectedRow();
+//            
+//            if (members.get(s).getQH_chuho().compareTo("Chủ hộ") == 0) {
+//                family.setCCCD_Chuho("");
+//            }
+//            
+//            members.get(s).setQH_chuho("");
+//            myModel.nhan_khau_update(members.get(s));
+//            update_Table();
+//            update_family_info();
+
+            return;
+        } else if (choosen == JOptionPane.NO_OPTION) {
+            return;
+        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else {
+            return;
+        }
+
+    }
 
 //---------------------------------------------------------------------------------------------
-
-
 //    // CẬP NHẬT
 //    private void jButton_CapNhatActionPerformed(ActionEvent evt) {
 //
 //    }
-
 //    // XÓA NHÂN KHẨU
 //    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//
-//        int s = table1.getSelectedRow();
-//        if (members.get(s).getQH_chuho().compareTo("Chủ hộ")==0) family.setCCCD_Chuho("");
-//        if (members.get(s).getMa_Ho()==family.getMa_Ho()){
-//            JOptionPane.showMessageDialog(null,"Nhân khẩu cần chuyển hộ hoặc chuyển đi nơi khác để xóa");
-//            return;
-//        }
-//        members.get(s).setQH_chuho("");
-//        myModel.nhan_khau_update(members.get(s));
-//        update_Table();
-//        update_family_info();
+
 //    }//GEN-LAST:event_jButton4ActionPerformed
 //    //---------------------------------------------------------------------------------------------
-
-
     // THOÁT
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         Form_ThongTinHo formThongTinHo = new Form_ThongTinHo(myModel);
-
 
         // Get the parent container (JFrame or another contai
         Container parentContainer = this.getParent();
@@ -191,7 +226,6 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         parentContainer.revalidate();
         parentContainer.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

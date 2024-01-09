@@ -140,11 +140,11 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
     private void updateTable(ArrayList<ho_gia_dinh> list){
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
-        int i=1;
+        
 
         for(ho_gia_dinh f : list){
             nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
-            table.addRow(new Object[]{i,f.getMa_Ho(),chuho.getHo_ten(),f.getCCCD_Chuho(),f.getSo_nha(),f.getDuong_()});
+            table.addRow(new Object[]{f.getMa_Ho(),chuho.getHo_ten(),f.getCCCD_Chuho(),f.getSo_nha(),f.getDuong_()});
         }
 
     }
@@ -357,7 +357,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     int i =table.getSelectedRow();
     
     
-    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(myList.get(i).getMa_Ho(),myModel);
+    Form_ThongTinChiTiet formThongTinChiTiet = new Form_ThongTinChiTiet(Integer.parseInt(table.getValueAt(i,0).toString()),myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -399,6 +399,9 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
     // XÓA HỘ
     private void jButton4ActionPerformed(ActionEvent evt) {
+      
+            
+      
         int i;
         if(table.getSelectedRow()<0) return;
         else{  i =table.getSelectedRow();}

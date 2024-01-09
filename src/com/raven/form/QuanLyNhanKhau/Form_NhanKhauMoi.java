@@ -5,6 +5,7 @@
 package com.raven.form.QuanLyNhanKhau;
 
 import Model.NhanKhau.Model_NhanKhau;
+import Model.NhanKhau.ho_gia_dinh;
 import Model.NhanKhau.nhan_khau;
 import com.raven.swing.*;
 
@@ -18,24 +19,34 @@ import java.util.ArrayList;
  * @author PC Giang
  */
 public class Form_NhanKhauMoi extends javax.swing.JPanel {
+
     Model_NhanKhau myModel;
     ArrayList<SearchText> stList = new ArrayList<>();
+
     /**
      * Creates new form Form_NhanKhauMoi
      */
     public Form_NhanKhauMoi(Model_NhanKhau model) {
         initComponents();
-        
-        stList.add(searchText1); stList.add(searchText2);stList.add(searchText3);stList.add(searchText4);stList.add(searchText5);stList.add(searchText6);stList.add(searchText7);stList.add(searchText8);stList.add(searchText9);stList.add(searchText10);
-        
-        myModel=model;
 
+        stList.add(searchText1);
+        stList.add(searchText2);
+        stList.add(searchText3);
+        stList.add(searchText4);
+        stList.add(searchText5);
+        stList.add(searchText6);
+        stList.add(searchText7);
+        stList.add(searchText8);
+        stList.add(searchText9);
+        stList.add(searchText10);
 
-                                jButton1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-        }
-    });
+        myModel = model;
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -43,26 +54,93 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
         });
     }
 
-
     // LUU THONG TIN
     private void jButton2ActionPerformed(ActionEvent evt) {
-           for(int i=0;i<9;i++){
-               if(i==1 || i==7) continue;
 
-               if(stList.get(i).getText().length()<1){
-                   JOptionPane.showMessageDialog(null,"Hãy nhập đủ thông tin yêu cầu");
-                   return;
-               }
-           }
+        Object[] options = {"Xác nhận", "Hủy"};
+        int choosen = JOptionPane.showOptionDialog(null,
+                "Bạn có chắc chắn muốn thêm nhân khẩu này",
+                "Xác nhận",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (choosen == JOptionPane.YES_OPTION) {
+            //THỰC HIỆN THÊM NHÂN KHẨU
+            
+            
+              if (searchText8.getText().length() > 0) {
+                
+                if(searchText10.getText().length() ==0){
+                    JOptionPane.showMessageDialog(null, "Chưa nhập thông tin quan hệ với chủ hộ");  // Nhập không đúng định dạng
+                    return;
+                }
+                
+                if (!myModel.getVal().validate_Ma_Ho(searchText8.getText())) {
+                    JOptionPane.showMessageDialog(null, "Mã hộ không hợp lệ");  // Nhập không đúng định dạng
+                    return;
+                } else {
+                    
+                    ho_gia_dinh family = myModel.ho_gia_dinh_getfamily(Integer.parseInt(searchText8.getText()));
+                    if (family == null ) {
+                        JOptionPane.showMessageDialog(null, "Mã hộ này không tồn tại");
+                        return;
+                    }
+
+                    if (searchText8.getText().compareTo("Chủ hộ") == 0 && family.getCCCD_Chuho().length() > 0) {
+                        JOptionPane.showMessageDialog(null, "Hộ này đã có chủ hộ");
+                        return;
+                    }
+                }
+            }
+            
+            
+
+            // Check nhập đủ thông tin
+            if(jDateChooser1.getDate()== null || jDateChooser2.getDate()==null ){
+               JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin yêu cầu");
+                    return;
+            }
+            
+            for (int i = 0; i < 10; i++) {
+                if (i == 1 || i == 7 || i == 9) {
+                    continue;
+                }
+
+                if (stList.get(i).getText().length() < 1) {
+                    JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin yêu cầu");
+                    return;
+                }
+            }
 
 
-               nhan_khau newnk = myModel.nhan_khau_get(searchText6.getText());
-               
-               if(newnk==null){               
+            if(searchText8.getText().length() == 0 && searchText10.getText().length() >0 ){
+                JOptionPane.showMessageDialog(null, "Chưa nhập Mã Hộ, không thể nhập Quan hệ chủ hộ");
+                        return;}
+            
+            
+            // CHECK CCCD:
+            // Check CCCD hợp lệ:
+            if (!myModel.getVal().validate_CCCD(searchText6.getText())) {
+                JOptionPane.showMessageDialog(null, "CCCD không hợp lệ");
+                return;
+            }
+            nhan_khau test = myModel.nhan_khau_get(searchText1.getText());
+            if(test.getMa_Ho()>0){
+                JOptionPane.showMessageDialog(null,"Nhân khẩu có số CCCD này đã thường trú trên địa bàn"); return;
+            }
+            
+          
+
+            nhan_khau newnk = myModel.nhan_khau_get(searchText6.getText());
+
+            if (newnk == null) {
+                newnk = new nhan_khau();
                 newnk.setCCCD(searchText6.getText());
                 newnk.setHo_ten(searchText1.getText());
-                newnk.setMa_Ho( Integer.parseInt(searchText8.getText()));
-                newnk.setQH_chuho(searchText8.getText());
+                newnk.setMa_Ho(Integer.parseInt(searchText8.getText()));
+                newnk.setQH_chuho(searchText10.getText());
                 newnk.setBi_danh(searchText2.getText());
                 newnk.setGioi_tinh(jComboBox1.getSelectedItem().toString());
                 newnk.setNgay_sinh(new java.sql.Date(jDateChooser1.getDate().getTime()));
@@ -73,14 +151,25 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
                 newnk.setNgay_DKTT(new java.sql.Date(jDateChooser2.getDate().getTime()));
                 newnk.setNoi_o_truoc(searchText9.getText());
 
-         myModel.nhan_khau_insert(newnk);
-        JOptionPane.showMessageDialog(null,"Thêm nhân khẩu thành công");
-        exit();
-           
-           }
-           else{ JOptionPane.showMessageDialog(null,"Số CCCD đã tồn tại trong dữ liệu dân cư"); return;}
+                myModel.nhan_khau_insert(newnk);
+                JOptionPane.showMessageDialog(null, "Thêm nhân khẩu thành công");
+                exit();
 
-        
+            } else {
+                JOptionPane.showMessageDialog(null, "Số CCCD đã tồn tại trong dữ liệu dân cư");
+                return;
+            }
+
+            
+            return;
+        } else if (choosen == JOptionPane.NO_OPTION) {
+            return;
+        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else {
+            return;
+        }
+
     }
 
 // THOAT
@@ -88,7 +177,7 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
         exit();
     }
 
-    private void exit(){
+    private void exit() {
         // Create an instance of Form_ThongTinChiTiet
         Form_ThongTinNhanKhau formThongTinNhanKhau = new Form_ThongTinNhanKhau(myModel);
 
@@ -105,8 +194,6 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
         parentContainer.revalidate();
         parentContainer.repaint();
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
