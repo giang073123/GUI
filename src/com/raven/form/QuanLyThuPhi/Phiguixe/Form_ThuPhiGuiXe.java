@@ -99,11 +99,33 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jButton_XoaKT2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                myModel.khoan_thu_Xoa(myKT.getTable_name(), myKT.getMS_KThu());
-                JOptionPane.showMessageDialog(null,"Đã xóa khoản thu");
-                DefaultTableModel model = (DefaultTableModel)table1.getModel();
-                model.setRowCount(0);
-                checkRowCount();
+                
+                  Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                      myModel.khoan_thu_Xoa(myKT.getTable_name(), myKT.getMS_KThu());                    
+                      DefaultTableModel model = (DefaultTableModel)table1.getModel();
+                      JOptionPane.showMessageDialog(null,"Đã xóa khoản thu");
+                      model.setRowCount(0);
+                      checkRowCount();
+                    
+                      
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+                
             }
         });
         
@@ -185,6 +207,9 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                    
                    
                 }
+                
+                myKT= (khoan_thu_guixe) myModel.khoan_thu_Get(new khoan_thu_guixe(), myKT.getMS_KThu());
+                jLabel6.setText(Integer.toString(myKT.getTong_thu()));
             }
          });        
         
@@ -240,6 +265,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jLabel_MaKT2.setText(Integer.toString(myKT.getMS_KThu())); jLabel_TenKT2.setText(myKT.getTen_KThu()); 
         jLabel_PhiXeDap.setText(Integer.toString(myKT.getPhi_xe_dap())); jLabel_PhiXeMay.setText(Integer.toString(myKT.getPhi_xe_may()));
         jLabel_PhiOTo.setText(Integer.toString(myKT.getPhi_xe_oto()));
+        jLabel6.setText(Integer.toString(myKT.getTong_thu()));
     }
         
     private void checkRowCount() {
@@ -262,6 +288,8 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
           //  jButton_XuatFile2.setVisible(false);
             jButton_KetThucKT2.setVisible(false);
             jButton_XoaKT2.setVisible(false);
+            jLabel4.setVisible(false);
+            jLabel6.setVisible(false);
         } else {
             jLabel13.setVisible(true); 
             jLabel14.setText("Nhập mã hộ để tìm kiếm:"); 
@@ -281,6 +309,8 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
            // jButton_XuatFile2.setVisible(true);
             jButton_KetThucKT2.setVisible(true);
             jButton_XoaKT2.setVisible(true);
+            jLabel4.setVisible(true);
+            jLabel6.setVisible(true);
             
         }
     }
@@ -357,6 +387,9 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jLabel_PhiOTo = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel_PhiXeMay = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -442,16 +475,28 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel16.setText("Phí xe ô tô:");
 
+        jLabel_MaKT2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaKT2.setText("jLabel_MaKT");
 
+        jLabel_PhiXeDap.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiXeDap.setText("jLabel_PhiXeDap");
 
+        jLabel_PhiOTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiOTo.setText("jLabel_PhiOTo");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel17.setText("Phí xe máy:");
 
+        jLabel_PhiXeMay.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiXeMay.setText("jLabel_PhiXeMay");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel4.setText("Tổng thu:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel6.setText("jLabel6");
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -460,9 +505,9 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
+                    .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel2Layout.createSequentialGroup()
@@ -473,32 +518,40 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                                 .addComponent(jButton_TimKiem2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton_TaoKT2))
-                            .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(roundPanel2Layout.createSequentialGroup()
-                                    .addGap(290, 290, 290)
-                                    .addComponent(jButton_CapNhat2)
-                                    .addGap(15, 15, 15)
-                                    .addComponent(jButton_KetThucKT2)
-                                    .addGap(15, 15, 15)
-                                    .addComponent(jButton_XoaKT2))
-                                .addComponent(jLabel_TenKT2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
+                                .addGap(290, 290, 290)
+                                .addComponent(jButton_CapNhat2)
+                                .addGap(15, 15, 15)
+                                .addComponent(jButton_KetThucKT2)
+                                .addGap(15, 15, 15)
+                                .addComponent(jButton_XoaKT2))
                             .addGroup(roundPanel2Layout.createSequentialGroup()
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
-                                    .addComponent(jLabel17))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(74, 74, 74)
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_MaKT2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel_PhiXeMay))
-                                .addGap(52, 52, 52)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel_MaKT2, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(54, 54, 54)
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16)
                                     .addComponent(jLabel15))
                                 .addGap(18, 18, 18)
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel_PhiXeDap)
-                                    .addComponent(jLabel_PhiOTo))))
-                        .addGap(30, 30, 30))))
+                                    .addGroup(roundPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_PhiOTo)
+                                        .addGap(42, 42, 42)
+                                        .addComponent(jLabel17)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jLabel_PhiXeMay)))))
+                        .addGap(30, 30, 30))
+                    .addGroup(roundPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel_TenKT2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,16 +569,19 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                     .addComponent(jLabel16)
                     .addComponent(jLabel_PhiOTo)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel_PhiXeMay))
+                    .addComponent(jLabel_PhiXeMay)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(jButton_TimKiem2)
                     .addComponent(jButton_TaoKT2))
-                .addGap(31, 31, 31)
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_XoaKT2)
                     .addComponent(jButton_KetThucKT2)
@@ -537,7 +593,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 852, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -763,11 +819,40 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
 
     private void jButton_KetThucKT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucKT2ActionPerformed
         // TODO add your handling code here:
-         myModel.khoan_thu_Ketthuc("khoan_thu_guixe", myKT.getMS_KThu());
-                JOptionPane.showMessageDialog(null,"Đã kết thúc khoản thu");
-                DefaultTableModel model = (DefaultTableModel)table1.getModel();
-                model.setRowCount(0);
-                checkRowCount();
+        
+                
+                
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn kết thúc khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                      
+                      myModel.khoan_thu_Ketthuc("khoan_thu_guixe", myKT.getMS_KThu());
+                      myKT.setNgaykthuc_KThu(java.sql.Date.valueOf(LocalDate.now())); 
+                      history.add(myKT);
+                      table5.addRow(new Object[]{myKT.getMS_KThu(),myKT.getTen_KThu(),myKT.getPhi_xe_dap(),myKT.getPhi_xe_may(),myKT.getPhi_xe_oto(),myKT.getNgaytao_KThu(),myKT.getNgaykthuc_KThu(),myKT.getTong_thu(),myKT.getGhi_chu()});
+                      JOptionPane.showMessageDialog(null,"Đã kết thúc khoản thu");
+                      DefaultTableModel model = (DefaultTableModel)table1.getModel();
+                      model.setRowCount(0);
+                      checkRowCount();
+                
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+                
+                
+                
                 
     }//GEN-LAST:event_jButton_KetThucKT2ActionPerformed
 
@@ -839,6 +924,9 @@ private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_MaKT2;
     private javax.swing.JLabel jLabel_PhiOTo;
     private javax.swing.JLabel jLabel_PhiXeDap;

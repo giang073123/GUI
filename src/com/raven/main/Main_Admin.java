@@ -33,7 +33,7 @@ public class Main_Admin extends javax.swing.JFrame {
      */
     public Main_Admin() {
         initComponents();
-        Model_HoKhau model_nk= new Model_HoKhau();
+        Model_NhanKhau model_nk= new Model_NhanKhau();
         Model_ThuPhi model_tp = new Model_ThuPhi();
         menu1.setEvent(new MenuEvent() {
             @Override

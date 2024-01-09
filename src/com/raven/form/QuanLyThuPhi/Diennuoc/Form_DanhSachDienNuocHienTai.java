@@ -73,7 +73,9 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
                      table1.getModel().setValueAt("Đã thu",idx,2);
                      JOptionPane.showMessageDialog(null,"Đã thu, không thể sửa đổi");  // Đã thu rồi thì không sửa được
                     return; }
-            } 
+            }
+                myKT= (khoan_thu_khac) myModel.khoan_thu_Get(new khoan_thu_khac(), myKT.getMS_KThu());
+                jLabel1.setText(Integer.toString(myKT.getTong_thu()));
        }});
         
          // NÚT TÌM KIẾM TRONG PHẦN KHOẢN THU HIỆN TẠI
@@ -133,6 +135,7 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
 
     private void updateInfo(){
         jLabel_MaSoKT1.setText(Integer.toString(myKT.getMS_KThu())); jLabel_TenKT1.setText(myKT.getTen_KThu()); jLabel_LoaiKT1.setText(myKT.getLoai_KThu());
+        jLabel_Tongthu.setText(Integer.toString(myKT.getTong_thu()));
     }
     
     
@@ -161,6 +164,8 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
         jLabel_LoaiKT = new javax.swing.JLabel();
         jLabel_LoaiKT1 = new javax.swing.JLabel();
         jButton_Thoat = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel_Tongthu = new javax.swing.JLabel();
 
         jLabel_MaSoKT.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_MaSoKT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,6 +174,7 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
         jLabel_TenKT1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_TenKT1.setText("jLabel_TenKT");
 
+        jLabel_MaSoKT1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaSoKT1.setText("jLabel_MaKT");
 
         jLabel_NhapMa.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -222,6 +228,7 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
         jLabel_LoaiKT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_LoaiKT.setText("Loại:");
 
+        jLabel_LoaiKT1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_LoaiKT1.setText("jLabel_LoaiKT");
 
         jButton_Thoat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -232,6 +239,12 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setText("Tổng thu:");
+
+        jLabel_Tongthu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_Tongthu.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,14 +253,6 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_TenKT1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_LoaiKT)
-                            .addComponent(jLabel_MaSoKT))
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_MaSoKT1)
-                            .addComponent(jLabel_LoaiKT1)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,7 +264,19 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(miniSearch_NhapMa, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
-                        .addComponent(jButton_TimKiem)))
+                        .addComponent(jButton_TimKiem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel_MaSoKT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_MaSoKT1)
+                            .addComponent(jLabel_Tongthu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel_LoaiKT)
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel_LoaiKT1)))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -270,12 +287,14 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSoKT)
-                    .addComponent(jLabel_MaSoKT1))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_MaSoKT1)
                     .addComponent(jLabel_LoaiKT)
                     .addComponent(jLabel_LoaiKT1))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel_Tongthu))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(miniSearch_NhapMa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_NhapMa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,12 +339,14 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
     private javax.swing.JButton jButton_Them;
     private javax.swing.JButton jButton_Thoat;
     private javax.swing.JButton jButton_TimKiem;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_LoaiKT;
     private javax.swing.JLabel jLabel_LoaiKT1;
     private javax.swing.JLabel jLabel_MaSoKT;
     private javax.swing.JLabel jLabel_MaSoKT1;
     private javax.swing.JLabel jLabel_NhapMa;
     private javax.swing.JLabel jLabel_TenKT1;
+    private javax.swing.JLabel jLabel_Tongthu;
     private javax.swing.JScrollPane jScrollPane2;
     private com.raven.component.MiniSearch miniSearch_NhapMa;
     private com.raven.swing.Table table1;

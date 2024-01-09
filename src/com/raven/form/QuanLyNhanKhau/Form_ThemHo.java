@@ -15,11 +15,11 @@ import java.awt.Container;
  * @author PC Giang
  */
 public class Form_ThemHo extends javax.swing.JPanel {
-     Model_HoKhau myModel;
+     Model_NhanKhau myModel;
     /**
      * Creates new form Form_ThemHo
      */
-    public Form_ThemHo(Model_HoKhau model) {
+    public Form_ThemHo(Model_NhanKhau model) {
         initComponents();
         myModel=model;
 

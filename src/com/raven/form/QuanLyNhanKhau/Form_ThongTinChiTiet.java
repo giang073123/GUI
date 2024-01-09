@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 
 public class Form_ThongTinChiTiet extends javax.swing.JPanel {
-     Model_HoKhau myModel;
+     Model_NhanKhau myModel;
      private ho_gia_dinh family;
      private ArrayList<nhan_khau> members;
-    public Form_ThongTinChiTiet(int Ma_Ho, Model_HoKhau model) {
+    public Form_ThongTinChiTiet(int Ma_Ho, Model_NhanKhau model) {
         initComponents();
         
         jLabel5.setVisible(false); jLabel12.setVisible(false); jLabel19.setVisible(false); jLabel20.setVisible(false);jLabel21.setVisible(false);jLabel22.setVisible(false);

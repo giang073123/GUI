@@ -19,13 +19,13 @@ import java.util.Iterator;
  * @author PC Giang
  */
 public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
-    Model_HoKhau myModel;
+    Model_NhanKhau myModel;
     ArrayList<nhan_khau> myList = new ArrayList<>();
 
     /**
      * Creates new form Form_ThongTinNhanKhau
      */
-    public Form_ThongTinNhanKhau(Model_HoKhau model) {
+    public Form_ThongTinNhanKhau(Model_NhanKhau model) {
         initComponents();
         myModel=model;
         updateMyList();

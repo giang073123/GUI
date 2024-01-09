@@ -14,12 +14,12 @@ import java.sql.Date;
  * @author PC Giang
  */
 public class Form_ChiTietNhanKhau extends javax.swing.JPanel {
-    Model_HoKhau myModel;
+    Model_NhanKhau myModel;
     nhan_khau my_nk;
     /**
      * Creates new form Form_ChiTietNhanKhau
      */
-    public Form_ChiTietNhanKhau(Model_HoKhau model, nhan_khau nk) {
+    public Form_ChiTietNhanKhau(Model_NhanKhau model, nhan_khau nk) {
         myModel=model;
         my_nk=nk;
         initComponents();

@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,18 +17,18 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class Model_ThuPhi{
-
-    private final Connection conn;
+    private final connectDB conndb = new connectDB();
+    private  Connection conn;
 
     public Model_ThuPhi() {
-        connectDB conndb = new connectDB();
-        conn = conndb.connect();
+       // connectDB conndb = new connectDB();
+       // conn = conndb.connect();
     }
 
     //     1. CÁC METHOD VỚI KHOẢN THU
 //         1.1. Lấy thông tin khoản thu hiện tại hoặc quá khứ
     public ArrayList<khoan_thu> khoan_thu_Danhsach(khoan_thu kt, String trang_thai) {   // truyền vào kt để clone
-
+        conn = conndb.connect();
         ArrayList<khoan_thu> list = new ArrayList<>();// tạo instance
         //cl kt = new Class<>;
 
@@ -42,12 +44,19 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-
+        
+        
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return list;
     }
 
     //  1.2. Tạo khoản thu mới
     public void khoan_thu_Taomoi(khoan_thu kt) {   //-> Method này sẽ viết code riêng cho các class khoản thu
+        conn = conndb.connect();
         String sql = kt.insertQuery();
 
         System.out.println(sql);
@@ -57,11 +66,17 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     // 1.3. Kết thúc khoản thu
     public void khoan_thu_Ketthuc(String table_name, int MS_KThu) {   // -> Method chỉ tác động đến các cột dữ liệu chung
+        conn = conndb.connect();
 
         Date today = Date.valueOf(LocalDate.now());
 
@@ -76,11 +91,19 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     // 1.4. Xóa khoản thu
     public void khoan_thu_Xoa(String table_name, int MS_KThu) {        // -> Method chỉ tác động đến các cột dữ liệu chung
+        conn = conndb.connect();
 
         String sql = "Delete from " + table_name + " where MS_KThu=?";
 
@@ -92,7 +115,45 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
+    
+    
+    //1.5.  LẤY THÔNG TIN MỘT KHOẢN THU THEO MÃ KHOẢN THU
+    
+    public khoan_thu khoan_thu_Get(khoan_thu kt, int MS_KThu){
+          conn = conndb.connect();
+        ArrayList<khoan_thu> list = new ArrayList<>();// tạo instance
+        //cl kt = new Class<>;
+
+        try (PreparedStatement stm = conn.prepareStatement("select * from " + kt.getTable_name() + " where MS_KThu = ? ")) {
+            stm.setInt(1,MS_KThu);
+            ResultSet resultSet = stm.executeQuery();
+
+            if (resultSet.next()) {
+               kt.getDataFromRs(resultSet);
+                
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+        }
+        
+        
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kt;
+    
+    
+    
     }
 
     // 1.5. Tìm kiếm khoản thu theo thời gian
@@ -103,6 +164,7 @@ public class Model_ThuPhi{
 
 
     public ArrayList<thu_tien> thu_tien_Danhsach(thu_tien tt, int MS_KThu){
+        conn = conndb.connect();
 
         ArrayList<thu_tien> list = new ArrayList<>();// tạo instance
 
@@ -118,6 +180,12 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return list;
 
@@ -125,6 +193,7 @@ public class Model_ThuPhi{
 
     //   2.2. Thêm dòng, xóa dòng    // Chỉ dùng cho Quản lý thu tự nguyện
     public void thu_tien_ThemDong(thu_tien_khac tt) {
+        conn = conndb.connect();
         String sql = tt.insertQuery();
         tt.setLoai_KThu("Thu phí tự nguyện");
         System.out.println(sql);
@@ -140,10 +209,18 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
     
     public void thu_tien_XoaDong(thu_tien_khac tt){
+        conn = conndb.connect();
         String sql = "delete from ds_thu_tien_khac where MS_KThu=? and Ma_Ho=?";
 
         System.out.println(sql);
@@ -155,11 +232,19 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
 
     //    2.3. Cập nhật danh sách
     public void thu_tien_CapNhat(thu_tien tt, String trang_thai) {   //-> Method này sẽ viết code riêng cho các class khoản thu
+        conn = conndb.connect();
         String sql = tt.updateQuery(trang_thai);
         
        // JOptionPane.showMessageDialog(null,tt.getTrangthai_Thu()+"Model_ThuPhi.thu_tien_Capnhat");
@@ -170,12 +255,20 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
 
     //3. Method cho Đăng ký xe
     public ArrayList<dang_ky_xe> getDKxe(){
+        conn = conndb.connect();
          ArrayList<dang_ky_xe> ds = new ArrayList<>();
         String sql = "Select * from dang_ky_xe ";
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -194,11 +287,18 @@ public class Model_ThuPhi{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
          return ds;
     }
 
     public void dang_ky_xe_update(dang_ky_xe dk){
+        conn = conndb.connect();
         String sql = "Update dang_ky_xe set So_luong_xedap =?, So_luong_xemay = ?, So_luong_oto=? where Ma_Ho=? ";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set the parameters for the prepared statement
@@ -212,6 +312,13 @@ public class Model_ThuPhi{
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+        
+         try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

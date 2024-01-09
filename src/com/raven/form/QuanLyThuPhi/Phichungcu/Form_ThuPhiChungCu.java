@@ -111,12 +111,10 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
                    
                    table1.getModel().setValueAt(null,idx,4);  // Set null cho ngày thu trước số tiền
                    table1.getModel().setValueAt(sotien,idx,2);  
-                   table1.getModel().setValueAt("Chưa thu",idx,3);      
-                       
-                    
-                   
-                   
+                   table1.getModel().setValueAt("Chưa thu",idx,3);                                                                                  
                 }
+                myKT= (khoan_thu_phichungcu) myModel.khoan_thu_Get(new khoan_thu_phichungcu(), myKT.getMS_KThu());
+                jLabel1.setText(Integer.toString(myKT.getTong_thu()));
             }
          });        
                                        
@@ -152,11 +150,38 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
         jButton_KetThucKT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                myModel.khoan_thu_Ketthuc("khoan_thu_phichungcu", myKT.getMS_KThu());
-                JOptionPane.showMessageDialog(null,"Đã kết thúc khoản thu");
-                DefaultTableModel model = (DefaultTableModel)table1.getModel();
-                model.setRowCount(0);
-                checkRowCount();
+                
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn kết thúc khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                      
+                      myModel.khoan_thu_Ketthuc("khoan_thu_phichungcu", myKT.getMS_KThu());
+                      myKT.setNgaykthuc_KThu(java.sql.Date.valueOf(LocalDate.now())); 
+                      history.add(myKT);
+                      table2.addRow(new Object[]{myKT.getMS_KThu(),myKT.getTen_KThu(),myKT.getPhi_dichvu(),myKT.getPhi_quanly(),myKT.getNgaytao_KThu(),myKT.getNgaykthuc_KThu(),myKT.getTong_thu(),myKT.getGhi_chu()});
+                      JOptionPane.showMessageDialog(null,"Đã kết thúc khoản thu");
+                      DefaultTableModel model = (DefaultTableModel)table1.getModel();
+                      model.setRowCount(0);
+                      checkRowCount();
+                
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+
+                
+                
             }
         });
         
@@ -165,11 +190,33 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
          jButton_XoaKT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                myModel.khoan_thu_Xoa(myKT.getTable_name(), myKT.getMS_KThu());
-                JOptionPane.showMessageDialog(null,"Đã xóa khoản thu");
-                DefaultTableModel model = (DefaultTableModel)table1.getModel();
-                model.setRowCount(0);
-                checkRowCount();
+                
+                
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                      myModel.khoan_thu_Xoa(myKT.getTable_name(), myKT.getMS_KThu());
+                      
+                      DefaultTableModel model = (DefaultTableModel)table1.getModel();
+                      model.setRowCount(0);
+                      checkRowCount();
+                    
+                      JOptionPane.showMessageDialog(null,"Đã xóa khoản thu");
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
             }
         });
 
@@ -226,6 +273,7 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
         if (myList.size()==0) return;
         myKT = (khoan_thu_phichungcu) myModel.khoan_thu_Danhsach(new khoan_thu_phichungcu(),"Chưa kết thúc" ).get(0);
         jLabel_MaKT.setText(Integer.toString(myKT.getMS_KThu())); jLabel_TenKT.setText(myKT.getTen_KThu()); jLabel_PhiQL.setText(Integer.toString(myKT.getPhi_quanly())); jLabel_PhiDV.setText(Integer.toString(myKT.getPhi_dichvu()));
+        jLabel1.setText(Integer.toString(myKT.getTong_thu()));
     }
     
     
@@ -247,6 +295,8 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
            // jButton_XuatFile.setVisible(false);
             jButton_KetThucKT.setVisible(false);
             jButton_XoaKT.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel_Tongthu.setVisible(false);
         } else {
             jLabel5.setVisible(true); 
             jLabel6.setText("Nhập mã hộ để tìm kiếm:"); 
@@ -264,6 +314,8 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
           //  jButton_XuatFile.setVisible(true);
             jButton_KetThucKT.setVisible(true);
             jButton_XoaKT.setVisible(true);
+            jLabel1.setVisible(true);
+            jLabel_Tongthu.setVisible(true);
             
         }
     }
@@ -318,6 +370,9 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
         jLabel_MaKT = new javax.swing.JLabel();
         jLabel_PhiDV = new javax.swing.JLabel();
         jLabel_PhiQL = new javax.swing.JLabel();
+        jLabel_Tongthu = new javax.swing.JLabel();
+        jLabel_Tongthu2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -385,11 +440,22 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel8.setText("Phí quản lý:");
 
+        jLabel_MaKT.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaKT.setText("jLabel_MaKT");
 
+        jLabel_PhiDV.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiDV.setText("jLabel_PhiDV");
 
+        jLabel_PhiQL.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiQL.setText("jLabel_PhiQL");
+
+        jLabel_Tongthu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel_Tongthu.setText("Tổng thu:");
+
+        jLabel_Tongthu2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -416,9 +482,14 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
                                     .addComponent(jButton_XoaKT))
                                 .addComponent(jLabel_TenKT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(roundPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(74, 74, 74)
-                                .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel_Tongthu, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_Tongthu2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(76, 76, 76)
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(roundPanel2Layout.createSequentialGroup()
@@ -446,7 +517,10 @@ public class Form_ThuPhiChungCu extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel_PhiQL))
+                    .addComponent(jLabel_PhiQL)
+                    .addComponent(jLabel_Tongthu)
+                    .addComponent(jLabel_Tongthu2)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -643,6 +717,7 @@ private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton jButton_XemChiTiet;
     private javax.swing.JButton jButton_XoaKT;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -653,6 +728,8 @@ private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel jLabel_PhiDV;
     private javax.swing.JLabel jLabel_PhiQL;
     private javax.swing.JLabel jLabel_TenKT;
+    private javax.swing.JLabel jLabel_Tongthu;
+    private javax.swing.JLabel jLabel_Tongthu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

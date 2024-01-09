@@ -26,11 +26,11 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
     ArrayList<ho_gia_dinh> myList = new ArrayList<>();
     //ArrayList<ho_gia_dinh> searchList = new ArrayList<>();
 
-    Model_HoKhau myModel;
+    Model_NhanKhau myModel;
     /**
      * Creates new form Form_2
      */
-    public Form_ThongTinHo(Model_HoKhau Model) {
+    public Form_ThongTinHo(Model_NhanKhau Model) {
         initComponents();
         myModel = Model;
         updateMyList();
@@ -191,11 +191,11 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã hộ khẩu", "Họ và tên chủ hộ", "CMT/CCCD", "Số nhà", "Đường"
+                "Mã hộ khẩu", "Họ và tên chủ hộ", "CMT/CCCD", "Số nhà", "Đường"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

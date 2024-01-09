@@ -29,7 +29,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
     public Main_QuanLyNhanKhau() {
 
         initComponents();
-        Model_HoKhau model= new Model_HoKhau();
+        Model_NhanKhau model= new Model_NhanKhau();
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
