@@ -50,11 +50,6 @@
       </Layout>
       <SubComponents>
         <Container class="com.raven.swing.RoundPanel" name="roundPanel2">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fa" green="fa" red="fa" type="rgb"/>
-            </Property>
-          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">

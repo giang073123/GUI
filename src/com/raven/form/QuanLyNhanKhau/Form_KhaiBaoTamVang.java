@@ -107,8 +107,6 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
         jTextPane1 = new javax.swing.JTextPane();
         jButton2 = new javax.swing.JButton();
 
-        roundPanel2.setBackground(new java.awt.Color(250, 250, 250));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Kê khai thông tin tạm vắng");
@@ -131,13 +129,6 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
             }
         });
 
-        jButton2.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            jButton2ActionPerformed(e);
-        }
-    });
-
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
         jDateChooser2.setDateFormatString("yyyy-MM-dd");
@@ -149,7 +140,6 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setText("Xác nhận");
-
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -243,8 +233,6 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-
-
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -259,7 +247,5 @@ public class Form_KhaiBaoTamVang extends javax.swing.JPanel {
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.SearchText searchText5;
-
-    private javax.swing.JButton jButton_CapNhat;
     // End of variables declaration//GEN-END:variables
 }

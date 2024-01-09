@@ -19,6 +19,7 @@ import java.util.Iterator;
  * @author PC Giang
  */
 public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
+
     Model_NhanKhau myModel;
     ArrayList<nhan_khau> myList = new ArrayList<>();
 
@@ -27,20 +28,20 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
      */
     public Form_ThongTinNhanKhau(Model_NhanKhau model) {
         initComponents();
-        myModel=model;
+        myModel = model;
         updateMyList();
         updateTable(myList);
-                    // Link the jButton2ActionPerformed method to the "Xem chi tiết" button
+        // Link the jButton2ActionPerformed method to the "Xem chi tiết" button
         jButton2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-        }
-    });
-    jButton3.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
-        }
-    });
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,49 +50,49 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
         });
     }
 
+    private void updateMyList() {
+        myList = myModel.nhan_khau_getds();
+    }
 
-    private void updateMyList(){myList = myModel.nhan_khau_getds();}
-
-    private ArrayList<nhan_khau> updateSearchList(){
+    private ArrayList<nhan_khau> updateSearchList() {
         ArrayList<nhan_khau> searchList = new ArrayList<>();
-        for(nhan_khau nk:myList){
+        for (nhan_khau nk : myList) {
             searchList.add(nk.clone_());
         }
 
-
-        if(miniSearch1.getText().length()>0){
+        if (miniSearch1.getText().length() > 0) {
 
             int maho = Integer.parseInt(miniSearch1.getText());
 
             Iterator<nhan_khau> it = searchList.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 nhan_khau f = it.next();
-                if(f.getMa_Ho()!=maho) {
+                if (f.getMa_Ho() != maho) {
                     it.remove();
                 }
 
             }
         }
 
-        if(miniSearch2.getText().length()>0){
+        if (miniSearch2.getText().length() > 0) {
             String hoten = miniSearch2.getText();
 
             Iterator<nhan_khau> it = searchList.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 nhan_khau f = it.next();
-                if(f.getHo_ten().compareTo(hoten)!=0) {
+                if (f.getHo_ten().compareTo(hoten) != 0) {
                     it.remove();
                 }
             }
         }
 
-        if(miniSearch3.getText().length()>0){
+        if (miniSearch3.getText().length() > 0) {
             String CCCD = miniSearch3.getText();
 
             Iterator<nhan_khau> it = searchList.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 nhan_khau f = it.next();
-                if(f.getCCCD().compareTo(CCCD)!=0) {
+                if (f.getCCCD().compareTo(CCCD) != 0) {
                     it.remove();
                 }
             }
@@ -101,24 +102,21 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
 
     }
 
-    private void updateTable(ArrayList<nhan_khau> list){
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
+    private void updateTable(ArrayList<nhan_khau> list) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
 
-        for(nhan_khau nk : list){
+        for (nhan_khau nk : list) {
             //nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
-            table.addRow(new Object[]{nk.getMa_Ho(),nk.getHo_ten(),nk.getCCCD()});
+            table.addRow(new Object[]{nk.getMa_Ho(), nk.getHo_ten(), nk.getCCCD()});
         }
     }
-
-
 
     //  TÌM KIẾM NHÂN KHẨU
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         updateTable(updateSearchList());
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // THÊM NHÂN KHẨU MỚI
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,12 +141,13 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
     // XEM CHI TIẾT
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // Create an instance of Form_ThongTinChiTiet
-        if(table.getSelectedRow()<0) return;
-        else {
+        if (table.getSelectedRow() < 0) {
+            return;
+        } else {
             int i = table.getSelectedRow();
-           // JOptionPane.showMessageDialog(null,i+myList.get(i).getHo_ten());
-           nhan_khau nk = myModel.nhan_khau_get(table.getValueAt(i,2).toString());
-            Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau(myModel,nk);
+            // JOptionPane.showMessageDialog(null,i+myList.get(i).getHo_ten());
+            nhan_khau nk = myModel.nhan_khau_get(table.getValueAt(i, 2).toString());
+            Form_ChiTietNhanKhau formChiTietNhanKhau = new Form_ChiTietNhanKhau(myModel, nk);
 
             // Get the parent container (JFrame or another container)
             Container parentContainer = this.getParent();
@@ -167,15 +166,40 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
 
     //XÓA NHÂN KHẨU
     private void jButton4ActionPerformed(ActionEvent evt) {
-        if(table.getSelectedRow()<0) return;
-        else {
-            int i = table.getSelectedRow();
-            JOptionPane.showMessageDialog(null,myList.get(i).getCCCD());
+        if (table.getSelectedRow() < 0) {
+            return;
+        }
 
-            myModel.nhan_khau_delete(myList.get(i).getCCCD());
+        Object[] options = {"Xác nhận", "Hủy"};
+        int choosen = JOptionPane.showOptionDialog(null,
+                "Bạn có chắc chắn muốn xóa nhân khẩu này",
+                "Xác nhận",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (choosen == JOptionPane.YES_OPTION) {
+
+            int i = table.getSelectedRow();
+           // JOptionPane.showMessageDialog(null, myList.get(i).getCCCD());
+
+            nhan_khau nk = myModel.nhan_khau_get(table.getValueAt(i, 2).toString());
+            myModel.nhan_khau_delete(nk);
+            //myList.remove();
             updateMyList();
             updateTable(myList);
+
+            JOptionPane.showMessageDialog(null, "Đã xóa nhân khẩu");
+            return;
+        } else if (choosen == JOptionPane.NO_OPTION) {
+            return;
+        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else {
+            return;
         }
+
     }
 
     /**
@@ -219,9 +243,16 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table);
@@ -353,8 +384,6 @@ public class Form_ThongTinNhanKhau extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

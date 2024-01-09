@@ -18,10 +18,9 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class Model_NhanKhau {
-    private  Connection conn;
-    private Validater val = new Validater();
 
-    
+    private Connection conn;
+    private Validater val = new Validater();
 
     public Model_NhanKhau() {
 //        try {        -> TẠI MỖI PHƯƠNG THỨC ĐỀU open và close rồi
@@ -31,32 +30,31 @@ public class Model_NhanKhau {
 //        }
 
     }
-      public void open_conn() throws SQLException{
-          connectDB conndb = new connectDB();
-          conn = conndb.connect();}
-      public void close_conn() throws SQLException{ conn.close();}
-      
-      
-      public Validater getVal() {
+
+    public void open_conn() throws SQLException {
+        connectDB conndb = new connectDB();
+        conn = conndb.connect();
+    }
+
+    public void close_conn() throws SQLException {
+        conn.close();
+    }
+
+    public Validater getVal() {
         return val;
     }
 
-
     //    ------------------  CÁC METHOD VỀ HỘ KHẨU ---------------------------------------------------
-
-
     //   1.1 Lấy toàn bo danh sách hộ khẩu
-    public ArrayList<ho_gia_dinh> ho_gia_dinh_getds() {   
-       
+    public ArrayList<ho_gia_dinh> ho_gia_dinh_getds() {
+
         // CHỈ LẤY DANH SÁCH CÁC HỘ ĐANG THƯỜNG TRÚ
-        
-         try {
-        open_conn();
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-         
+
         ArrayList<ho_gia_dinh> families = new ArrayList<>();
 
         try {
@@ -78,9 +76,9 @@ public class Model_NhanKhau {
                 families.add(family);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle potential exceptions
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
+
         try {
             close_conn();
         } catch (SQLException ex) {
@@ -91,24 +89,22 @@ public class Model_NhanKhau {
     }
 
     // 1.2. Lấy thông tin cua mot ho
-    public ho_gia_dinh ho_gia_dinh_getfamily(int Ma_Ho){
-        
-        
-         try {
-        open_conn();
+    public ho_gia_dinh ho_gia_dinh_getfamily(int Ma_Ho) {
+
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-        
-        ho_gia_dinh family =new ho_gia_dinh();
+
+        ho_gia_dinh family = new ho_gia_dinh();
         try {
             PreparedStatement stm = conn.prepareStatement("select * from ho_gia_dinh where Ma_Ho =? and Trang_thai_ho = 'Thường trú' ");
-            stm.setInt(1,Ma_Ho);
+            stm.setInt(1, Ma_Ho);
             ResultSet resultSet = stm.executeQuery();
 
             // Iterate through the result set and populate the ArrayList
-            if(resultSet.next()) {
+            if (resultSet.next()) {
 
                 family.setMa_Ho(resultSet.getInt("Ma_Ho"));
                 family.setCCCD_Chuho(resultSet.getString("CCCD_Chuho"));
@@ -118,13 +114,14 @@ public class Model_NhanKhau {
                 family.setPhuong_(resultSet.getString("Phuong_"));
                 family.setQuan_(resultSet.getString("Quan_"));
 
+            } else {
+                return null;
             }
-            else return null;
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle potential exceptions
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,16 +131,16 @@ public class Model_NhanKhau {
     }
 
     //1.2. Tạo hộ mới
-    public void ho_gia_dinh_taomoi(ho_gia_dinh f){
-        
-         try {
-        open_conn();
+    public void ho_gia_dinh_taomoi(ho_gia_dinh f) {
+
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        String sql = "INSERT INTO ho_gia_dinh (CCCD_Chuho, So_nha, Dien_tich, Duong_, Phuong_, Quan_) " +
-                "VALUES (?, ?, truncate(?,2), ?, ?, ?)"; // update nhan_khau set Ma_Ho = ? where CCCD =? 
+
+        String sql = "INSERT INTO ho_gia_dinh (CCCD_Chuho, So_nha, Dien_tich, Duong_, Phuong_, Quan_) "
+                + "VALUES (?, ?, truncate(?,2), ?, ?, ?)"; // update nhan_khau set Ma_Ho = ? where CCCD =? 
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set values for the prepared statement
@@ -160,10 +157,10 @@ public class Model_NhanKhau {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,24 +169,27 @@ public class Model_NhanKhau {
     }
 
     //1.3. Thêm nhân khẩu vào hộ
-    public void ho_gia_dinh_themnk(String CCCD){
+    public void ho_gia_dinh_themnk(String CCCD) {   // -> DÙNG UPDATE NK
 
-    }
+    } // -> DÙNG UPDATE NK
+
+    public void ho_gia_dinh_xoank(String CCCD) { // -> DÙNG UPDATE NK
+
+    }  // -> DÙNG UPDATE NK
 
     //1.4. Xóa hộ
-    public void ho_gia_dinh_delete(int Ma_Ho){
-        
-         try {
-        open_conn();
+    public void ho_gia_dinh_delete(int Ma_Ho) {
+
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String update = "UPDATE nhan_khau SET Ma_Ho = null, QH_Chuho = '' WHERE Ma_Ho = ?";
         String delete = "Update ho_gia_dinh set Trang_thai_ho = 'Đã xóa', CCCD_Chuho = null WHERE Ma_Ho = ?";
 
-        try (PreparedStatement updateNhanKhauStatement = conn.prepareStatement(update);
-             PreparedStatement deleteHoGiaDinhStatement = conn.prepareStatement(delete)) {
+        try (PreparedStatement updateNhanKhauStatement = conn.prepareStatement(update); PreparedStatement deleteHoGiaDinhStatement = conn.prepareStatement(delete)) {
 
             // Set the Ma_Ho parameter for updating "nhan_khau"
             updateNhanKhauStatement.setInt(1, Ma_Ho);
@@ -201,46 +201,83 @@ public class Model_NhanKhau {
             // Execute the delete query for "ho_gia_dinh"
             deleteHoGiaDinhStatement.executeUpdate();
 
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
+
         try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    // CHECK TRÙNG ĐỊA CHỈ NHÀ
-    
-    public boolean check_addr(int sonha, String duong, String phuong, String quan ){
-        
-         try {
-        open_conn();
+
+    // CẬP NHẬT THÔNG TIN HỘ
+    public void ho_gia_dinh_update(ho_gia_dinh f) {
+
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-         String sql = "select* from ho_gia_dinh where So_nha =? and Duong_= ? and Phuong_= ? and Quan_ = ? and Trang_thai_ho ='Thường trú'  "; 
+
+        String sql = "update ho_gia_dinh set So_nha=?,Duong_=?,Phuong_=?, Quan_=?,Dien_tich =truncate(?,2), CCCD_Chuho=? where Ma_Ho=? "; //  
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set values for the prepared statement
-            
-            statement.setInt(1, sonha);
-            statement.setString(2,duong );
-            statement.setString(3,phuong );
-            statement.setString(4,quan);
-            ResultSet my_rs = statement.executeQuery();
-            if(my_rs.next()) return true;
+
+            statement.setInt(1, f.getSo_nha());
+            statement.setString(2, f.getDuong_());
+            statement.setString(3, f.getPhuong_());
+            statement.setString(4, f.getQuan_());
+            statement.setDouble(5, f.getDien_tich());
+            statement.setString(6, f.getCCCD_Chuho());
+            statement.setString(7, f.getCCCD_Chuho());
+//            statement.setInt(8, f.getCCCD_Chuho());
+//            statement.setString(8, f.getCCCD_Chuho());
+
+            // Execute the query
+            statement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
+
+        try {
+            close_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    // CHECK TRÙNG ĐỊA CHỈ NHÀ
+    public boolean check_addr(int sonha, String duong, String phuong, String quan) {
+
+        try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String sql = "select* from ho_gia_dinh where So_nha =? and Duong_= ? and Phuong_= ? and Quan_ = ? and Trang_thai_ho ='Thường trú'  ";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            // Set values for the prepared statement
+
+            statement.setInt(1, sonha);
+            statement.setString(2, duong);
+            statement.setString(3, phuong);
+            statement.setString(4, quan);
+            ResultSet my_rs = statement.executeQuery();
+            if (my_rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+        }
+
         try {
             close_conn();
         } catch (SQLException ex) {
@@ -248,21 +285,47 @@ public class Model_NhanKhau {
         }
         return false;
     }
-
-
-
-    //----------------------------------------------------------------------------------------------------------------------------------------
-    //    ------------------  CÁC METHOD VỀ NHÂN KHẨU ---------------------------------------------------
-
-    //   2.1.  Lấy danh sách toàn bộ nhân khẩu
-    public ArrayList<nhan_khau> nhan_khau_getds() {
-        
-        try {
-        open_conn();
+    
+    public boolean check_chuho(String str){
+             
+      try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        String sql = "SELECT IF(? like 'Chủ hộ','yes','no');";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            // Set values for the prepared statement
+            statement.setString(1,str);
+            ResultSet my_rs = statement.executeQuery();
+            if (my_rs.next()) {
+                if(my_rs.getString(1).compareTo("yes")==0){ return true;}
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+        }
+
+        try {
+            close_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+      return false;
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //    ------------------  CÁC METHOD VỀ NHÂN KHẨU ---------------------------------------------------
+    //   2.1.  Lấy danh sách toàn bộ nhân khẩu
+    public ArrayList<nhan_khau> nhan_khau_getds() {
+
+        try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         ArrayList<nhan_khau> ds_nhankhau = new ArrayList<>();
         try {
             PreparedStatement stm = conn.prepareStatement("select * from nhan_khau where Trang_thai_nhan_khau='Thường trú' or Trang_thai_nhan_khau='Mới thêm' ");
@@ -286,20 +349,20 @@ public class Model_NhanKhau {
                 String Trang_thai_nhan_khau = my_rs.getString("Trang_thai_nhan_khau");
                 //System.out.println(Gioi_tinh);
                 nhan_khau nk = new nhan_khau(CCCD, Ma_Ho, Ho_ten, QH_chuho, Gioi_tinh, Bi_danh, Ngay_sinh, Noi_sinh,
-                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc,Trang_thai_nhan_khau);
+                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc, Trang_thai_nhan_khau);
                 ds_nhankhau.add(nk);
                 //System.out.println(nk.getGioi_tinh());
 
             }
 
         } catch (SQLException ex) {
-            // handle any errors
+            JOptionPane.showMessageDialog(null, ex.getMessage()); // Handle potential exceptions
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
@@ -309,23 +372,22 @@ public class Model_NhanKhau {
     }
 
     //   2.2.  Lấy danh sách nhân khẩu của một hộ
-    public ArrayList<nhan_khau> ho_gia_dinh_getmembers(int Ma_Ho){
-        
+    public ArrayList<nhan_khau> ho_gia_dinh_getmembers(int Ma_Ho) {
+
         try {
-        open_conn();
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ArrayList<nhan_khau> members = new ArrayList<>();
         try {
             PreparedStatement stm = conn.prepareStatement("select * from nhan_khau where Ma_Ho=? ");
-            stm.setInt(1,Ma_Ho);
+            stm.setInt(1, Ma_Ho);
             ResultSet my_rs = stm.executeQuery();
 
             while (my_rs.next()) {
                 String CCCD = my_rs.getString("CCCD");
-
 
                 String Ho_ten = my_rs.getString("Ho_ten");
                 String QH_chuho = my_rs.getString("QH_chuho");
@@ -341,19 +403,19 @@ public class Model_NhanKhau {
                 String Trang_thai_nhan_khau = my_rs.getString("Trang_thai_nhan_khau");
                 //System.out.println(Gioi_tinh);
                 nhan_khau nk = new nhan_khau(CCCD, Ma_Ho, Ho_ten, QH_chuho, Gioi_tinh, Bi_danh, Ngay_sinh, Noi_sinh,
-                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc,Trang_thai_nhan_khau);
+                        Nguyen_quan, Dan_toc, Nghe_nghiep, Ngay_DKTT, Noi_o_truoc, Trang_thai_nhan_khau);
                 members.add(nk);
                 //System.out.println(nk.getGioi_tinh());
 
             }
 
         } catch (SQLException ex) {
-            // handle any errors
+            JOptionPane.showMessageDialog(null, ex.getMessage()); // Handle potential exceptions
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-        
+
         try {
             close_conn();
         } catch (SQLException ex) {
@@ -363,16 +425,15 @@ public class Model_NhanKhau {
         return members;
     }
 
-
     // 2.2. Lấy thông tin nhân khẩu theo CCCD
     public nhan_khau nhan_khau_get(String CCCD) {
-        
+
         try {
-        open_conn();
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         nhan_khau nk = new nhan_khau();
         try {
             PreparedStatement stm = conn.prepareStatement("select * from nhan_khau where CCCD = ? ");
@@ -384,48 +445,50 @@ public class Model_NhanKhau {
                 nk.setMa_Ho(my_rs.getInt("Ma_Ho"));
                 nk.setHo_ten(my_rs.getString("Ho_ten"));
                 nk.setQH_chuho(my_rs.getString("QH_chuho"));
-                nk.setGioi_tinh( my_rs.getString("Gioi_tinh"));
+                nk.setGioi_tinh(my_rs.getString("Gioi_tinh"));
                 nk.setBi_danh(my_rs.getString("Bi_danh"));
-                nk.setNgay_sinh(my_rs.getDate("Ngay_sinh")) ;
-                nk.setNoi_sinh(my_rs.getString("Noi_sinh")) ;
+                nk.setNgay_sinh(my_rs.getDate("Ngay_sinh"));
+                nk.setNoi_sinh(my_rs.getString("Noi_sinh"));
                 nk.setNguyen_quan(my_rs.getString("Nguyen_quan"));
                 nk.setDan_toc(my_rs.getString("Dan_toc"));
                 nk.setNghe_nghiep(my_rs.getString("Nghe_nghiep"));
                 nk.setNgay_DKTT(my_rs.getDate("Ngay_DKTT"));
                 nk.setNoi_o_truoc(my_rs.getString("Noi_o_truoc"));
+                nk.setTrang_thai_nhan_khau(my_rs.getString("Trang_thai_nhan_khau"));
 
+            } else {
+                return null;
             }
-            else return null;
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage()); // Handle potential exceptions
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         return nk;
     }
 
     // 2.3. Thêm nhân khẩu vào dữ liệu nhân khẩu
     public void nhan_khau_insert(nhan_khau nk) {
-        
-         try {
-        open_conn();
+
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        String sql = "INSERT INTO nhan_khau (CCCD, Ho_ten, Bi_danh, Gioi_tinh, " +
-                "Ngay_sinh, Noi_sinh, Nguyen_quan, Dan_toc, Nghe_nghiep, " +
-                "Ngay_DKTT, Noi_o_truoc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String sql = "INSERT INTO nhan_khau (CCCD, Ho_ten, Bi_danh, Gioi_tinh, "
+                + "Ngay_sinh, Noi_sinh, Nguyen_quan, Dan_toc, Nghe_nghiep, "
+                + "Ngay_DKTT, Noi_o_truoc,Ma_Ho,QH_Chuho) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
         try {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -440,64 +503,18 @@ public class Model_NhanKhau {
             statement.setString(9, nk.getNghe_nghiep());
             statement.setDate(10, new Date(nk.getNgay_DKTT().getTime()));
             statement.setString(11, nk.getNoi_o_truoc());
-
+            statement.setInt(12, nk.getMa_Ho());
+            statement.setString(13, nk.getQH_chuho());
 
             int affectedRows = statement.executeUpdate();
 
             // Iterate through the result set and populate the ArrayList
-
         } catch (SQLException e) {
-             e.printStackTrace(); // Handle potential exceptions
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
             //JOptionPane.showMessageDialog(null,"CCCD đã tồn tại trong CSDL");
         }
-        
-         try {
-            close_conn();
-        } catch (SQLException ex) {
-            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-    }
-
-    // 2.4. Update dữ liệu nhân khẩu
-    public void nhan_khau_update(nhan_khau nk){
-        
         try {
-        open_conn();
-        } catch (SQLException ex) {
-            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        String sql = "UPDATE nhan_khau SET Ho_ten = ?, QH_chuho = ?, Bi_danh = ?, " +
-                "Gioi_tinh = ?, Ngay_sinh = ?, Noi_sinh = ?, " +
-                "Nguyen_quan = ?, Dan_toc = ?, Nghe_nghiep = ?, " +
-                "Ngay_DKTT = ?, Noi_o_truoc = ?, Ma_Ho = ? WHERE CCCD = ?";
-
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            // Set values for the prepared statement
-            statement.setString(1, nk.getHo_ten());
-            statement.setString(2, nk.getQH_chuho());
-            statement.setString(3, nk.getBi_danh());
-            statement.setString(4, nk.getGioi_tinh());
-            statement.setDate(5, new java.sql.Date(nk.getNgay_sinh().getTime()));
-            statement.setString(6, nk.getNoi_sinh());
-            statement.setString(7, nk.getNguyen_quan());
-            statement.setString(8, nk.getDan_toc());
-            statement.setString(9, nk.getNghe_nghiep());
-            statement.setDate(10, new java.sql.Date(nk.getNgay_DKTT().getTime()));
-            statement.setString(11, nk.getNoi_o_truoc());
-            statement.setInt(12, nk.getMa_Ho());
-
-            // Set CCCD for the WHERE clause
-            statement.setString(13, nk.getCCCD());
-             statement.executeUpdate();
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-         try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
@@ -505,54 +522,157 @@ public class Model_NhanKhau {
 
     }
 
+    // METHOD NÀY QUAN TRỌNG, CÓ THỂ ĐƯỢC SỬ DỤNG TRONG NHIỀU TRƯỜNG HỢP
+    // 2.4. Update dữ liệu nhân khẩu
+    public void nhan_khau_update(nhan_khau nk) {
 
+        try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        if (nk.getMa_Ho() > 0) {
+//            nk.setTrang_thai_nhan_khau("Thường trú");
+//        } else {
+//            nk.setTrang_thai_nhan_khau("Mới thêm");
+//            nk.setQH_chuho("");
+//        }
+
+        String sql1 = "UPDATE nhan_khau SET Ho_ten = ?, QH_chuho = ?, Bi_danh = ?, "
+                + "Gioi_tinh = ?, Ngay_sinh = ?, Noi_sinh = ?, "
+                + "Nguyen_quan = ?, Dan_toc = ?, Nghe_nghiep = ?, "
+                + "Ngay_DKTT = ?, Noi_o_truoc = ?, Ma_Ho = ?, CCCD=?,Trang_thai_nhan_khau=? WHERE CCCD = ?";
+
+       
+
+        if (nk.getMa_Ho() > 0) {
+            try (PreparedStatement statement = conn.prepareStatement(sql1)) {
+                // Set values for the prepared statement
+                statement.setString(1, nk.getHo_ten());
+                statement.setString(2, nk.getQH_chuho());
+                statement.setString(3, nk.getBi_danh());
+                statement.setString(4, nk.getGioi_tinh());
+                statement.setDate(5, new java.sql.Date(nk.getNgay_sinh().getTime()));
+                statement.setString(6, nk.getNoi_sinh());
+                statement.setString(7, nk.getNguyen_quan());
+                statement.setString(8, nk.getDan_toc());
+                statement.setString(9, nk.getNghe_nghiep());
+                statement.setDate(10, new java.sql.Date(nk.getNgay_DKTT().getTime()));
+                statement.setString(11, nk.getNoi_o_truoc());
+                statement.setInt(12, nk.getMa_Ho());
+
+                // Set CCCD for the WHERE clause
+                statement.setString(13, nk.getCCCD());
+                statement.setString(14, nk.getTrang_thai_nhan_khau());
+                statement.setString(15, nk.getCCCD());
+
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+            }
+        } else if (nk.getMa_Ho() == 0) {
+             String sql2 = "UPDATE nhan_khau SET Ho_ten = ?, QH_chuho = ?, Bi_danh = ?, "
+                + "Gioi_tinh = ?, Ngay_sinh = ?, Noi_sinh = ?, "
+                + "Nguyen_quan = ?, Dan_toc = ?, Nghe_nghiep = ?, "
+                + "Ngay_DKTT = ?, Noi_o_truoc = ?, Ma_Ho = null, CCCD=?,Trang_thai_nhan_khau=? WHERE CCCD = ?";
+             
+            try (PreparedStatement statement = conn.prepareStatement(sql2)) {
+                // Set values for the prepared statement
+                statement.setString(1, nk.getHo_ten());
+                statement.setString(2, nk.getQH_chuho());
+                statement.setString(3, nk.getBi_danh());
+                statement.setString(4, nk.getGioi_tinh());
+                statement.setDate(5, new java.sql.Date(nk.getNgay_sinh().getTime()));
+                statement.setString(6, nk.getNoi_sinh());
+                statement.setString(7, nk.getNguyen_quan());
+                statement.setString(8, nk.getDan_toc());
+                statement.setString(9, nk.getNghe_nghiep());
+                statement.setDate(10, new java.sql.Date(nk.getNgay_DKTT().getTime()));
+                statement.setString(11, nk.getNoi_o_truoc());
+ 
+
+                // Set CCCD for the WHERE clause
+                statement.setString(12, nk.getCCCD());
+                statement.setString(13, nk.getTrang_thai_nhan_khau());
+                statement.setString(14, nk.getCCCD());
+
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+            }
+
+        }
+
+        try {
+            close_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     //2.6. Xóa nhân khẩu khỏi dữ liệu nhân khẩu
-    public void nhan_khau_delete(String CCCD){
-        
+    public void nhan_khau_delete(nhan_khau nk) {    // METHOD NÀY THỰC RA KHÔNG CẦN, DÙNG UPDATE VÀ SET Ở FORM CÁC THÔNG TIN CẦN THIẾT LÀ ĐƯỢC
+        // NHƯNG VIẾT RỒI THÌ CỨ ĐỂ ĐÓ
         try {
-        open_conn();
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        String sql = "DELETE FROM nhan_khau WHERE CCCD = ?";
+
+        String sql = "Update nhan_khau set Trang_thai_nhan_khau = 'Đã xóa', Ma_Ho=null,QH_chuho=null, Ngay_DKTT=null  WHERE CCCD = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set CCCD for the prepared statement
-            statement.setString(1, CCCD);
+            statement.setString(1, nk.getCCCD());
 
             // Execute the query
-             statement.executeUpdate();
+            statement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
-        
-         try {
+
+        if (nk.getQH_chuho().compareTo("Chủ hộ") == 0) {
+            String sql2 = "Update ho_gia_dinh set CCCD_Chuho =null where Ma_Ho=? ";
+
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                // Set CCCD for the prepared statement
+                statement.setInt(1, nk.getMa_Ho());
+
+                // Execute the query
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+            }
+        }
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+    } // METHOD NÀY THỰC RA KHÔNG CẦN, DÙNG UPDATE VÀ SET Ở FORM CÁC THÔNG TIN CẦN THIẾT LÀ ĐƯỢC
+    // NHƯNG VIẾT RỒI THÌ CỨ ĐỂ ĐÓ
 
- //----------------------------------------------------------------------------------------------------------------------------------------
-
+    //----------------------------------------------------------------------------------------------------------------------------------------
 // 3. CÁC METHOD VỀ TẠM TRÚ TẠM VẮNG
-
     //3.1. KHAI BÁO TẠM  VẮNG
+    public void tam_vang_insert(tam_vang tv) {
 
-    public void tam_vang_insert(tam_vang tv){
-        
-         try {
-        open_conn();
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        String insertSql = "INSERT INTO ds_tam_vang (CCCD, Ma_Ho, Ho_Ten, Diachi_tv, Tv_tu_ngay, Tv_den_ngay, Ly_do) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        String insertSql = "INSERT INTO ds_tam_vang (CCCD, Ma_Ho, Ho_Ten, Diachi_tv, Tv_tu_ngay, Tv_den_ngay, Ly_do) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(insertSql)) {
             // Set values for the parameters
@@ -570,8 +690,8 @@ public class Model_NhanKhau {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
@@ -579,51 +699,43 @@ public class Model_NhanKhau {
     }
 
     //3.2. KIỂM TRA KHAI BÁO TẠM VẮNG HỢP LỆ
+    public boolean tam_vang_check(String CCCD, Date tv_tu_ngay) {
 
-    public boolean tam_vang_check(String CCCD, Date tv_tu_ngay){
-        
-         try {
-        open_conn();
+        try {
+            open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        boolean check=false;
+
+        boolean check = false;
         String sql = "Select * from ds_tam_vang where CCCD=? and Tv_den_ngay >?";
         ResultSet my_rs;
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set values for the prepared statement
-            statement.setString(1,CCCD);
-            statement.setDate(2,tv_tu_ngay);
-             my_rs = statement.executeQuery();
-             if (my_rs.next()) check = true;
+            statement.setString(1, CCCD);
+            statement.setDate(2, tv_tu_ngay);
+            my_rs = statement.executeQuery();
+            if (my_rs.next()) {
+                check = true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-         try {
+
+        try {
             close_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return check;
     }
-
-
-
-
-
-
-
-
-
 
     public static void main(String args[]) {
         Model_NhanKhau m = new Model_NhanKhau();
 
-        System.out.println( m.ho_gia_dinh_getfamily(45).getCCCD_Chuho());
+        System.out.println(m.ho_gia_dinh_getfamily(45).getCCCD_Chuho());
 
         // Use getter methods to assign values
 //        nhan_khau nnk = new nhan_khau();
@@ -642,7 +754,6 @@ public class Model_NhanKhau {
 //        m.nhan_khau_update(nnk);
 //
 //        m.insert_nhankhau(nnk);
-
 //         ho_gia_dinh f = new ho_gia_dinh();
 //        f.setCCCD_Chuho();
 //        f.setSo_nha();
@@ -650,9 +761,6 @@ public class Model_NhanKhau {
 //        f.setDuong_();
 //        f.setPhuong_();
 //        f.setQuan_();
-
-
-
     }
 
 }

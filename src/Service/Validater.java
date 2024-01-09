@@ -25,6 +25,16 @@ public class Validater {
         return true;
     }
     
+    public boolean validate_int(String s){
+       try {
+          Integer.parseInt(s);
+       } catch (NumberFormatException nfe) {
+          return false;
+        }
+        return true;
+    
+    }
+    
     public boolean validate_Ma_Ho(String Ma_Ho){
         try {
           Integer.parseInt(Ma_Ho);

@@ -72,9 +72,13 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
   
 
         if(miniSearch1.getText().length()>0){
-
-         int maho = Integer.parseInt(miniSearch1.getText());
-
+         int maho=0;
+         try {
+          maho = Integer.parseInt(miniSearch1.getText());
+       } catch (NumberFormatException nfe) {
+          JOptionPane.showMessageDialog(null, "Mã hộ nhập không hợp lệ");  return null;
+        }
+      
             Iterator<ho_gia_dinh> it = searchList.iterator();
             while(it.hasNext()) {
                 ho_gia_dinh f = it.next();
@@ -138,6 +142,7 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
     }
 
     private void updateTable(ArrayList<ho_gia_dinh> list){
+        if(list==null) return;
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
         
@@ -197,9 +202,16 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table);

@@ -76,7 +76,6 @@
                                   <Component id="jTextField_NguyenQuan" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextField_DanToc" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextField_NgheNghiep" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_NgayDki" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextField_NoiOTruoc" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -87,6 +86,7 @@
                                   <Component id="jDateChooser_Ngay" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateChooser_Ngay1" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
@@ -155,9 +155,9 @@
                       <Component id="jTextField_NgheNghiep" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel12" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jTextField_NgayDki" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel12" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="jDateChooser_Ngay1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -330,8 +330,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField_NgheNghiep">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField_NgayDki">
-        </Component>
         <Component class="javax.swing.JTextField" name="jTextField_NoiOTruoc">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
@@ -345,6 +343,11 @@
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel15"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_Ngay1">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
           </Properties>
         </Component>
       </SubComponents>

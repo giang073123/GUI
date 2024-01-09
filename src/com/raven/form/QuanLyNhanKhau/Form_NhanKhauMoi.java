@@ -68,41 +68,38 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
                 options[0]);
         if (choosen == JOptionPane.YES_OPTION) {
             //THỰC HIỆN THÊM NHÂN KHẨU
-            
-            
-              if (searchText8.getText().length() > 0) {
-                
-                if(searchText10.getText().length() ==0){
+
+            if (searchText8.getText().length() > 0) {
+
+                if (searchText10.getText().length() == 0) {
                     JOptionPane.showMessageDialog(null, "Chưa nhập thông tin quan hệ với chủ hộ");  // Nhập không đúng định dạng
                     return;
                 }
-                
+
                 if (!myModel.getVal().validate_Ma_Ho(searchText8.getText())) {
                     JOptionPane.showMessageDialog(null, "Mã hộ không hợp lệ");  // Nhập không đúng định dạng
                     return;
                 } else {
-                    
+
                     ho_gia_dinh family = myModel.ho_gia_dinh_getfamily(Integer.parseInt(searchText8.getText()));
-                    if (family == null ) {
+                    if (family == null) {
                         JOptionPane.showMessageDialog(null, "Mã hộ này không tồn tại");
                         return;
                     }
 
-                    if (searchText8.getText().compareTo("Chủ hộ") == 0 && family.getCCCD_Chuho().length() > 0) {
+                    if (myModel.check_chuho(searchText10.getText()) && family.getCCCD_Chuho().length() > 0) {
                         JOptionPane.showMessageDialog(null, "Hộ này đã có chủ hộ");
                         return;
                     }
                 }
             }
-            
-            
 
             // Check nhập đủ thông tin
-            if(jDateChooser1.getDate()== null || jDateChooser2.getDate()==null ){
-               JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin yêu cầu");
-                    return;
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin yêu cầu");
+                return;
             }
-            
+
             for (int i = 0; i < 10; i++) {
                 if (i == 1 || i == 7 || i == 9) {
                     continue;
@@ -114,25 +111,22 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
                 }
             }
 
-
-            if(searchText8.getText().length() == 0 && searchText10.getText().length() >0 ){
+            if (searchText8.getText().length() == 0 && searchText10.getText().length() > 0) {
                 JOptionPane.showMessageDialog(null, "Chưa nhập Mã Hộ, không thể nhập Quan hệ chủ hộ");
-                        return;}
-            
-            
+                return;
+            }
+
             // CHECK CCCD:
             // Check CCCD hợp lệ:
             if (!myModel.getVal().validate_CCCD(searchText6.getText())) {
                 JOptionPane.showMessageDialog(null, "CCCD không hợp lệ");
                 return;
             }
-            nhan_khau test = myModel.nhan_khau_get(searchText1.getText());
-            if(test.getMa_Ho()>0){
-                JOptionPane.showMessageDialog(null,"Nhân khẩu có số CCCD này đã thường trú trên địa bàn"); return;
-            }
-            
-          
 
+//            nhan_khau test = myModel.nhan_khau_get(searchText6.getText());
+//            if(test.getMa_Ho()>0){
+//                JOptionPane.showMessageDialog(null,"Nhân khẩu có số CCCD này đã thường trú trên địa bàn"); return;
+//            }
             nhan_khau newnk = myModel.nhan_khau_get(searchText6.getText());
 
             if (newnk == null) {
@@ -152,15 +146,39 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
                 newnk.setNoi_o_truoc(searchText9.getText());
 
                 myModel.nhan_khau_insert(newnk);
-                JOptionPane.showMessageDialog(null, "Thêm nhân khẩu thành công");
+                JOptionPane.showMessageDialog(null, "Thêm nhân khẩu thành công.");
                 exit();
+                return;
 
-            } else {
+            } else if (newnk.getTrang_thai_nhan_khau().compareTo("Thường trú") == 0) {
                 JOptionPane.showMessageDialog(null, "Số CCCD đã tồn tại trong dữ liệu dân cư");
+                return;
+            } else if (newnk.getTrang_thai_nhan_khau().compareTo("Đã xóa") == 0) {  // ĐÃ XÓA TRƯỚC ĐÂY GIỜ QUAY LẠI
+                newnk = new nhan_khau();
+                newnk.setCCCD(searchText6.getText());
+                newnk.setHo_ten(searchText1.getText());
+                newnk.setMa_Ho(Integer.parseInt(searchText8.getText()));
+                newnk.setQH_chuho(searchText10.getText());
+                newnk.setBi_danh(searchText2.getText());
+                newnk.setGioi_tinh(jComboBox1.getSelectedItem().toString());
+                newnk.setNgay_sinh(new java.sql.Date(jDateChooser1.getDate().getTime()));
+                newnk.setNoi_sinh(searchText4.getText());
+                newnk.setNguyen_quan(searchText5.getText());
+                newnk.setDan_toc(searchText3.getText());
+                newnk.setNghe_nghiep(searchText7.getText());
+                newnk.setNgay_DKTT(new java.sql.Date(jDateChooser2.getDate().getTime()));
+                newnk.setNoi_o_truoc(searchText9.getText());
+                newnk.setTrang_thai_nhan_khau("Thường trú");
+                
+                JOptionPane.showMessageDialog(null, "Thêm nhân khẩu thành công.");
+                myModel.nhan_khau_update(newnk);
+            } else if (newnk.getTrang_thai_nhan_khau().compareTo("Đã khai tử") == 0) {
+                JOptionPane.showMessageDialog(null, "Số CCCD là của nhân khẩu đã khai tử");
                 return;
             }
 
-            
+            //JOptionPane.showMessageDialog(null, "--");
+            exit();
             return;
         } else if (choosen == JOptionPane.NO_OPTION) {
             return;
