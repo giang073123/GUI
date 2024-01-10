@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.raven.form.QuanLyNhanKhau;
 
+package com.raven.form.QuanLyNhanKhau;
+import com.raven.model.Dstamtru;
+import com.raven.model.DstamtruDAO;
 import com.raven.chart.ModelChart;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -12,11 +10,25 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.Date;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JFileChooser;
+import java.io.File;
+import org.apache.poi.ss.usermodel.Workbook;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Container;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import java.util.Objects;
+import java.io.FileOutputStream;
 
-/**
- *
- * @author PC Giang
- */
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
 public class Form_TamTruTamVang extends javax.swing.JPanel {
 
     /**
@@ -26,30 +38,13 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         init();
-//                searchText4.addFocusListener(new FocusAdapter() {
-//            @Override
-//            public void focusLost(FocusEvent e) {
-//                validatePhoneNumber();
-//            }
-//        });
+        setupChartProperties();
+        loadTamTruStatistics();
     }
-//        private void validatePhoneNumber() {
-//    String phoneNumber = searchText4.getText().trim();
-//    if (phoneNumber.length() > 11 || phoneNumber.length() <= 9) {
-//        // Hiển thị tooltip
-//        searchText4.setToolTipText("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.");
-//
-//        // Trả focus lại trường số điện thoại để người dùng sửa
-//        searchText4.requestFocus();
-//    } else {
-//        // Nếu số điện thoại hợp lệ, đảm bảo tooltip không hiển thị
-//        searchText4.setToolTipText(null);
-//    }
-//
-//    }
- 
+
+
     private void init(){
-                chart.addLegend("Số lượng nhân khẩu tạm trú mới", new Color(12, 84, 175), new Color(0, 108, 247));
+        chart.addLegend("Số lượng nhân khẩu tạm trú mới", new Color(12, 84, 175), new Color(0, 108, 247));
         chart.addData(new ModelChart("January", new double[]{50}));
         chart.addData(new ModelChart("February", new double[]{60}));
         chart.addData(new ModelChart("March", new double[]{20}));
@@ -77,37 +72,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         chart1.addData(new ModelChart("November", new double[]{10}));
         chart1.addData(new ModelChart("December", new double[]{10}));
         chart1.start();
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        table1.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn A", "0397234987","Tây Hồ, Hà Nội", "5", "Bạch Mai", "03/12/2023", "15/06/2024"});
-        
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        table2.addRow(new Object[]{"19823579237", "1", "Nguyễn Văn B", "0397234987","Tây Hồ, Hà Nội", "03/12/2023", "15/06/2024", "NVQS"});
-        
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -125,8 +90,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         roundPanel2 = new com.raven.swing.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -135,8 +98,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        searchText1 = new com.raven.swing.SearchText();
-        searchText2 = new com.raven.swing.SearchText();
         searchText3 = new com.raven.swing.SearchText();
         searchText4 = new com.raven.swing.SearchText();
         searchText5 = new com.raven.swing.SearchText();
@@ -176,6 +137,22 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
                 .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jButton5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                exportTableToExcel();
+            }
+        });
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -211,12 +188,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Kê khai thông tin tạm trú");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel2.setText("Họ và tên:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel3.setText("Mã hộ:");
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Số CMT/CCCD:");
 
@@ -240,12 +211,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setText("Thoát");
-
-        searchText1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText1ActionPerformed(evt);
-            }
-        });
 
         searchText4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,8 +252,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
                 .addGap(70, 70, 70)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel6)
                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,8 +260,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
                     .addComponent(jLabel9))
                 .addGap(15, 15, 15)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchText2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchText3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchText4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchText5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -325,15 +286,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(101, 101, 101)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(searchText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -622,13 +575,192 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
     private void searchText7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchText7ActionPerformed
+    private void setupChartProperties() {
+    }
+    // Đây là sự kiện khi nhấn nút Tìm kiếm
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Rest of the code
 
-    private void searchText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchText1ActionPerformed
+        Date searchDate = jDateChooser3.getDate(); // Lấy ngày từ DateChooser
+        if (searchDate != null) {
+            java.sql.Date sqlSearchDate = new java.sql.Date(searchDate.getTime());
+            // Rest of the code
+
+            DstamtruDAO dao = new DstamtruDAO();
+            try {
+                List<Dstamtru> listTamTru = dao.searchByDateRange(sqlSearchDate, sqlSearchDate);
+                DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                model.setRowCount(0); // Clear the table
+
+                for (Dstamtru tamTru : listTamTru) {
+                    Object[] row = new Object[]{
+                            tamTru.getCccd(),
+                            tamTru.getMaHo(),
+                            tamTru.getHoTen(),
+                            tamTru.getSdt(),
+                            tamTru.getDiachiThuongtru(),
+                            tamTru.getSoNha(),
+                            tamTru.getDuong(),
+                            tamTru.getTtTuNgay(),
+                            tamTru.getTtDenNgay()
+                    };
+                    model.addRow(row);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), "Lỗi cơ sở dữ liệu", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày để tìm kiếm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void exportTableToExcel() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Specify a file to save");
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            // Check if the file has the .xlsx extension, if not, append it
+            if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            DefaultTableModel model = (DefaultTableModel) table1.getModel();
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Danh Sách Tạm Trú");
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(model.getColumnName(i));
+            }
+
+            // Create data rows
+            for (int j = 0; j < model.getRowCount(); j++) {
+                Row row = sheet.createRow(j + 1);
+                for (int k = 0; k < model.getColumnCount(); k++) {
+                    Cell cell = row.createCell(k);
+                    Object value = model.getValueAt(j, k);
+                    if (value instanceof Date) {
+                        cell.setCellValue((Date) value);
+                    } else {
+                        cell.setCellValue(Objects.toString(value, ""));
+                    }
+                }
+            }
+
+            // Auto size columns
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Write output to file
+            try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                workbook.write(outputStream);
+                JOptionPane.showMessageDialog(this, "Dữ liệu đã được xuất ra file Excel.", "Xuất File Thành Công", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error writing Excel file", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Collect data from form fields
+        String cccd = searchText3.getText();
+        String sdt = searchText4.getText();
+        String diachiThuongtru = searchText5.getText();
+        String soNhaText = searchText6.getText();
+        String duong = searchText7.getText();
+        Date ttTuNgay = jDateChooser1.getDate();
+        Date ttDenNgay = jDateChooser2.getDate();
+
+        try {
+            // Validate CCCD
+            String cccdPattern = "^\\d{5}$";
+            if (!cccd.matches(cccdPattern)) {
+                JOptionPane.showMessageDialog(this, "CCCD phải đúng 5 chữ số.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate SDT, DiachiThuongtru, and Duong
+            if (sdt.isEmpty() || diachiThuongtru.isEmpty() || duong.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Các trường thông tin không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate SoNha is an integer
+            int soNha;
+            try {
+                soNha = Integer.parseInt(soNhaText);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Số nhà phải là số nguyên.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate date fields
+            if (ttTuNgay == null || ttDenNgay == null) {
+                JOptionPane.showMessageDialog(this, "Ngày tạm trú không được để trống.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (ttTuNgay.after(ttDenNgay)) {
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Call addTamTru to insert the data into the database
+            DstamtruDAO dao = new DstamtruDAO();
+            dao.addTamTru(cccd, sdt, diachiThuongtru, soNha, duong, ttTuNgay, ttDenNgay);
+            JOptionPane.showMessageDialog(this, "Tạm trú đã được thêm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+
+            loadTamTruStatistics();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error inserting temporary residency: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    private void loadTamTruStatistics() {
+        try {
+            DstamtruDAO dao = new DstamtruDAO();
+            List<Dstamtru> listTamTru = dao.getAllTamTru(); // Use your getAllTamTru method
+
+            // Assuming you have a JTable called 'table1' where you want to display the data
+            DefaultTableModel model = (DefaultTableModel) table1.getModel();
+            model.setRowCount(0); // Clears the table
+
+            // Now, fill the table with the data from listTamTru
+            for (Dstamtru tamTru : listTamTru) {
+                Object[] row = new Object[] {
+                        tamTru.getCccd(),
+                        tamTru.getMaHo(),
+                        tamTru.getHoTen(),
+                        tamTru.getSdt(),
+                        tamTru.getDiachiThuongtru(),
+                        tamTru.getSoNha(),
+                        tamTru.getDuong(),
+                        tamTru.getTtTuNgay(),
+                        tamTru.getTtDenNgay()
+                };
+                model.addRow(row);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading temporary residency statistics: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
     private com.raven.chart.Chart chart;
     private com.raven.chart.Chart chart1;
     private javax.swing.JButton jButton1;
@@ -647,8 +779,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -670,8 +800,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
     private com.raven.swing.RoundPanel roundPanel4;
     private com.raven.swing.RoundPanel roundPanel5;
     private com.raven.swing.RoundPanel roundPanel6;
-    private com.raven.swing.SearchText searchText1;
-    private com.raven.swing.SearchText searchText2;
     private com.raven.swing.SearchText searchText3;
     private com.raven.swing.SearchText searchText4;
     private com.raven.swing.SearchText searchText5;

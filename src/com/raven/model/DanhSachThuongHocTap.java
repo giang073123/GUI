@@ -1,117 +1,118 @@
-package com.raven.model;
+    package com.raven.model;
 
-import java.util.Date;
+    import java.util.Date;
 
-public class DanhSachThuongHocTap {
-    private int msKThg;
-    private String hoTen;
-    private String cccd;
-    private int maHo;
-    private String truongHoc;
-    private String thanhTich;
-    private String minhChung;
-    private int giaTriPhanQua;
-    private String trangThaiKhoanThuong;
-    private Date ngayThuong;
-    private Date ngaySinh;
-    // Getters
-    public int getMsKThg() {
-        return msKThg;
-    }
+    public class DanhSachThuongHocTap {
+        private int msKThg;
+        private String hoTen;
+        private String cccd;
+        private int maHo;
+        private String truongHoc;
+        private String thanhTich;
+        private String minhChung;
+        private int giaTriPhanQua;
+        private String TrangThaiPhatThuong;
+        private Date ngayThuong;
+        private int stt;
+        // Getters
+        public int getMsKThg() {
+            return msKThg;
+        }
+        public int getStt() {
+            return stt; // Getter cho trường mới
+        }
+        public String getHoTen() {
+            return hoTen;
+        }
 
-    public String getHoTen() {
-        return hoTen;
-    }
-    public Date getNgaySinh() {
-        return ngaySinh;
-    }
-    public String getCccd() {
-        return cccd;
-    }
+        public String getCCCD() {
+            return cccd;
+        }
 
-    public int getMaHo() {
-        return maHo;
-    }
+        public int getMaHo() {
+            return maHo;
+        }
 
-    public String getTruongHoc() {
-        return truongHoc;
-    }
+        public String getTruongHoc() {
+            return truongHoc;
+        }
 
-    public String getThanhTich() {
-        return thanhTich;
-    }
+        public String getThanhTich() {
+            return thanhTich;
+        }
 
-    public String getMinhChung() {
-        return minhChung;
-    }
+        public String getMinhChung() {
+            return minhChung;
+        }
 
-    public int getGiaTriPhanQua() {
-        return giaTriPhanQua;
-    }
+        public int getGiaTriPhanQua() {
+            return giaTriPhanQua;
+        }
 
-    public String getTrangThaiKhoanThuong() {
-        return trangThaiKhoanThuong;
-    }
+        public String getTrangThaiPhatThuong() {
+            return TrangThaiPhatThuong;
+        }
 
-    public Date getNgayThuong() {
-        return ngayThuong;
-    }
+        public Date getNgayThuong() {
+            return ngayThuong;
+        }
 
-    // Setters
-    public void setMsKThg(int msKThg) {
-        this.msKThg = msKThg;
-    }
+        // Setters
+        public void setMsKThg(int msKThg) {
+            this.msKThg = msKThg;
+        }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
-    }
+        public void setHoTen(String hoTen) {
+            this.hoTen = hoTen;
+        }
+        public void setStt(int stt) {
+            this.stt = stt; // Setter cho trường mới
+        }
+        public void setCCCD(String cccd) {
+            this.cccd = cccd;
+        }
+        public void setMaHo(int maHo) {
+            this.maHo = maHo;
+        }
+        public void setTruongHoc(String truongHoc) {
+            this.truongHoc = truongHoc;
+        }
 
-    public void setCccd(String cccd) {
-        this.cccd = cccd;
-    }
+        public void setThanhTich(String thanhTich) {
+            this.thanhTich = thanhTich;
+        }
 
-    public void setMaHo(int maHo) {
-        this.maHo = maHo;
-    }
+        public void setMinhChung(String minhChung) {
+            this.minhChung = minhChung;
+        }
 
-    public void setTruongHoc(String truongHoc) {
-        this.truongHoc = truongHoc;
-    }
+        public void setGiaTriPhanQua(int giaTriPhanQua) {
+            this.giaTriPhanQua = giaTriPhanQua;
+        }
 
-    public void setThanhTich(String thanhTich) {
-        this.thanhTich = thanhTich;
-    }
+        public void setTrangThaiPhatThuong(String TrangThaiPhatThuong) {
+            this.TrangThaiPhatThuong = TrangThaiPhatThuong;
+        }
 
-    public void setMinhChung(String minhChung) {
-        this.minhChung = minhChung;
-    }
 
-    public void setGiaTriPhanQua(int giaTriPhanQua) {
-        this.giaTriPhanQua = giaTriPhanQua;
-    }
+        public void setNgayThuong(Date ngayThuong) {
+            this.ngayThuong = ngayThuong;
+        }
 
-    public void setTrangThaiKhoanThuong(String trangThaiKhoanThuong) {
-        this.trangThaiKhoanThuong = trangThaiKhoanThuong;
+        // toString Method
+        @Override
+        public String toString() {
+            return "DanhSachThuongHocTap{" +
+                    "msKThg=" + msKThg +
+                    ", hoTen='" + hoTen + '\'' +
+                    ", cccd='" + cccd + '\'' +
+                    ", maHo=" + maHo +
+                    ", truongHoc='" + truongHoc + '\'' +
+                    ", thanhTich='" + thanhTich + '\'' +
+                    ", minhChung='" + minhChung + '\'' +
+                    ", giaTriPhanQua=" + giaTriPhanQua +
+                    ", TrangThaiPhatThuong='" + TrangThaiPhatThuong + '\'' +
+                    ", ngayThuong=" + ngayThuong +
+                    '}';
+        }
     }
-
-    public void setNgayThuong(Date ngayThuong) {
-        this.ngayThuong = ngayThuong;
-    }
-
-    // toString Method
-    @Override
-    public String toString() {
-        return "DanhSachThuongHocTap{" +
-                "msKThg=" + msKThg +
-                ", hoTen='" + hoTen + '\'' +
-                ", cccd='" + cccd + '\'' +
-                ", maHo=" + maHo +
-                ", truongHoc='" + truongHoc + '\'' +
-                ", thanhTich='" + thanhTich + '\'' +
-                ", minhChung='" + minhChung + '\'' +
-                ", giaTriPhanQua=" + giaTriPhanQua +
-                ", trangThaiKhoanThuong='" + trangThaiKhoanThuong + '\'' +
-                ", ngayThuong=" + ngayThuong +
-                '}';
-    }
-}

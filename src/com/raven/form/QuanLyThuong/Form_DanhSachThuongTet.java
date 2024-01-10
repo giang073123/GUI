@@ -17,7 +17,10 @@
     import javax.swing.JFrame;
     import javax.swing.SwingUtilities;
     import javax.swing.JPanel;
-
+    import javax.swing.JFileChooser;
+    import javax.swing.filechooser.FileNameExtensionFilter;
+    import java.io.File;
+    import java.io.IOException;
     public class Form_DanhSachThuongTet extends javax.swing.JPanel {
 
         private DanhSachThuongTetDAO danhSachThuongTetDAO;
@@ -25,14 +28,14 @@
         private com.raven.swing.Table table_DanhSachChiTiet;
         private javax.swing.JTable table_KhoanThuong;
         private Vector<String> columnNames;
-        private int msKThg;
+        private Integer ms_kthg;
+        private String tenKthg;
         private Form_QuanLyThuongTet formQuanLyThuongTetParent;
 
         public Form_DanhSachThuongTet() {
             initComponents();
             danhSachThuongTetDAO = new DanhSachThuongTetDAO();
             quanLyThuongTetDAO = new QuanLyThuongTetDAO();
-            loadDanhSachThuongTet();
             table_ThongKe = new javax.swing.JTable();
             jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,6 +58,21 @@
                 }
             });
         }
+        public Form_DanhSachThuongTet(Integer ms_kthg, String tenKthg) {
+            this.ms_kthg = ms_kthg;
+            this.tenKthg = tenKthg;
+            initComponents();
+            danhSachThuongTetDAO = new DanhSachThuongTetDAO(); // Initialize the DAO here
+            loadDanhSachThuongTet(ms_kthg);
+            jLabel_MaSo1.setText(ms_kthg.toString());
+            jLabel_TenKT.setText(tenKthg);
+            jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton_QuayLaiActionPerformed(evt);
+                }
+            });
+        }
+
         public class SomeClass {
             private DanhSachThuongTetDAO danhSachThuongTetDAO;
 
@@ -65,23 +83,29 @@
         }
 
 
-        public Form_DanhSachThuongTet(Form_QuanLyThuongTet parent, int msKThg, String tenKhoanThuong) {
-            this.formQuanLyThuongTetParent = parent;
-            initComponents();
-            this.danhSachThuongTetDAO = new DanhSachThuongTetDAO(); // Thêm dòng này để khởi tạo DAO
-            this.msKThg = msKThg;
-            this.jLabel_TenKT.setText(tenKhoanThuong); // Set the name of the reward
-            this.jLabel_MaSo.setText(String.valueOf(msKThg)); // Set the reward code with the desired format
-            loadDanhSachNhanThuong(msKThg);
+
+
+
+
+
+
+        private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuayLaiActionPerformed
+            Form_QuanLyThuongTet formQuanLyThuongTet = new Form_QuanLyThuongTet();
+
+            // Get the parent container (JFrame or another container)
+            Container parentContainer = this.getParent();
+
+            // Remove the current panel (Form_ThongTinHo) from the parent container
+            parentContainer.remove(this);
+
+            // Add the new panel (Form_ThongTinChiTiet) to the parent container
+            parentContainer.add(formQuanLyThuongTet);
+
+            // Repaint the container to reflect the changes
+            parentContainer.revalidate();
+            parentContainer.repaint();
         }
 
-
-
-
-
-        private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
-            formQuanLyThuongTetParent.showPanel(this);
-        }
 
 
 
@@ -303,9 +327,39 @@
         }
 
         private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {
-            JOptionPane.showMessageDialog(this, "Chỉnh sửa button clicked!");
+            int selectedRow = table_DanhSachChiTiet.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Assuming the second column is the CCCD and the first column is MS_KThg
+            String cccd = table_DanhSachChiTiet.getValueAt(selectedRow, 1).toString();
+            int msKThg = ms_kthg;
+
+            // Prompt user to enter new status
+            String[] options = {"Đã hoàn thành", "Chưa hoàn thành"};
+            int response = JOptionPane.showOptionDialog(this, "Chọn trạng thái phát thưởng:", "Chỉnh sửa Trạng thái",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+            if (response != -1) {
+                String newStatus = options[response];
+                java.sql.Date newDate = (response == 0) ? new java.sql.Date(System.currentTimeMillis()) : null;
+
+                try {
+                    // Make sure danhSachThuongTetDAO is an instance variable of the class
+                    danhSachThuongTetDAO.updateBonusStatus(cccd, msKThg, newStatus, newDate);
+                    JOptionPane.showMessageDialog(this, "Trạng thái phát thưởng đã được cập nhật.");
+
+                    // Optionally, refresh the data in the table to show updated status
+                    loadDanhSachThuongTet(msKThg);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật trạng thái: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
-            // Hàm xử lý sự kiện nhập tên
+
+        // Hàm xử lý sự kiện nhập tên
             private void searchText_TenActionPerformed(java.awt.event.ActionEvent evt) {
                 timKiemDanhSachThuongTet(searchText_Ten.getText().trim());
             }
@@ -354,17 +408,28 @@
 
         // Phương thức này được gọi khi người dùng nhấn nút tìm kiếm
         private void jButton_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {
+            // Retrieve text from search fields
             String hoTen = searchText_Ten.getText().trim();
             String cccd = searchText_CCCD.getText().trim();
             String maHo = searchText_MaHo.getText().trim();
-            int msKThg = this.msKThg;
+
+            // Perform the search and update the table with the results
             try {
+                // Make sure ms_kthg is initialized and holds the correct value
+                int msKThg = this.ms_kthg != null ? this.ms_kthg : -1;
+                if (msKThg == -1) {
+                    JOptionPane.showMessageDialog(this, "Mã số khoản thưởng không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Use the DAO to search with the provided parameters
                 Vector<Vector<Object>> results = danhSachThuongTetDAO.searchDanhSachThuongTet(hoTen, cccd, maHo, msKThg);
                 updateTableWithSearchResults(results);
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Error occurred during search: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Lỗi xảy ra trong quá trình tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
+
 
 
 
@@ -375,24 +440,23 @@
 
 
 
-        private void loadDanhSachThuongTet() {
-            if (danhSachThuongTetDAO != null) {
+        private void loadDanhSachThuongTet(int ms_kthg) {
                 try {
-                    Vector<Vector<Object>> data = danhSachThuongTetDAO.layDanhSachThuongTetTheoMaKhoanThuong(msKThg);
+                    Vector<Vector<Object>> data = danhSachThuongTetDAO.layDanhSachThuongTetTheoMaKhoanThuong(ms_kthg);
 
                     Vector<String> columnNames = new Vector<>(Arrays.asList(
                             "Họ và tên", "CCCD", "Mã hộ", "Ngày sinh", "Giá trị phần quà", "Trạng thái phát thưởng", "Ngày thưởng"
                     ));
 
-                    // Cập nhật model cho bảng
                     DefaultTableModel model = (DefaultTableModel) table_DanhSachChiTiet.getModel();
-                    model.setDataVector(data, columnNames); // Sử dụng biến 'result' thay vì 'data'
+                    model.setDataVector(data, columnNames);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
-            }
+
         }
+
         private void setupTableSelectionListener() {
             table_KhoanThuong.getSelectionModel().addListSelectionListener(event -> {
                 if (!event.getValueIsAdjusting()) {
@@ -422,8 +486,8 @@
             Vector<String> columnNames = new Vector<>(Arrays.asList(
                     "Họ và tên", "CCCD", "Mã hộ", "Ngày sinh", "Giá trị phần quà", "Trạng thái phát thưởng", "Ngày thưởng"
             ));
-            DefaultTableModel model = new DefaultTableModel(data, columnNames);
-            table_DanhSachChiTiet.setModel(model);
+            DefaultTableModel model = (DefaultTableModel) table_DanhSachChiTiet.getModel();
+            model.setDataVector(data, columnNames);
         }
 
 
@@ -433,47 +497,93 @@
                 try {
                     quanLyThuongTetDAO.themKhoanThuong(khoanThuong);
                     JOptionPane.showMessageDialog(this, "Thêm khoản thưởng thành công!");
-                    loadDanhSachThuongTet(); // Gọi phương thức để cập nhật bảng
+                    loadDanhSachThuongTet(ms_kthg); // Gọi phương thức để cập nhật bảng
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this, "Lỗi khi thêm khoản thưởng: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
-                Form_ThemDanhSachTet formThemDanhSachTet = new Form_ThemDanhSachTet();
+        private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {
+            Form_ThemDanhSachTet formThemDanhSachTet = new Form_ThemDanhSachTet(ms_kthg, tenKthg);
 
-            // Get the parent container (JFrame or another container)
-            Container parentContainer = this.getParent();
-
-            // Remove the current panel (Form_ThongTinHo) from the parent container
-            parentContainer.remove(this);
-
-            // Add the new panel (Form_ThongTinChiTiet) to the parent container
-            parentContainer.add(formThemDanhSachTet);
-
-            // Repaint the container to reflect the changes
-            parentContainer.revalidate();
-            parentContainer.repaint();
-            }//GEN-LAST:event_jButton_ThemActionPerformed
-
-            private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
-                // TODO add your handling code here:
-            }//GEN-LAST:event_jButton_XoaActionPerformed
-
-            private void jButton_XuatFileExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XuatFileExcelActionPerformed
-                // TODO add your handling code here:
-            }//GEN-LAST:event_jButton_XuatFileExcelActionPerformed
-
-        private void jButton_ThongKeActionPerformed(java.awt.event.ActionEvent evt) {
-            Form_ThongKeThuongTet formThongKeThuongTet = new Form_ThongKeThuongTet();
             Container parentContainer = this.getParent();
             if (parentContainer != null) {
                 parentContainer.remove(this);
-                parentContainer.add(formThongKeThuongTet);
+                parentContainer.add(formThemDanhSachTet);
                 parentContainer.revalidate();
                 parentContainer.repaint();
             } else {
-                // Log or handle the error that parent container is null
-                System.err.println("Cannot switch panels because the parent container is null.");
+                System.err.println("parentContainer is null. Unable to switch panels.");
+            }
+        }
+
+        private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {
+            // Lấy hàng được chọn
+            int selectedRow = table_DanhSachChiTiet.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Lấy CCCD và ms_kthg từ hàng được chọn
+            String CCCD = table_DanhSachChiTiet.getValueAt(selectedRow, 1).toString(); // Giả sử CCCD nằm ở cột index 1
+            int msKThg = this.ms_kthg; // Giả sử ms_kthg đã được lưu trữ trong class này
+
+            // Xác nhận trước khi xóa
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa bản ghi này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    // Thực hiện xóa
+                    danhSachThuongTetDAO.xoaDanhSachThuongTet(msKThg, CCCD);
+                    // Cập nhật lại bảng
+                    loadDanhSachThuongTet(ms_kthg);
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công bản ghi.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa bản ghi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+
+        private void jButton_XuatFileExcelActionPerformed(java.awt.event.ActionEvent evt) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Chọn nơi lưu file");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                    filePath += ".xlsx"; // Append the file extension if not present
+                }
+
+                try {
+                    // Assuming `table_DanhSachChiTiet.getModel()` returns the DefaultTableModel of your table
+                    DefaultTableModel model = (DefaultTableModel) table_DanhSachChiTiet.getModel();
+                    danhSachThuongTetDAO.exportTable(model, filePath);
+                    JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Lỗi xuất file: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+        private void jButton_ThongKeActionPerformed(java.awt.event.ActionEvent evt) {
+            // Ensure ms_kthg and tenKthg are initialized and hold the correct values
+            if (this.ms_kthg != null && this.tenKthg != null) {
+                Form_ThongKeThuongTet formThongKeThuongTet = new Form_ThongKeThuongTet(this.ms_kthg, this.tenKthg);
+                Container parentContainer = this.getParent();
+                if (parentContainer != null) {
+                    parentContainer.remove(this);
+                    parentContainer.add(formThongKeThuongTet);
+                    parentContainer.revalidate();
+                    parentContainer.repaint();
+                } else {
+                    System.err.println("Cannot switch panels because the parent container is null.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Mã số khoản thưởng hoặc tên khoản thưởng không có sẵn.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
 

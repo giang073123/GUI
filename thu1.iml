@@ -77,5 +77,15 @@
         <jarDirectory url="file://D:/Bluetooth_Intel_21.70.0.3_W10x64/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://D:/Bluetooth_Intel_21.70.0.3_W10x64/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://D:/Bluetooth_Intel_21.70.0.3_W10x64/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

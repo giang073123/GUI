@@ -4,6 +4,8 @@ package com.raven.form.QuanLyThuong;
 import com.raven.form.QuanLyThuong.Form_LichSuDanhSachThuongTet;
 import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongTet;
 import com.raven.form.QuanLyThuong.Form_DanhSachThuongTet;
+import com.raven.model.QuanLyThuongTetdata;
+import com.raven.model.QuanLyThuongTetDAO;
 import java.awt.Container;
 import javax.swing.table.DefaultTableModel;
 import java.util.Vector;
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 import com.raven.model.QuanLyThuongTetDAO;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import java.util.List;
 
 /**
  *
@@ -24,6 +27,7 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
     public Form_QuanLyThuongTet() {
         initComponents();
         loadKhoanThuongData();
+        loadEndedAwards();
         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_XemChiTietActionPerformed(evt);
@@ -55,6 +59,22 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
             // Xử lý lỗi
         }
     }
+    public void loadEndedAwards() {
+        QuanLyThuongTetDAO dao = new QuanLyThuongTetDAO();
+        try {
+            Vector<Vector<Object>> endedAwards = dao.layKhoanThuongDaKetThuc(); // Sử dụng phương thức này để lấy dữ liệu
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
+
+            for (Vector<Object> award : endedAwards) {
+                model.addRow(award); // Thêm dữ liệu mới vào bảng
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu: " + ex.getMessage());
+        }
+    }
+
+
     public void showPanel(javax.swing.JPanel panelToShow) {
         // Add the specified panel to the parent container
         Container parentContainer = this.getParent();
@@ -286,7 +306,7 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
     private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
         // Assuming jTabbedPane1 is a member variable that holds the JTabbedPane instance
-        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet(jTabbedPane1);
+        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet();
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
@@ -324,16 +344,18 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
     private int selectedMsKThg; // Biến để lưu trữ mã số khoản thưởng được chọn
 
     private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
-        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
-        if (selectedRow != -1) {
-            int msKThg = (int) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
-            String tenKhoanThuong = (String) table_DanhSachKhoanThuong.getValueAt(selectedRow, 1); // Assuming it's in column 1
-            Form_DanhSachThuongTet formDanhSachThuongTet = new Form_DanhSachThuongTet(this, msKThg, tenKhoanThuong);
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow(); // Use 'table' instead of 'table_DanhSach'
+        if (selectedRow >= 0) {
+            Integer msKthg = Integer.valueOf(table_DanhSachKhoanThuong.getModel().getValueAt(selectedRow, 0).toString());
+            String tenKthg = table_DanhSachKhoanThuong.getModel().getValueAt(selectedRow, 1).toString();
 
-            // Mở màn hình chi tiết với MS_KThg và tenKhoanThuong
-            openDetailScreen(formDanhSachThuongTet);
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khoản thưởng.");
+            Form_DanhSachThuongTet formDanhSachThuongTet = new Form_DanhSachThuongTet(msKthg, tenKthg);
+
+            Container parentContainer = this.getParent();
+            parentContainer.remove(this);
+            parentContainer.add(formDanhSachThuongTet);
+            parentContainer.revalidate();
+            parentContainer.repaint();
         }
     }
 
