@@ -29,6 +29,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
     public Main_QuanLyNhanKhau() {
 
         initComponents();
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Model_NhanKhau model= new Model_NhanKhau();
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
@@ -61,7 +62,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
                     showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                    showForm(new Form_QuanLyTaiKhoan(0));
                 }
 
             }

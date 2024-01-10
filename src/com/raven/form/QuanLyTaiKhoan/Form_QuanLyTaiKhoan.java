@@ -8,9 +8,11 @@ import com.raven.form.QuanLyNhanKhau.Form_NhanKhauMoi;
 import java.awt.Container;
 
 public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
-
-    public Form_QuanLyTaiKhoan() {
+    int mycheck;
+    public Form_QuanLyTaiKhoan(int checkchucvu) {
         initComponents();
+        mycheck =  checkchucvu;
+        if(checkchucvu==0) jTabbedPane1.removeTabAt(1);
         jButton_DoiMK.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_DoiMKActionPerformed(evt);
@@ -125,7 +127,7 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel_TieuDe, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
+                .addGap(126, 126, 126)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaCB)
                     .addComponent(jLabel_MaCB1))
@@ -258,7 +260,7 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_DoiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DoiMKActionPerformed
-       Form_DoiMatKhau formDoiMatKhau = new Form_DoiMatKhau();
+       Form_DoiMatKhau formDoiMatKhau = new Form_DoiMatKhau(mycheck);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

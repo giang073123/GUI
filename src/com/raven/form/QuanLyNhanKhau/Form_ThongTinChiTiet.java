@@ -23,7 +23,6 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
         //jLabel5.setVisible(false);
         //  jLabel12.setVisible(false);
-
         jLabel23.setVisible(true);
         searchText1.setVisible(true);
         jButton1.setVisible(true);
@@ -63,7 +62,6 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 //                jButton4ActionPerformed(evt);
 //            }
 //        });
-
         jButton_Xemchitiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_XemchitietActionPerformed(evt);
@@ -73,17 +71,26 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
     //UPDATE FAMILY INFO
     private void update_family_info() {
-        int i = 0;
+        int i = 0; int checkchuho=0;
         for (nhan_khau m : members) {  // Lấy thông tin chủ hộ
+            if(m.getQH_chuho()==null) continue;
             if (m.getQH_chuho().compareTo("Chủ hộ") == 0) {
+                checkchuho=1;
                 break;
             }
             i++;
         }
-
+        
+        if(checkchuho==0){  
+            jLabel10.setText("Cần bổ sung thông tin chủ hộ");  
+            jLabel11.setText("Cần bổ sung thông tin chủ hộ");
+        }
+        else{ jLabel10.setText(members.get(i).getHo_ten());
+         jLabel11.setText(family.getCCCD_Chuho());
+        }
         jLabel9.setText(Integer.toString(family.getMa_Ho()));
-        jLabel10.setText(members.get(i).getHo_ten());
-        jLabel11.setText(family.getCCCD_Chuho());
+        
+        
         jTextField1.setText(Integer.toString(family.getSo_nha()));
         jTextField2.setText(family.getDuong_());
         jTextField3.setText(family.getPhuong_());
@@ -112,16 +119,49 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 //    }
     // THÊM NHÂN KHẨU
     private void jButton1ActionPerformed(ActionEvent evt) {
-        nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
-        if (nk == null) {
-            JOptionPane.showMessageDialog(null, "Không tồn tại số CCCD này trong dữ liệu nhân khẩu");
+         if (searchText1.getText().length() < 1) {
+                return;
+            }
+
+        Object[] options = {"Xác nhận", "Hủy"};
+        int choosen = JOptionPane.showOptionDialog(null,
+                "Bạn có chắc chắn muốn thêm nhân khẩu này",
+                "Xác nhận",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (choosen == JOptionPane.YES_OPTION) {
+           
+            nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
+             
+            if (nk == null) {
+                JOptionPane.showMessageDialog(null, "Không tồn tại số CCCD này trong dữ liệu nhân khẩu");
+                return;
+            } else if (nk.getMa_Ho() > 0) {
+                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã thuộc một hộ khác");
+                return;
+            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "Đã xóa")) {
+                JOptionPane.showMessageDialog(null, "Nhân khẩu này không thường trú trên địa bàn");
+                return;
+            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "khai tử")) {
+                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã được khai tử");
+                return;
+            }
+
+            nk.setMa_Ho(family.getMa_Ho());
+            myModel.nhan_khau_update(nk);
+            update_members();
+
             return;
-        } else if (nk.getMa_Ho() > 0) {
-            JOptionPane.showMessageDialog(null, "Nhân khẩu này đã thuộc một hộ khác");
+        } else if (choosen == JOptionPane.NO_OPTION) {
+            return;
+        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else {
             return;
         }
-
-        nk.setMa_Ho(family.getMa_Ho());
 
     }
 
@@ -195,6 +235,8 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         parentContainer.repaint();
     }
 
+    
+    // XÓA NHÂN KHẨU
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 
         if (table1.getSelectedRow() < 0) {
@@ -203,7 +245,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
         Object[] options = {"Xác nhận", "Hủy"};
         int choosen = JOptionPane.showOptionDialog(null,
-                "Bạn có chắc chắn muốn nhân khẩu này",
+                "Bạn có chắc chắn muốn xóa nhân khẩu này",
                 "Xác nhận",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -212,15 +254,17 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 options[0]);
         if (choosen == JOptionPane.YES_OPTION) {
             int s = table1.getSelectedRow();
-//            
-//            if (members.get(s).getQH_chuho().compareTo("Chủ hộ") == 0) {
-//                family.setCCCD_Chuho("");
-//            }
-//            
-//            members.get(s).setQH_chuho("");
-//            myModel.nhan_khau_update(members.get(s));
-//            update_Table();
-//            update_family_info();
+            
+            if ( myModel.check_samestring(members.get(s).getQH_chuho(), "Chủ hộ") ) {
+                family.setCCCD_Chuho(" ");
+            }
+            myModel.ho_gia_dinh_update(family);
+            myModel.ho_gia_dinh_xoank(members.get(s));
+            
+            
+           //members.remove(s);
+            update_members();
+            update_family_info();
 
             return;
         } else if (choosen == JOptionPane.NO_OPTION) {
@@ -414,7 +458,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton_CapNhat)
-                                .addGap(102, 102, 102))))))
+                                .addGap(130, 130, 130))))))
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,7 +538,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jScrollPane2.setViewportView(table1);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Xóa nhân khẩu");
+        jButton4.setText("Xóa nhân khẩu khỏi hộ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -529,28 +573,27 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane2)
                 .addGap(5, 5, 5))
-            .addGroup(roundPanel3Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel23)
-                .addGap(18, 18, 18)
-                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(roundPanel3Layout.createSequentialGroup()
-                        .addGap(0, 13, Short.MAX_VALUE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel23)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton_Xemchitiet)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
-                        .addGap(15, 15, 15)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton6)
-                        .addGap(16, 16, 16))
-                    .addGroup(roundPanel3Layout.createSequentialGroup()
-                        .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addGap(44, 44, 44))
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

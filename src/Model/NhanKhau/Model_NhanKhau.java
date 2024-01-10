@@ -173,8 +173,32 @@ public class Model_NhanKhau {
 
     } // -> DÙNG UPDATE NK
 
-    public void ho_gia_dinh_xoank(String CCCD) { // -> DÙNG UPDATE NK
+    public void ho_gia_dinh_xoank(nhan_khau nk) { // -> (DÙNG UPDATE NK) KHÔNG THỂ DÙNG UPDATE NK VÌ Phải để Mã hộ và QH chủ hộ là null
+            try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        String update = "UPDATE nhan_khau SET Ma_Ho = null, QH_Chuho = '' WHERE CCCD = ?";
+    
+
+        try (PreparedStatement stm = conn.prepareStatement(update)) {
+
+            // Set the Ma_Ho parameter for updating "nhan_khau"
+            stm.setString(1, nk.getCCCD());
+            // Execute the update query for "nhan_khau"
+            stm.executeUpdate();         
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+        }
+
+        try {
+            close_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }  // -> DÙNG UPDATE NK
 
     //1.4. Xóa hộ
@@ -232,7 +256,7 @@ public class Model_NhanKhau {
             statement.setString(4, f.getQuan_());
             statement.setDouble(5, f.getDien_tich());
             statement.setString(6, f.getCCCD_Chuho());
-            statement.setString(7, f.getCCCD_Chuho());
+            statement.setInt(7, f.getMa_Ho());   //   BUG KHÔNG THAY ĐỔI ĐƯỢC CCCD CHỦ HỘ LÀ Ở ĐÂY, code gây bug: statement.setString(7, f.getCCCD_Chuho());
 //            statement.setInt(8, f.getCCCD_Chuho());
 //            statement.setString(8, f.getCCCD_Chuho());
 
@@ -249,6 +273,39 @@ public class Model_NhanKhau {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    
+    // BỎ THÔNG TIN CHỦ HỘ
+    public void ho_gia_dinh_delChuho(ho_gia_dinh f){
+          try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String sql = "update ho_gia_dinh set  CCCD_Chuho=null where Ma_Ho=? "; //  
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            // Set values for the prepared statement
+
+            statement.setInt(1, f.getMa_Ho());   
+
+
+            // Execute the query
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+        }
+
+        try {
+            close_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    
     }
 
     // CHECK TRÙNG ĐỊA CHỈ NHÀ
@@ -286,17 +343,22 @@ public class Model_NhanKhau {
         return false;
     }
     
-    public boolean check_chuho(String str){
+    public boolean check_samestring(String str1,String str2){
              
       try {
             open_conn();
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String sql = "SELECT IF(? like 'Chủ hộ','yes','no');";
+      
+        StringBuffer sb = new StringBuffer();
+        sb.append("%"); sb.append(str2); sb.append("%");
+       
+        String sql = "SELECT IF(? like ? ,'yes','no');";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set values for the prepared statement
-            statement.setString(1,str);
+            statement.setString(1,str1);
+            statement.setString(2,sb.toString());
             ResultSet my_rs = statement.executeQuery();
             if (my_rs.next()) {
                 if(my_rs.getString(1).compareTo("yes")==0){ return true;}
@@ -314,6 +376,10 @@ public class Model_NhanKhau {
     
       return false;
     }
+    
+
+    
+    
 
     //----------------------------------------------------------------------------------------------------------------------------------------
     //    ------------------  CÁC METHOD VỀ NHÂN KHẨU ---------------------------------------------------
@@ -605,6 +671,14 @@ public class Model_NhanKhau {
             }
 
         }
+        
+        
+//        if(this.check_samestring(nk.getQH_chuho(), "Chủ hộ")) {
+//        
+//             ho_gia_dinh f = this.ho_gia_dinh_getfamily(nk.getMa_Ho());
+//             if(f)
+//        
+//        }
 
         try {
             close_conn();
@@ -622,8 +696,25 @@ public class Model_NhanKhau {
         } catch (SQLException ex) {
             Logger.getLogger(Model_NhanKhau.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+         if (this.check_samestring(nk.getQH_chuho(), "Chủ hộ")) {
+            String sql2 = "Update ho_gia_dinh set CCCD_Chuho = null where Ma_Ho=? ";
 
-        String sql = "Update nhan_khau set Trang_thai_nhan_khau = 'Đã xóa', Ma_Ho=null,QH_chuho=null, Ngay_DKTT=null  WHERE CCCD = ?";
+            try (PreparedStatement statement = conn.prepareStatement(sql2)) {
+                // Set CCCD for the prepared statement
+                statement.setInt(1, nk.getMa_Ho());
+
+                // Execute the query
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
+            }
+        }
+        
+
+        String sql = "Update nhan_khau set Trang_thai_nhan_khau = 'Đã xóa', Ma_Ho= null,QH_chuho = ' '  WHERE CCCD = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set CCCD for the prepared statement
@@ -636,20 +727,7 @@ public class Model_NhanKhau {
             JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
         }
 
-        if (nk.getQH_chuho().compareTo("Chủ hộ") == 0) {
-            String sql2 = "Update ho_gia_dinh set CCCD_Chuho =null where Ma_Ho=? ";
-
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                // Set CCCD for the prepared statement
-                statement.setInt(1, nk.getMa_Ho());
-
-                // Execute the query
-                statement.executeUpdate();
-
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage()); // Handle potential exceptions
-            }
-        }
+       
 
         try {
             close_conn();
@@ -734,9 +812,10 @@ public class Model_NhanKhau {
 
     public static void main(String args[]) {
         Model_NhanKhau m = new Model_NhanKhau();
-
-        System.out.println(m.ho_gia_dinh_getfamily(45).getCCCD_Chuho());
-
+         nhan_khau nk = m.nhan_khau_get("56784");
+//        System.out.println(nk.getQH_chuho());
+//        System.out.println(m.check_samestring(nk.getQH_chuho(),"Chủ hộ"));
+     
         // Use getter methods to assign values
 //        nhan_khau nnk = new nhan_khau();
 //        nnk.setCCCD("5551");

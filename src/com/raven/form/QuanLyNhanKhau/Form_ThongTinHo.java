@@ -149,6 +149,7 @@ public class Form_ThongTinHo extends javax.swing.JPanel {
 
         for(ho_gia_dinh f : list){
             nhan_khau chuho = myModel.nhan_khau_get(f.getCCCD_Chuho());
+            if(chuho==null) { table.addRow(new Object[]{f.getMa_Ho(),"Cần bổ sung thông tin","Cần bổ sung thông tin",f.getSo_nha(),f.getDuong_()}); continue; }  // KHI XÓA CHỦ HỘ MÀ CHƯA KỊP THÊM VÀO
             table.addRow(new Object[]{f.getMa_Ho(),chuho.getHo_ten(),f.getCCCD_Chuho(),f.getSo_nha(),f.getDuong_()});
         }
 

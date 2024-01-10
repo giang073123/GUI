@@ -105,13 +105,33 @@ public class Form_ChiTietNhanKhau extends javax.swing.JPanel {
             }
             
             ho_gia_dinh family = myModel.ho_gia_dinh_getfamily(Integer.parseInt(jLabel15.getText()));
-            if (my_nk.getQH_chuho().compareTo(jTextField_QHChuHo.getText()) != 0) {
-                if (jTextField_QHChuHo.getText().compareTo("Chủ hộ") == 0 && family.getCCCD_Chuho().length() > 0) {
+//            if (my_nk.getQH_chuho().compareTo(jTextField_QHChuHo.getText()) != 0 || my_nk.getQH_chuho()==null ) {
+//                if (jTextField_QHChuHo.getText().compareTo("Chủ hộ") == 0 && family.getCCCD_Chuho().length() > 0) {
+//                    JOptionPane.showMessageDialog(null, "Hộ này đã có chủ hộ");
+//                    return;
+//                }
+//            }
+              // TRƯỜNG HỢP HỘ CHƯA CÓ CHỦ HỘ, VÀ THÔNG TIN MỚI LÀ CHỦ HỘ
+             if(family.getCCCD_Chuho()==null){
+                  // JOptionPane.showMessageDialog(null,myModel.check_samestring(jTextField_QHChuHo.getText(), "Chủ hộ"));
+                 if (myModel.check_samestring(jTextField_QHChuHo.getText(), "Chủ hộ")) {
+                     family.setCCCD_Chuho(jTextField_CCCD.getText());
+                     //JOptionPane.showMessageDialog(null,family.getCCCD_Chuho());
+                     myModel.ho_gia_dinh_update(family);
+                 }
+             }
+             else {
+                 // TRƯỜNG HỢP HỘ ĐANG CÓ CHỦ HỘ
+                 if (myModel.check_samestring(jTextField_QHChuHo.getText(),"Chủ hộ") && family.getCCCD_Chuho().compareTo(my_nk.getCCCD())!=0) {
                     JOptionPane.showMessageDialog(null, "Hộ này đã có chủ hộ");
                     return;
                 }
-            }
-            
+                 // TRƯỜNG HỢP ĐANG LÀ CHỦ HỘ, GIỜ XÓA ĐI
+                 else if(myModel.check_samestring(my_nk.getQH_chuho(),"Chủ hộ") || !myModel.check_samestring(jTextField_QHChuHo.getText(),"Chủ hộ") ){
+                     myModel.ho_gia_dinh_delChuho(family);
+                 }
+                 
+             }
            
             
 

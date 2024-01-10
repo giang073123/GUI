@@ -11,12 +11,13 @@ import java.awt.Container;
  * @author dangk
  */
 public class Form_DoiMatKhau extends javax.swing.JPanel {
-
+    int mycheck;
     /**
      * Creates new form Form_DoiMatKhau
      */
-    public Form_DoiMatKhau() {
+    public Form_DoiMatKhau(int check) {
         initComponents();
+        mycheck = check;
         jButton_Huy.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_HuyActionPerformed(evt);
@@ -122,7 +123,7 @@ public class Form_DoiMatKhau extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_DoiMKActionPerformed
 
     private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
-        Form_QuanLyTaiKhoan formQuanLyTaiKhoan = new Form_QuanLyTaiKhoan();
+        Form_QuanLyTaiKhoan formQuanLyTaiKhoan = new Form_QuanLyTaiKhoan(mycheck);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

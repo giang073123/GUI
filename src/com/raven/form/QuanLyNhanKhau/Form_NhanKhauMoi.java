@@ -87,7 +87,7 @@ public class Form_NhanKhauMoi extends javax.swing.JPanel {
                         return;
                     }
 
-                    if (myModel.check_chuho(searchText10.getText()) && family.getCCCD_Chuho().length() > 0) {
+                    if (myModel.check_samestring(searchText10.getText(),"Chủ hộ") && family.getCCCD_Chuho().length() > 0) {
                         JOptionPane.showMessageDialog(null, "Hộ này đã có chủ hộ");
                         return;
                     }

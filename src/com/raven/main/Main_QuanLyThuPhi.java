@@ -26,6 +26,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
     
     public Main_QuanLyThuPhi() {
         initComponents();        
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
@@ -57,7 +58,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
                     showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                    showForm(new Form_QuanLyTaiKhoan(0));
                 }
 
             }

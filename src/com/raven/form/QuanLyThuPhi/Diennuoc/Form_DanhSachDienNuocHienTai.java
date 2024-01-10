@@ -11,6 +11,7 @@ import Model.ThuPhi.khoan_thu_phichungcu;
 import Model.ThuPhi.thu_tien;
 import Model.ThuPhi.thu_tien_khac;
 import Model.ThuPhi.thu_tien_phichungcu;
+import Service.*;
 
 import java.awt.Container;
 import java.awt.Rectangle;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.View;
 
 /**
  *
@@ -315,6 +317,9 @@ public class Form_DanhSachDienNuocHienTai extends javax.swing.JPanel {
 
     private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "abc");
+        ExcelImporter exc = new ExcelImporter(myKT.getMS_KThu());
+        exc.importToDatabase();
     }//GEN-LAST:event_jButton_ThemActionPerformed
 
     private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThoatActionPerformed

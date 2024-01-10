@@ -32,6 +32,7 @@ public class Main_Admin extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Main_Admin() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         Model_NhanKhau model_nk= new Model_NhanKhau();
         Model_ThuPhi model_tp = new Model_ThuPhi();
@@ -81,7 +82,7 @@ public class Main_Admin extends javax.swing.JFrame {
                     showForm(new Form_ThongTinHo(model_nk));
                 }
                  else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                    showForm(new Form_QuanLyTaiKhoan(1));
                 }
 
             }

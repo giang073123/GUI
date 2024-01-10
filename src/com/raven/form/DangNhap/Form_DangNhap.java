@@ -26,7 +26,7 @@ public class Form_DangNhap extends javax.swing.JFrame {
         initComponents();
         this.hideicon.setVisible(false);
         this.passwordField.setEchoChar('*');
-
+        
     }
 
     /**
@@ -240,24 +240,25 @@ public class Form_DangNhap extends javax.swing.JFrame {
         
         String username = usernameField.getText();
 	String pw = String.valueOf(passwordField.getPassword());
-				
-				 try {   
-		    		 String sql = "select * from can_bo";
-		    		 PreparedStatement stm = conn.prepareStatement(sql);
-                                 //stm.setString(1,username); 
-                                 //stm.setString(2,pw);
-		    		 ResultSet my_rs = stm.executeQuery(sql);
+				String sql = "select * from can_bo where username= ? and password = ? ";
+				 try( PreparedStatement stm = conn.prepareStatement(sql)) {   
+		    		 
+		    		
+                                 stm.setString(1,username); 
+                                 stm.setString(2,pw);
+		    		 ResultSet my_rs = stm.executeQuery();
 		    		 if(my_rs.next()) { 
                                      
                                      JOptionPane.showMessageDialog(null,"Đăng nhập thành công.");
                                      String chucvu = my_rs.getString(5);
-                                    if(chucvu.compareTo("Tổ trưởng")==0 ||chucvu.compareTo("Tổ phó")==0 ){ Main_Admin m =new Main_Admin(); m.setVisible(true); this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý nhân khẩu")==0 ){ Main_QuanLyNhanKhau m =new Main_QuanLyNhanKhau(); this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý phát thưởng")==0 ){ Main_QuanLyThuong m =new Main_QuanLyThuong(); this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý thu phí")==0 ){ Main_QuanLyThuPhi m =new Main_QuanLyThuPhi(); this.dispose();}
+                                     JOptionPane.showMessageDialog(null, chucvu);
+                                    if(chucvu.compareTo("Tổ trưởng")==0 ||chucvu.compareTo("Tổ phó")==0 ){ Main_Admin m =new Main_Admin(); m.setVisible(true);  this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý nhân khẩu")==0 ){ Main_QuanLyNhanKhau m =new Main_QuanLyNhanKhau(); m.setVisible(true); this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý phát thưởng")==0 ){ Main_QuanLyThuong m =new Main_QuanLyThuong(); m.setVisible(true); this.dispose();}
+                                    else if(chucvu.compareTo("Cán bộ quản lý thu phí")==0 ){ Main_QuanLyThuPhi m =new Main_QuanLyThuPhi(); m.setVisible(true); this.dispose();}
                                  }
 		    		 else JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu.");
-		    		 
+		    		conn.close();
 		    	 } catch (SQLException ex) {
 		    	     // handle any errors
 		    	    // JOptionPane.showMessageDialog(null,"Hãy kiểm tra lại kết nối");
