@@ -26,7 +26,6 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
      */
     public Main_QuanLyThuong() {
         initComponents();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //         setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
@@ -52,7 +51,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
                     showForm(new Form_QuanLyThuongTet());
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan(0));
+                    showForm(new Form_QuanLyTaiKhoan());
                 }
 
             }

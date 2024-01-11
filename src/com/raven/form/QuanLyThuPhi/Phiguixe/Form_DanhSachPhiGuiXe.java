@@ -68,6 +68,7 @@ public class Form_DanhSachPhiGuiXe extends javax.swing.JPanel {
         jLabel_PhiXeDap.setText(Integer.toString(myKT.getPhi_xe_dap()));
         jLabel_PhiXeMay.setText(Integer.toString(myKT.getPhi_xe_may()));
         jLabel_PhiOTo.setText(Integer.toString(myKT.getPhi_xe_oto()));
+        jLabel2.setText(Integer.toString(myKT.getTong_thu()));
     }
 
     
@@ -110,6 +111,8 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel_PhiOTo = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel_PhiXeMay = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,16 +160,26 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel16.setText("Phí xe ô tô:");
 
+        jLabel_MaKT2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaKT2.setText("jLabel_MaKT");
 
+        jLabel_PhiXeDap.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiXeDap.setText("jLabel_PhiXeDap");
 
+        jLabel_PhiOTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiOTo.setText("jLabel_PhiOTo");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel17.setText("Phí xe máy:");
 
+        jLabel_PhiXeMay.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiXeMay.setText("jLabel_PhiXeMay");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setText("Tổng thu:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -188,19 +201,24 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addComponent(jLabel17))
-                        .addGap(74, 74, 74)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_MaKT2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_PhiXeMay))
-                        .addGap(52, 52, 52)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel_MaKT2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(110, 110, 110)
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(jLabel15))
                         .addGap(18, 18, 18)
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_PhiXeDap)
-                            .addComponent(jLabel_PhiOTo))))
+                            .addGroup(roundPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_PhiOTo)
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel17)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_PhiXeMay)))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         roundPanel2Layout.setVerticalGroup(
@@ -219,7 +237,9 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
                     .addComponent(jLabel16)
                     .addComponent(jLabel_PhiOTo)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel_PhiXeMay))
+                    .addComponent(jLabel_PhiXeMay)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,11 +272,13 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Thoat;
     private javax.swing.JButton jButton_TimKiem2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_MaKT2;
     private javax.swing.JLabel jLabel_PhiOTo;
     private javax.swing.JLabel jLabel_PhiXeDap;

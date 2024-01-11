@@ -22,139 +22,191 @@ import javax.swing.table.DefaultTableModel;
  * @author PC Giang
  */
 public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
+
     Model_ThuPhi myModel;
     ArrayList<khoan_thu_khac> current = new ArrayList<>();
     ArrayList<khoan_thu_khac> history = new ArrayList<>();
+
     /**
      * Creates new form Form_ThuPhiDienNuoc
      */
     public Form_ThuPhiDienNuoc(Model_ThuPhi tp) {
         initComponents();
-        myModel=tp;
-        
+        myModel = tp;
+       // jButton_KetThucKT.setVisible(false); jButton_XoaKT.setVisible(false);
+
         getdata1();
         updateTable1(current);
-        
+
         getHistory();
         updateTable3();
-        
-        
-         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+
+        jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               jButton_XemChiTietActionPerformed(evt);
+                jButton_XemChiTietActionPerformed(evt);
             }
-         });
-         
+        });
+
         jButton_XemChiTiet1.addActionListener(new java.awt.event.ActionListener() {
-             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               jButton_XemChiTiet1ActionPerformed(evt);
-             }
-         });
-        
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XemChiTiet1ActionPerformed(evt);
+            }
+        });
+
         // TẠO KHOẢN THU -> -> có sự kiện, chưa hoàn thiện form
         jButton_TaoKhoanThu.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_TaoKhoanThuActionPerformed(evt);
-        }
-    });
-        
-         // XÓA KHOẢN THU -> Đã có
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_TaoKhoanThuActionPerformed(evt);
+            }
+        });
+
+        // XÓA KHOẢN THU -> Đã có
         jButton_XoaKT.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            int idx = table1.getSelectedRow();
-            myModel.khoan_thu_Xoa("khoan_thu_khac",current.get(idx).getMS_KThu());            
-             DefaultTableModel model = (DefaultTableModel)table1.getModel();
-             model.removeRow(idx);
-             JOptionPane.showMessageDialog(null,"Đã xóa khoản thu");
-        }
-    });
-        
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                int idx = table1.getSelectedRow();
+                if (idx < 0) {
+                    return;
+                }
+
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if (choosen == JOptionPane.YES_OPTION) {
+
+                    myModel.khoan_thu_Xoa("khoan_thu_khac", current.get(idx).getMS_KThu());
+                    DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                    model.removeRow(idx);
+                    JOptionPane.showMessageDialog(null, "Đã xóa khoản thu");
+
+                    return;
+                } else if (choosen == JOptionPane.NO_OPTION) {
+                    return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else {
+                    return;
+                }
+
+            }
+        });
+
         // KẾT THÚC KHOẢN THU 
         jButton_KetThucKT.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            int idx = table1.getSelectedRow();
-            myModel.khoan_thu_Ketthuc("khoan_thu_khac",current.get(idx).getMS_KThu());
-             DefaultTableModel model = (DefaultTableModel)table1.getModel();
-             model.removeRow(idx);
-             JOptionPane.showMessageDialog(null,"Đã kết thúc khoản thu");
-        }
-    });
-        
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                int idx = table1.getSelectedRow();
+                if (idx < 0) {
+                    return;
+                }
+
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn kết thúc khoản thu này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if (choosen == JOptionPane.YES_OPTION) {
+                    myModel.khoan_thu_Ketthuc("khoan_thu_khac", current.get(idx).getMS_KThu());
+                    DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                    model.removeRow(idx);
+                    JOptionPane.showMessageDialog(null, "Đã kết thúc khoản thu");
+
+                    return;
+                } else if (choosen == JOptionPane.NO_OPTION) {
+                    return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else {
+                    return;
+                }
+
+            }
+        });
+
         // TÌM KIẾM KHOẢN THU TRONG PHẦN LỊCH SỬ THEO THÁNG
         jButton6.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-              if(jDateChooser1.getDate()!=null){
-               Date choosen_Date = jDateChooser1.getDate();
-                int i = 0;
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (jDateChooser1.getDate() != null) {
+                    Date choosen_Date = jDateChooser1.getDate();
+                    int i = 0;
                     for (khoan_thu_khac kt : history) {
-                        if (kt.getNgaytao_KThu().getMonth() == choosen_Date.getMonth() ) {
+                        if (kt.getNgaytao_KThu().getMonth() == choosen_Date.getMonth()) {
                             Rectangle rect = table3.getCellRect(i, 0, true);
                             jScrollPane3.getViewport().scrollRectToVisible(rect);
-                            
+
                             break;
                         }
                         i++;
                     }
-               
-                }
-        }
-    });
-        
-}
-    
-     // CÁC METHOD CỦA TRANG KHOẢN THU HIỆN TẠI
-    private void getdata1(){
-        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_khac(),"Chưa kết thúc");
-        if (tmplist.size()==0) return;
 
-        for(khoan_thu kt:tmplist){  
+                }
+            }
+        });
+
+    }
+
+    // CÁC METHOD CỦA TRANG KHOẢN THU HIỆN TẠI
+    private void getdata1() {
+        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_khac(), "Chưa kết thúc");
+        if (tmplist.size() == 0) {
+            return;
+        }
+
+        for (khoan_thu kt : tmplist) {
             khoan_thu_khac k = (khoan_thu_khac) kt;
-            if(k.getLoai_KThu().compareTo("Đóng góp tự nguyện")!=0){current.add(k);}
-            
+            if (k.getLoai_KThu().compareTo("Đóng góp tự nguyện") != 0) {
+                current.add(k);
+            }
+
         }
     }
 
     private void updateTable1(ArrayList<khoan_thu_khac> list) {
-        if (list.size()==0) return;
-        DefaultTableModel model = (DefaultTableModel)table1.getModel();
-        model.setRowCount(0);
-        int i=1;
-       // "Mã hộ", "Diện tích", "Số tiền", "Trạng thái thu", "Ngày thu"
-        for(khoan_thu_khac kt : list){
-            table1.addRow(new Object[]{kt.getMS_KThu(),kt.getTen_KThu(),kt.getLoai_KThu(),kt.getNgaytao_KThu(),kt.getTong_thu(),kt.getGhi_chu()});
+        if (list.size() == 0) {
+            return;
         }
-        
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        model.setRowCount(0);
+        int i = 1;
+        // "Mã hộ", "Diện tích", "Số tiền", "Trạng thái thu", "Ngày thu"
+        for (khoan_thu_khac kt : list) {
+            table1.addRow(new Object[]{kt.getMS_KThu(), kt.getTen_KThu(), kt.getLoai_KThu(), kt.getNgaytao_KThu(), kt.getTong_thu(), kt.getGhi_chu()});
+        }
+
     }
 
-    
-     // CÁC METHOD CỦA TRANG LỊCH SỬ KHOẢN THU
-    
-    private void getHistory(){
-        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_khac(),"Đã kết thúc");
-        if (tmplist.size()==0) return;
-        
-        for(khoan_thu kt:tmplist){  
+    // CÁC METHOD CỦA TRANG LỊCH SỬ KHOẢN THU
+    private void getHistory() {
+        ArrayList<khoan_thu> tmplist = myModel.khoan_thu_Danhsach(new khoan_thu_khac(), "Đã kết thúc");
+        if (tmplist.size() == 0) {
+            return;
+        }
+
+        for (khoan_thu kt : tmplist) {
             khoan_thu_khac k = (khoan_thu_khac) kt;
-            if(k.getLoai_KThu().compareTo("Đóng góp tự nguyện")!=0){history.add(k);};
-            
+            if (k.getLoai_KThu().compareTo("Đóng góp tự nguyện") != 0) {
+                history.add(k);
+            };
+
         }
     }
-    
-    private void updateTable3(){  // Vì sao ở trên cần truyền vào list mà ở đây lại không -> Vì ở trên cop từ bảng nhân khẩu, cần dùng 2 list cho chức năng tìm kiếm
-        DefaultTableModel model = (DefaultTableModel)table3.getModel();
+
+    private void updateTable3() {  // Vì sao ở trên cần truyền vào list mà ở đây lại không -> Vì ở trên cop từ bảng nhân khẩu, cần dùng 2 list cho chức năng tìm kiếm
+        DefaultTableModel model = (DefaultTableModel) table3.getModel();
         model.setRowCount(0);
 
-        for(khoan_thu_khac kt : history){
-            table3.addRow(new Object[]{kt.getMS_KThu(),kt.getTen_KThu(),kt.getLoai_KThu(),kt.getNgaytao_KThu(),kt.getTong_thu(),kt.getGhi_chu()});
+        for (khoan_thu_khac kt : history) {
+            table3.addRow(new Object[]{kt.getMS_KThu(), kt.getTen_KThu(), kt.getLoai_KThu(), kt.getNgaytao_KThu(), kt.getTong_thu(), kt.getGhi_chu()});
         }
     }
-    
-    
-   
-
-   
-
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -251,13 +303,13 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton_XemChiTiet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_TaoKhoanThu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_XoaKT)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton_KetThucKT)
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton_XoaKT))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_XemChiTiet)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_TaoKhoanThu))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -270,10 +322,10 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_XoaKT)
                     .addComponent(jButton_TaoKhoanThu)
                     .addComponent(jButton_XemChiTiet)
-                    .addComponent(jButton_KetThucKT))
+                    .addComponent(jButton_KetThucKT)
+                    .addComponent(jButton_XoaKT))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -392,20 +444,20 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet1ActionPerformed
-        Form_LichSuDanhSachDienNuoc formLichSuDanhSachDienNuoc = new Form_LichSuDanhSachDienNuoc(myModel,history.get(table3.getSelectedRow()));
+        Form_LichSuDanhSachDienNuoc formLichSuDanhSachDienNuoc = new Form_LichSuDanhSachDienNuoc(myModel, history.get(table3.getSelectedRow()));
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
 
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
 
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(formLichSuDanhSachDienNuoc);
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formLichSuDanhSachDienNuoc);
 
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
     }//GEN-LAST:event_jButton_XemChiTiet1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -435,20 +487,20 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
 
     private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
         // Create an instance of Form_ThongTinChiTiet
-    Form_DanhSachDienNuocHienTai form = new Form_DanhSachDienNuocHienTai(myModel,current.get(table1.getSelectedRow()));
+        Form_DanhSachDienNuocHienTai form = new Form_DanhSachDienNuocHienTai(myModel, current.get(table1.getSelectedRow()));
 
-    // Get the parent container (JFrame or another container)
-    Container parentContainer = this.getParent();
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
 
-    // Remove the current panel (Form_ThongTinHo) from the parent container
-    parentContainer.remove(this);
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
 
-    // Add the new panel (Form_ThongTinChiTiet) to the parent container
-    parentContainer.add(form);
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(form);
 
-    // Repaint the container to reflect the changes
-    parentContainer.revalidate();
-    parentContainer.repaint();
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
     }//GEN-LAST:event_jButton_XemChiTietActionPerformed
 
     private void jButton_KetThucKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucKTActionPerformed

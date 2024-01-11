@@ -284,7 +284,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
             jLabel_PhiXeMay.setVisible(false);
             jLabel_PhiOTo.setVisible(false);
             jScrollPane1.setVisible(false);
-            jButton_CapNhat2.setVisible(false);
+           // jButton_CapNhat2.setVisible(false);
           //  jButton_XuatFile2.setVisible(false);
             jButton_KetThucKT2.setVisible(false);
             jButton_XoaKT2.setVisible(false);
@@ -305,7 +305,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
             jLabel_PhiXeMay.setVisible(true);
             jLabel_PhiOTo.setVisible(true);
             jScrollPane1.setVisible(true);
-            jButton_CapNhat2.setVisible(true);
+           // jButton_CapNhat2.setVisible(true);
            // jButton_XuatFile2.setVisible(true);
             jButton_KetThucKT2.setVisible(true);
             jButton_XoaKT2.setVisible(true);
@@ -375,7 +375,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         jButton_XoaKT2 = new javax.swing.JButton();
         jButton_KetThucKT2 = new javax.swing.JButton();
         jButton_TaoKT2 = new javax.swing.JButton();
-        jButton_CapNhat2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         searchText3 = new com.raven.swing.SearchText();
         jLabel14 = new javax.swing.JLabel();
@@ -403,7 +402,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         roundPanel8 = new com.raven.swing.RoundPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table3 = new com.raven.swing.Table();
-        jButton_CapNhat3 = new javax.swing.JButton();
         searchText4 = new com.raven.swing.SearchText();
         jLabel19 = new javax.swing.JLabel();
         jButton_TimKiem3 = new javax.swing.JButton();
@@ -450,9 +448,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
 
         jButton_TaoKT2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_TaoKT2.setText("Tạo khoản thu mới");
-
-        jButton_CapNhat2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_CapNhat2.setText("Cập nhật danh sách");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel13.setText("Mã số khoản thu:");
@@ -506,9 +501,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -519,12 +511,9 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton_TaoKT2))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
-                                .addGap(290, 290, 290)
-                                .addComponent(jButton_CapNhat2)
-                                .addGap(15, 15, 15)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton_KetThucKT2)
-                                .addGap(15, 15, 15)
-                                .addComponent(jButton_XoaKT2))
+                                .addGap(179, 179, 179))
                             .addGroup(roundPanel2Layout.createSequentialGroup()
                                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -547,11 +536,17 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                                         .addGap(42, 42, 42)
                                         .addComponent(jLabel17)
                                         .addGap(41, 41, 41)
-                                        .addComponent(jLabel_PhiXeMay)))))
+                                        .addComponent(jLabel_PhiXeMay)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(30, 30, 30))
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel_TenKT2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(roundPanel2Layout.createSequentialGroup()
+                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_XoaKT2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,8 +579,7 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_XoaKT2)
-                    .addComponent(jButton_KetThucKT2)
-                    .addComponent(jButton_CapNhat2))
+                    .addComponent(jButton_KetThucKT2))
                 .addGap(35, 35, 35))
         );
 
@@ -621,9 +615,16 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane5.setViewportView(table5);
@@ -722,14 +723,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(table3);
 
-        jButton_CapNhat3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_CapNhat3.setText("Cập nhật");
-        jButton_CapNhat3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CapNhat3ActionPerformed(evt);
-            }
-        });
-
         searchText4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchText4ActionPerformed(evt);
@@ -751,17 +744,15 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
             roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel8Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton_CapNhat3)
-                    .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(roundPanel8Layout.createSequentialGroup()
-                            .addComponent(jLabel19)
-                            .addGap(18, 18, 18)
-                            .addComponent(searchText4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton_TimKiem3))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(roundPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchText4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_TimKiem3))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         roundPanel8Layout.setVerticalGroup(
@@ -772,13 +763,11 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                     .addComponent(searchText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
                     .addComponent(jButton_TimKiem3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(jButton_CapNhat3)
-                .addGap(36, 36, 36))
+                .addGap(116, 116, 116))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -863,10 +852,6 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
     private void searchText4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchText4ActionPerformed
-
-    private void jButton_CapNhat3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhat3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_CapNhat3ActionPerformed
 private void jButton_TaoKT2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // Create an instance of Form_ThongTinChiTiet
     Form_TaoKhoanThuGuiXe formTaoKhoanThuMoi = new Form_TaoKhoanThuGuiXe(myModel);
@@ -906,8 +891,6 @@ private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton_CapNhat2;
-    private javax.swing.JButton jButton_CapNhat3;
     private javax.swing.JButton jButton_KetThucKT2;
     private javax.swing.JButton jButton_TaoKT2;
     private javax.swing.JButton jButton_TimKiem2;

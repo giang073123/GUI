@@ -5,6 +5,7 @@
 package com.raven.main;
 
 import Model.ThuPhi.Model_ThuPhi;
+import Model.TaiKhoan.*;
 import com.raven.event.EventHeader;
 import com.raven.event.EventMenu;
 import com.raven.form.QuanLyThuPhi.Phichungcu.Form_ThuPhiChungCu;
@@ -23,9 +24,12 @@ import java.awt.Component;
  */
 public class Main_QuanLyThuPhi extends javax.swing.JFrame {
     Model_ThuPhi myModel= new Model_ThuPhi();
+    private can_bo mycb;
     
-    public Main_QuanLyThuPhi() {
+    public Main_QuanLyThuPhi(can_bo cb) {
         initComponents();        
+        myModel.setCB(cb);
+        Model_TaiKhoan model2 = new Model_TaiKhoan(); model2.setCb(cb);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
@@ -58,7 +62,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
                     showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan(0));
+                    showForm(new Form_QuanLyTaiKhoan(model2));
                 }
 
             }
@@ -166,7 +170,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyThuPhi().setVisible(true);
+               // new Main_QuanLyThuPhi().setVisible(true);
             }
         });
     }

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.raven.form.DangNhap;
+
+import Model.TaiKhoan.can_bo;
 import com.raven.main.*;
 
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ import java.sql.Statement;
  * @author dangk
  */
 public class Form_DangNhap extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form Form_DangNhap
      */
@@ -26,7 +28,7 @@ public class Form_DangNhap extends javax.swing.JFrame {
         initComponents();
         this.hideicon.setVisible(false);
         this.passwordField.setEchoChar('*');
-        
+
     }
 
     /**
@@ -232,40 +234,63 @@ public class Form_DangNhap extends javax.swing.JFrame {
 
     private void jButton_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DangNhapActionPerformed
         // TODO add your handling code here:
-        if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty() ){
-                    JOptionPane.showMessageDialog(null,"Hãy nhập đủ thông tin đăng nhập"); return;
-                     }
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin đăng nhập");
+            return;
+        }
         connectDB conDB = new connectDB();
-        Connection conn= conDB.connect();
-        
+        Connection conn = conDB.connect();
+
         String username = usernameField.getText();
-	String pw = String.valueOf(passwordField.getPassword());
-				String sql = "select * from can_bo where username= ? and password = ? ";
-				 try( PreparedStatement stm = conn.prepareStatement(sql)) {   
-		    		 
-		    		
-                                 stm.setString(1,username); 
-                                 stm.setString(2,pw);
-		    		 ResultSet my_rs = stm.executeQuery();
-		    		 if(my_rs.next()) { 
-                                     
-                                     JOptionPane.showMessageDialog(null,"Đăng nhập thành công.");
-                                     String chucvu = my_rs.getString(5);
-                                     JOptionPane.showMessageDialog(null, chucvu);
-                                    if(chucvu.compareTo("Tổ trưởng")==0 ||chucvu.compareTo("Tổ phó")==0 ){ Main_Admin m =new Main_Admin(); m.setVisible(true);  this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý nhân khẩu")==0 ){ Main_QuanLyNhanKhau m =new Main_QuanLyNhanKhau(); m.setVisible(true); this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý phát thưởng")==0 ){ Main_QuanLyThuong m =new Main_QuanLyThuong(); m.setVisible(true); this.dispose();}
-                                    else if(chucvu.compareTo("Cán bộ quản lý thu phí")==0 ){ Main_QuanLyThuPhi m =new Main_QuanLyThuPhi(); m.setVisible(true); this.dispose();}
-                                 }
-		    		 else JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu.");
-		    		conn.close();
-		    	 } catch (SQLException ex) {
-		    	     // handle any errors
-		    	    // JOptionPane.showMessageDialog(null,"Hãy kiểm tra lại kết nối");
-                            ex.printStackTrace();
-		    	 }
-                     
-        
+        String pw = String.valueOf(passwordField.getPassword());
+        String sql = "select * from can_bo where username= user1 and password = password1 ";
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+
+            stm.setString(1, username);
+            stm.setString(2, pw);
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()) {
+
+                JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
+                // String chucvu = my_rs.getString(5);
+                // JOptionPane.showMessageDialog(null, chucvu);
+                int maCBResult = resultSet.getInt("Ma_CB");
+                String cccd = resultSet.getString("CCCD");
+                String uname = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String tenCB = resultSet.getString("Ten_CB");
+                String chucVu = resultSet.getString("Chuc_vu");
+
+                // Create a CanBo object
+                can_bo cb = new can_bo(maCBResult, cccd, uname, password, tenCB, chucVu);
+                if (cb.getChuc_vu().compareTo("Tổ trưởng") == 0 || cb.getChuc_vu().compareTo("Tổ phó") == 0) {
+                    Main_Admin m = new Main_Admin(cb);
+                    m.setVisible(true);
+                    this.dispose();
+                } else if (cb.getChuc_vu().compareTo("Cán bộ quản lý nhân khẩu") == 0) {
+                    Main_QuanLyNhanKhau m = new Main_QuanLyNhanKhau(cb);
+                    m.setVisible(true);
+                    this.dispose();
+                } else if (cb.getChuc_vu().compareTo("Cán bộ quản lý phát thưởng") == 0) {
+                    Main_QuanLyThuong m = new Main_QuanLyThuong();
+                    m.setVisible(true);
+                    this.dispose();
+                } else if (cb.getChuc_vu().compareTo("Cán bộ quản lý thu phí") == 0) {
+                    Main_QuanLyThuPhi m = new Main_QuanLyThuPhi(cb);
+                    m.setVisible(true);
+                    this.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Sai tên đăng nhập hoặc mật khẩu.");
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            // handle any errors
+            // JOptionPane.showMessageDialog(null,"Hãy kiểm tra lại kết nối");
+            ex.printStackTrace();
+        }
+
+
     }//GEN-LAST:event_jButton_DangNhapActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
@@ -280,7 +305,7 @@ public class Form_DangNhap extends javax.swing.JFrame {
     private void showiconMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showiconMousePressed
         hideicon.setVisible(true);
         showicon.setVisible(false);
-        passwordField.setEchoChar((char)0);
+        passwordField.setEchoChar((char) 0);
     }//GEN-LAST:event_showiconMousePressed
 
     private void hideiconMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideiconMousePressed

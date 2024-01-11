@@ -27,7 +27,8 @@ public class Validater {
     
     public boolean validate_int(String s){
        try {
-          Integer.parseInt(s);
+          int i =Integer.parseInt(s);
+          if(i<=0) return false;
        } catch (NumberFormatException nfe) {
           return false;
         }

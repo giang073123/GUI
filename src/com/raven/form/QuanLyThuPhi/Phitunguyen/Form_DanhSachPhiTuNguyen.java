@@ -27,9 +27,9 @@ public class Form_DanhSachPhiTuNguyen extends javax.swing.JPanel {
     /**
      * Creates new form Form_DanhSachPhiTuNguyen
      */
-    public Form_DanhSachPhiTuNguyen( Model_ThuPhi model, khoan_thu_khac kt) {
+    public Form_DanhSachPhiTuNguyen( Model_ThuPhi model, int MS_KTHU) {
         myModel=model;
-        myKT=kt;
+        myKT=  (khoan_thu_khac)myModel.khoan_thu_Get(new khoan_thu_khac(), MS_KTHU);
         initComponents();
         
         
@@ -71,13 +71,47 @@ public class Form_DanhSachPhiTuNguyen extends javax.swing.JPanel {
                jButton_ThemDongActionPerformed(evt);
             }
          });
-        jButton_XoaDong.setVisible(false);
+        //jButton_XoaDong.setVisible(false);
         // XÓA DÒNG KHỎI DANH SÁCH
         jButton_XoaDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
                int idx = table1.getSelectedRow();
-               myModel.thu_tien_XoaDong(myList.get(idx));
-               JOptionPane.showMessageDialog(null, "Đã xóa hộ đóng góp");
+                if (idx < 0)
+                    return;
+
+                Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa thông tin này",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                       
+                    
+                       
+                        myModel.thu_tien_XoaDong(myList.get(idx));
+                        myKT.setTong_thu(myKT.getTong_thu()- myList.get(idx).getSo_tien());
+                        myList.remove(idx);
+                        updateTable();
+                        updateInfo();
+                       JOptionPane.showMessageDialog(null, "Đã xóa hộ đóng góp");
+                      
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+
+                
+                
+               
                
             }
          });
@@ -107,8 +141,10 @@ public class Form_DanhSachPhiTuNguyen extends javax.swing.JPanel {
     }
 
     private void updateInfo(){
+       // myKT = (khoan_thu_khac) myModel.khoan_thu_Get(new khoan_thu_khac(), myKT.getMS_KThu());
          jLabel_MaKT.setText(Integer.toString(myKT.getMS_KThu()) );
          jLabel_TenKT.setText(myKT.getTen_KThu());
+         jLabel2.setText(Integer.toString(myKT.getTong_thu()));
     }
 
 private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -164,6 +200,8 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
         jButton_Thoat = new javax.swing.JButton();
         jButton_ThemDong = new javax.swing.JButton();
         jButton_XoaDong = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,9 +214,16 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Long.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table1);
@@ -195,6 +240,7 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
         jButton_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_TimKiem.setText("Tìm kiếm");
 
+        jLabel_MaKT.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaKT.setText("jLabel_MaKT");
 
         jButton_Thoat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -206,52 +252,65 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
         jButton_XoaDong.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XoaDong.setText("Xóa khỏi danh sách");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setText("Tổng thu:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
         roundPanel2Layout.setHorizontalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_TenKT, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(roundPanel2Layout.createSequentialGroup()
+                            .addComponent(jButton_ThemDong)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton_XoaDong, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton_Thoat))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton_XoaDong, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton_ThemDong)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton_Thoat))
-                    .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(roundPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(18, 18, 18)
-                            .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton_TimKiem))
-                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_TenKT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(roundPanel2Layout.createSequentialGroup()
+                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addGap(50, 50, 50)
-                            .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(roundPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_TimKiem)))
+                .addGap(50, 50, 50))
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addContainerGap()
                 .addComponent(jLabel_TenKT)
-                .addGap(27, 27, 27)
+                .addGap(34, 34, 34)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel_MaKT))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
+                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(17, 17, 17)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jButton_TimKiem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Thoat)
                     .addComponent(jButton_ThemDong)
@@ -277,6 +336,8 @@ private void jButton_ThemDongActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton jButton_Thoat;
     private javax.swing.JButton jButton_TimKiem;
     private javax.swing.JButton jButton_XoaDong;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_MaKT;

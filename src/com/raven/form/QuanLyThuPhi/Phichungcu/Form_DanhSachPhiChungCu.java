@@ -67,6 +67,7 @@ public class Form_DanhSachPhiChungCu extends javax.swing.JPanel {
          jLabel_TenKT.setText(myKT.getTen_KThu());
          jLabel_PhiDV.setText(Integer.toString(myKT.getPhi_dichvu()));
         jLabel_PhiQL.setText(Integer.toString(myKT.getPhi_quanly()));
+         jLabel2.setText(Integer.toString(myKT.getTong_thu()));
     }
 
 private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -104,6 +105,8 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel_MaKT = new javax.swing.JLabel();
         jLabel_PhiDV = new javax.swing.JLabel();
         jLabel_PhiQL = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,11 +154,20 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel8.setText("Phí quản lý:");
 
+        jLabel_MaKT.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaKT.setText("jLabel_MaKT");
 
+        jLabel_PhiDV.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiDV.setText("jLabel_PhiDV");
 
+        jLabel_PhiQL.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_PhiQL.setText("jLabel_PhiQL");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setText("Tổng thu:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -175,10 +187,14 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
                         .addComponent(jButton_Thoat)
                         .addComponent(jLabel_TenKT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
+                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_MaKT, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(132, 132, 132)
                         .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -204,7 +220,9 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
                 .addGap(13, 13, 13)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel_PhiQL))
+                    .addComponent(jLabel_PhiQL)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,6 +251,8 @@ private void jButton_ThoatActionPerformed(java.awt.event.ActionEvent evt) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Thoat;
     private javax.swing.JButton jButton_TimKiem;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

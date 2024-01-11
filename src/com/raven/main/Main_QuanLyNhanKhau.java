@@ -17,6 +17,7 @@ import com.raven.form.QuanLyTaiKhoan.Form_QuanLyTaiKhoan;
 import java.awt.Color;
 import java.awt.Component;
 import Model.NhanKhau.*;
+import Model.TaiKhoan.*;
 /**
  *
  * @author PC Giang
@@ -26,11 +27,12 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
     /**
      * Creates new form Main_QuanLyNhanKhau
      */
-    public Main_QuanLyNhanKhau() {
+    public Main_QuanLyNhanKhau(can_bo cb) {
 
         initComponents();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Model_NhanKhau model= new Model_NhanKhau();
+        Model_NhanKhau model= new Model_NhanKhau(); model.setCB(cb);
+        Model_TaiKhoan model2 = new Model_TaiKhoan(); model2.setCb(cb);
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
@@ -62,7 +64,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
                     showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan(0));
+                    showForm(new Form_QuanLyTaiKhoan(model2));
                 }
 
             }
@@ -159,7 +161,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyNhanKhau().setVisible(true);
+               // new Main_QuanLyNhanKhau().setVisible(true);
             }
         });
     }

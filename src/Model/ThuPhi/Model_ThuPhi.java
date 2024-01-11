@@ -1,5 +1,6 @@
 package Model.ThuPhi;
 
+import Model.TaiKhoan.can_bo;
 import Service.*;
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Service.*;
 
 /**
  *
@@ -19,6 +21,14 @@ import javax.swing.JOptionPane;
 public class Model_ThuPhi{
     private final connectDB conndb = new connectDB();
     private  Connection conn;
+    private Validater val = new Validater();
+    private can_bo cb;
+
+     public void setCB(can_bo cb){
+        this.cb=cb;
+    }
+
+    
 
     public Model_ThuPhi() {
        // connectDB conndb = new connectDB();
@@ -195,7 +205,7 @@ public class Model_ThuPhi{
     public void thu_tien_ThemDong(thu_tien_khac tt) {
         conn = conndb.connect();
         String sql = tt.insertQuery();
-        tt.setLoai_KThu("Thu phí tự nguyện");
+        tt.setLoai_KThu("Đóng góp tự nguyện");
         System.out.println(sql);
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, tt.getMS_KThu());
@@ -320,6 +330,10 @@ public class Model_ThuPhi{
         } catch (SQLException ex) {
             Logger.getLogger(Model_ThuPhi.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Validater getVal() {
+        return val;
     }
 
 

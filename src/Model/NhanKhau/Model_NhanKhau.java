@@ -1,5 +1,6 @@
 package Model.NhanKhau;
 
+import Model.TaiKhoan.can_bo;
 import Service.Validater;
 import Service.connectDB;
 
@@ -21,6 +22,7 @@ public class Model_NhanKhau {
 
     private Connection conn;
     private Validater val = new Validater();
+    private can_bo cb;
 
     public Model_NhanKhau() {
 //        try {        -> TẠI MỖI PHƯƠNG THỨC ĐỀU open và close rồi
@@ -42,6 +44,10 @@ public class Model_NhanKhau {
 
     public Validater getVal() {
         return val;
+    }
+    
+    public void setCB(can_bo cb){
+        this.cb=cb;
     }
 
     //    ------------------  CÁC METHOD VỀ HỘ KHẨU ---------------------------------------------------

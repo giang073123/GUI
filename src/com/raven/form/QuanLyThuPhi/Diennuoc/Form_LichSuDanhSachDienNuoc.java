@@ -58,6 +58,7 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
 
     private void updateInfo(){
           jLabel_MaSoKT1.setText(Integer.toString(myKT.getMS_KThu())); jLabel_TenKT2.setText(myKT.getTen_KThu()); jLabel_LoaiKT1.setText(myKT.getLoai_KThu());
+           jLabel2.setText(Integer.toString(myKT.getTong_thu()));
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +76,8 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
         jLabel_LoaiKT = new javax.swing.JLabel();
         jLabel_LoaiKT1 = new javax.swing.JLabel();
         jButton_Thoat = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_TimKiem.setText("Tìm kiếm");
@@ -115,6 +118,7 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
         jLabel_MaSoKT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_MaSoKT.setText("Mã số khoản thu:");
 
+        jLabel_MaSoKT1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_MaSoKT1.setText("jLabel_MaKT");
 
         jLabel_NhapMa.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -126,8 +130,9 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
 
         jLabel_LoaiKT.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_LoaiKT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_LoaiKT.setText("Loại:");
+        jLabel_LoaiKT.setText("Loại khoản thu:");
 
+        jLabel_LoaiKT1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel_LoaiKT1.setText("jLabel_LoaiKT");
 
         jButton_Thoat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -138,6 +143,12 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setText("Tổng thu:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,23 +156,30 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_NhapMa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(miniSearch_NhapMa, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton_TimKiem))
                     .addComponent(jLabel_TenKT2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_MaSoKT)
-                            .addComponent(jLabel_LoaiKT))
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_LoaiKT1)
-                            .addComponent(jLabel_MaSoKT1)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Thoat, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButton_Thoat, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel_NhapMa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(miniSearch_NhapMa, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_MaSoKT)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel_MaSoKT1)
+                                        .addGap(55, 55, 55)
+                                        .addComponent(jLabel_LoaiKT)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jLabel_LoaiKT1)))))
+                        .addGap(7, 7, 7)
+                        .addComponent(jButton_TimKiem)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,12 +190,14 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_MaSoKT)
-                    .addComponent(jLabel_MaSoKT1))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_MaSoKT1)
                     .addComponent(jLabel_LoaiKT)
                     .addComponent(jLabel_LoaiKT1))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(miniSearch_NhapMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_TimKiem)
@@ -186,7 +206,7 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Thoat)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,6 +252,8 @@ public class Form_LichSuDanhSachDienNuoc extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Thoat;
     private javax.swing.JButton jButton_TimKiem;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_LoaiKT;
     private javax.swing.JLabel jLabel_LoaiKT1;
     private javax.swing.JLabel jLabel_MaSoKT;

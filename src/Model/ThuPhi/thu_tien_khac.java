@@ -68,11 +68,11 @@ public class thu_tien_khac extends thu_tien {
     public String updateQuery(String trang_thai){
         String query="";
         if(trang_thai.compareTo("Đã thu")==0){
-        query= "UPDATE ds_thu_tien_khac "
-                + "Loai_KThu = ?"
+        query= "UPDATE ds_thu_tien_khac set "
+                + "Loai_KThu = ?,"
                 + "So_tien = ?, Trangthai_Thu = 'Đã thu', Ngay_thu = ? WHERE MS_KThu = ? AND Ma_Ho = ? ";}
-        else query= "UPDATE ds_thu_tien_khac "
-            + "Loai_KThu = ?"
+        else query= "UPDATE ds_thu_tien_khac set "
+            + "Loai_KThu = ?,"
             + "So_tien = ?, Trangthai_Thu = 'Chưa thu', Ngay_thu = null WHERE MS_KThu = ? AND Ma_Ho = ? ";
      return query;
     }

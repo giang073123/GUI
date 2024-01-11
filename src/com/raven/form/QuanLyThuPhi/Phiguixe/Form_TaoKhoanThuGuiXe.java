@@ -38,6 +38,13 @@ public class Form_TaoKhoanThuGuiXe extends javax.swing.JPanel {
                      if(searchText2.getText().isEmpty() || searchText3.getText().isEmpty() || searchText4.getText().isEmpty() || searchText6.getText().isEmpty() || jTextArea1.getText().isEmpty()){
                          JOptionPane.showMessageDialog(null,"Hãy nhập đủ các thông tin yêu cầu"); return;
                      }
+                     
+                     if (myModel.getVal().validate_int(searchText3.getText()) || myModel.getVal().validate_int(searchText4.getText()) || myModel.getVal().validate_int(searchText6.getText())) {
+                    JOptionPane.showMessageDialog(null, "Các giá trị khoản phí không hợp lệ");
+                    return;
+                      }
+                     
+                     
                      myKT.setTen_KThu(searchText2.getText()); 
                      myKT.setGhi_chu(jTextArea1.getText());
                      try{
@@ -49,6 +56,7 @@ public class Form_TaoKhoanThuGuiXe extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null,"Giá trị của khoản phí không hợp lệ"); return;
                        }
                      myModel.khoan_thu_Taomoi(myKT);
+                      JOptionPane.showMessageDialog(null, "Đã tạo khoản thu");
                 exit();
             }
         });

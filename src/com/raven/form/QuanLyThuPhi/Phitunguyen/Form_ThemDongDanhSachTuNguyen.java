@@ -4,6 +4,8 @@
  */
 package com.raven.form.QuanLyThuPhi.Phitunguyen;
 
+import Model.NhanKhau.*;
+import Model.ThuPhi.*;
 import com.raven.form.QuanLyThuPhi.Phitunguyen.Form_DanhSachPhiTuNguyen;
 import Model.ThuPhi.Model_ThuPhi;
 import Model.ThuPhi.khoan_thu_khac;
@@ -40,6 +42,18 @@ public class Form_ThemDongDanhSachTuNguyen extends javax.swing.JPanel {
             if(searchText_MaHo.getText().isEmpty() || searchText_SoTien.getText().isEmpty() ){
                          JOptionPane.showMessageDialog(null,"Hãy nhập đủ các thông tin yêu cầu"); return;
                      }
+            if (!myModel.getVal().validate_Ma_Ho(searchText_MaHo.getText()) || !myModel.getVal().validate_int(searchText_SoTien.getText()) ) {
+                    JOptionPane.showMessageDialog(null, "Mã hộ không hợp lệ");  // Nhập không đúng định dạng
+                    return;
+                } else {
+                    
+                    Model_NhanKhau m = new Model_NhanKhau();
+                    ho_gia_dinh family = m.ho_gia_dinh_getfamily(Integer.parseInt(searchText_MaHo.getText()));
+                    if (family == null) {
+                        JOptionPane.showMessageDialog(null, "Mã hộ này không tồn tại");
+                        return;
+                    }
+            
                  thu_tien_khac tt= new thu_tien_khac();
                  tt.setMS_KThu(myKT.getMS_KThu());
                  tt.setLoai_KThu(myKT.getLoai_KThu());
@@ -54,11 +68,11 @@ public class Form_ThemDongDanhSachTuNguyen extends javax.swing.JPanel {
                      JOptionPane.showMessageDialog(null, "Đã thêm hộ đóng góp");
                 exit();
         }
-    });
+    }});
     }
     
     private void exit(){
-    Form_DanhSachPhiTuNguyen formDanhSachPhiTuNguyen = new Form_DanhSachPhiTuNguyen(myModel,myKT);
+    Form_DanhSachPhiTuNguyen formDanhSachPhiTuNguyen = new Form_DanhSachPhiTuNguyen(myModel,myKT.getMS_KThu());
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

@@ -6,13 +6,26 @@ package com.raven.form.QuanLyTaiKhoan;
 
 import com.raven.form.QuanLyNhanKhau.Form_NhanKhauMoi;
 import java.awt.Container;
-
+import Model.TaiKhoan.*;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+        
 public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
-    int mycheck;
-    public Form_QuanLyTaiKhoan(int checkchucvu) {
+    Model_TaiKhoan myModel;
+    can_bo mycb;
+    ArrayList<can_bo> myList = new ArrayList<>();
+    public Form_QuanLyTaiKhoan(Model_TaiKhoan model) {
         initComponents();
-        mycheck =  checkchucvu;
-        if(checkchucvu==0) jTabbedPane1.removeTabAt(1);
+        table_DanhSach.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Tổ trưởng", "Tổ phó", "Cán bộ quản lý nhân khẩu","Cán bộ quản lý thu phí", "Cán bộ quản lý phát thưởng"})));
+        myModel = model;
+        mycb =model.getCb();
+        
+        updateinfo();
+        getList();
+        updateTable();
+        if(mycb.getChuc_vu().compareTo("Tổ trưởng")!=0 && mycb.getChuc_vu().compareTo("Tổ phó")!=0) jTabbedPane1.removeTabAt(1);
         jButton_DoiMK.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_DoiMKActionPerformed(evt);
@@ -24,6 +37,31 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
         }
     });
     }
+    
+    
+    private void updateinfo(){
+        jLabel_CCCD1.setText(mycb.getCCCD());
+        jLabel_ChucVu1.setText(mycb.getChuc_vu());
+        jLabel_MaCB1.setText(Integer.toString(mycb.getMa_CB()));
+        jLabel_TenCB1.setText(mycb.getTen_CB());
+    
+    }
+    
+    private void getList(){
+        myList= myModel.getds();   
+    }
+    
+    
+    private void updateTable(){
+        DefaultTableModel model = (DefaultTableModel)table_DanhSach.getModel();
+        model.setRowCount(0);
+        
+         for(can_bo cb : myList){
+            table_DanhSach.addRow(new Object[]{cb.getMa_CB(),cb.getCCCD(),cb.getTen_CB(),cb.getUsername(),cb.getPassword(),cb.getChuc_vu()});
+        }
+    
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,9 +209,16 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(table_DanhSach);
@@ -229,7 +274,7 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
                     .addComponent(jButton_Them)
                     .addComponent(jButton_CapNhat)
                     .addComponent(jButton_CapNhat2))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Danh sách tài khoản cán bộ", jPanel1);
@@ -260,7 +305,7 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_DoiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DoiMKActionPerformed
-       Form_DoiMatKhau formDoiMatKhau = new Form_DoiMatKhau(mycheck);
+       Form_DoiMatKhau formDoiMatKhau = new Form_DoiMatKhau(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();

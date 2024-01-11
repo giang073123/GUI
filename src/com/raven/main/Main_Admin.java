@@ -4,9 +4,11 @@
  */
 package com.raven.main;
 //this
-import Model.NhanKhau.*;
 
+import Model.NhanKhau.*;
+import Model.TaiKhoan.*;
 import Model.ThuPhi.*;
+import Service.connectDB;
 import com.raven.event.EventHeader;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyNhanKhau.Form_ThongKeNhanKhau;
@@ -21,6 +23,11 @@ import com.raven.form.QuanLyThuong.Form_QuanLyThuongHocTap;
 import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
 import com.raven.swing.MenuEvent;
 import java.awt.Component;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,46 +38,40 @@ public class Main_Admin extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main_Admin() {
+    public Main_Admin(can_bo cb) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
-        Model_NhanKhau model_nk= new Model_NhanKhau();
+        Model_NhanKhau model_nk = new Model_NhanKhau();
+        model_nk.setCB(cb);
         Model_ThuPhi model_tp = new Model_ThuPhi();
+        model_tp.setCB(cb);
+        Model_TaiKhoan model_tk = new Model_TaiKhoan();
+        model_tk.setCb(cb);
         menu1.setEvent(new MenuEvent() {
             @Override
             public void selected(int index, int subIndex) {
                 if (index == 0 && subIndex == 1) {
                     showForm(new Form_ThongTinHo(model_nk));
-                } 
-                else if (index == 0 && subIndex == 2) {
+                } else if (index == 0 && subIndex == 2) {
                     showForm(new Form_ThongTinNhanKhau(model_nk));
-                } 
-                else if (index == 0 && subIndex == 3) {
+                } else if (index == 0 && subIndex == 3) {
                     showForm(new Form_TamTruTamVang());
-                } 
-                else if (index == 0 && subIndex == 4) {
+                } else if (index == 0 && subIndex == 4) {
                     showForm(new Form_ThongKeNhanKhau());
-                } 
-                else if (index == 1 && subIndex == 1) {
+                } else if (index == 1 && subIndex == 1) {
                     showForm(new Form_ThuPhiChungCu(model_tp));
-                } 
-                else if (index == 1 && subIndex == 2) {
+                } else if (index == 1 && subIndex == 2) {
                     showForm(new Form_ThuPhiTheoDot(model_tp));
-                }
-                else if (index == 1 && subIndex == 3) {
+                } else if (index == 1 && subIndex == 3) {
                     showForm(new Form_ThuPhiGuiXe(model_tp));
-                } 
-                else if (index == 1 && subIndex == 4) {
+                } else if (index == 1 && subIndex == 4) {
                     showForm(new Form_ThuPhiDienNuoc(model_tp));
-                } 
-                else if (index == 2 && subIndex == 1) {
+                } else if (index == 2 && subIndex == 1) {
                     showForm(new Form_QuanLyThuongTet());
-                   
-                } 
-                else if (index == 2 && subIndex == 2) {
+
+                } else if (index == 2 && subIndex == 2) {
                     showForm(new Form_QuanLyThuongHocTap());
-                } 
-                else {
+                } else {
                     System.out.println("Form : " + index + " " + subIndex);
                 }
             }
@@ -78,11 +79,10 @@ public class Main_Admin extends javax.swing.JFrame {
         EventHeader eventHeader = new EventHeader() {
             @Override
             public void selected(int index) {
-                 if(index == 0){
+                if (index == 0) {
                     showForm(new Form_ThongTinHo(model_nk));
-                }
-                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan(1));
+                } else if (index == 1) {
+                    showForm(new Form_QuanLyTaiKhoan(model_tk));
                 }
 
             }
@@ -97,6 +97,7 @@ public class Main_Admin extends javax.swing.JFrame {
         body.repaint();
         body.revalidate();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -233,7 +234,36 @@ public class Main_Admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_Admin().setVisible(true);
+
+                connectDB conDB = new connectDB();
+                Connection conn = conDB.connect();
+
+                can_bo cb = new can_bo();
+                String sql = "select * from can_bo where username= 'user1' and password = 'password1' ";
+                try (PreparedStatement stm = conn.prepareStatement(sql)) {
+
+                    ResultSet resultSet = stm.executeQuery();
+                    if (resultSet.next()) {
+
+                        JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
+                        // String chucvu = my_rs.getString(5);
+                        // JOptionPane.showMessageDialog(null, chucvu);
+                        cb.setMa_CB(resultSet.getInt("Ma_CB")); 
+                        String cccd = resultSet.getString("CCCD");  cb.setCCCD(resultSet.getString("CCCD"));
+                        String uname = resultSet.getString("username"); cb.setUsername(uname);
+                        String password = resultSet.getString("password"); cb.setPassword(password);
+                        String tenCB = resultSet.getString("Ten_CB");  cb.setTen_CB(tenCB);
+                        String chucVu = resultSet.getString("Chuc_vu"); cb.setChuc_vu(chucVu);
+                    }
+                    // Create a CanBo object
+
+                } catch (SQLException ex) {
+                    // handle any errors
+                    // JOptionPane.showMessageDialog(null,"Hãy kiểm tra lại kết nối");
+                    ex.printStackTrace();
+                }
+
+                new Main_Admin(cb).setVisible(true);
             }
         });
     }
