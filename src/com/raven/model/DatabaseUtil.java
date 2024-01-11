@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseUtil {
-    private static final String URL = "jdbc:mysql://localhost:3306/new_cnpm";
+    private static final String URL = "jdbc:mysql://localhost:3306/prj_se_02";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     static {

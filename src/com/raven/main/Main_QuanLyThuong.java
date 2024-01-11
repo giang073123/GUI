@@ -8,8 +8,8 @@ import com.raven.event.EventHeader;
 import com.raven.event.EventMenu;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
 import com.raven.form.QuanLyTaiKhoan.Form_QuanLyTaiKhoan;
-import com.raven.form.QuanLyThuPhi.Phichungcu.Form_ThuPhiChungCu;
-import com.raven.form.QuanLyThuPhi.Phiguixe.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
+import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
 import com.raven.form.QuanLyThuong.Form_QuanLyThuongHocTap;
 import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
 import java.awt.Color;
@@ -34,7 +34,7 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
                 else if(index == 2){
                     System.out.println("Log out");
                 }
-                else{  
+                else{
 //                    showForm(new Form(index));
                 }
             }
@@ -42,11 +42,11 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         EventHeader eventHeader = new EventHeader() {
             @Override
             public void selected(int index) {
-                 if(index == 0){
+                if(index == 0){
                     showForm(new Form_QuanLyThuongTet());
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                   // showForm(new Form_QuanLyTaiKhoan());
                 }
 
             }
@@ -55,11 +55,11 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         menu1.initMenu(event);
         showForm(new Form_QuanLyThuongTet());
     }
-        private void showForm(Component com){
-         body.removeAll();
-         body.add(com);
-         body.revalidate();
-         body.repaint();
+    private void showForm(Component com){
+        body.removeAll();
+        body.add(com);
+        body.revalidate();
+        body.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,32 +85,32 @@ public class Main_QuanLyThuong extends javax.swing.JFrame {
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
         roundPanel1Layout.setHorizontalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
-                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
+                                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
+                                        .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         roundPanel1Layout.setVerticalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(roundPanel1Layout.createSequentialGroup()
+                                .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

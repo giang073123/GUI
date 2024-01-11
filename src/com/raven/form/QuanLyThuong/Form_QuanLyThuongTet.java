@@ -363,10 +363,15 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
             Vector<Object> row = new Vector<>();
             row.add(award.getMsKThg());
             row.add(award.getTenKhoanThuong());
-            // Thêm các trường dữ liệu khác tương ứng
+            row.add(award.getGiaTriPhanQua());
+            row.add(award.getNgayTao());
+            row.add(award.getNgayKetThuc());
+            row.add(award.getTongThuong());
+            row.add(award.getGhiChu());
             model.addRow(row);
         }
     }
+
 
     private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {
         Form_ThemKhoanThuongTet formThemKhoanThuongTet = new Form_ThemKhoanThuongTet();

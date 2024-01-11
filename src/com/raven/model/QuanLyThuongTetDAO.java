@@ -205,6 +205,7 @@
                         QuanLyThuongTetdata award = new QuanLyThuongTetdata();
                         award.setMsKThg(resultSet.getInt("MS_KThg"));
                         award.setTenKhoanThuong(resultSet.getString("Ten_KThg"));
+                        award.setMsKThg(resultSet.getInt("Gia_tri_phan_qua"));
                         award.setNgayTao(resultSet.getDate("Ngaytao_KThg"));
                         award.setNgayKetThuc(resultSet.getDate("Ngaykthuc_KThg"));
                         award.setTrangThai(resultSet.getString("Trang_thai_khoanthuong"));
