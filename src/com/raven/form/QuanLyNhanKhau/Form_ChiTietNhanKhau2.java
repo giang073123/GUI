@@ -90,8 +90,8 @@ public class Form_ChiTietNhanKhau2 extends javax.swing.JPanel {
             }
             if (my_nk.getCCCD().compareTo(jTextField_CCCD.getText()) != 0) {
                 nhan_khau test = myModel.nhan_khau_get(jTextField_CCCD.getText());
-                if (test.getMa_Ho() > 0) {
-                    JOptionPane.showMessageDialog(null, "Nhân khẩu có số CCCD này đã thường trú trên địa bàn");
+                if (test!=null) {
+                    JOptionPane.showMessageDialog(null, "Số CCCD này trùng với nhân khẩu khác");
                     return;
                 }
             }
