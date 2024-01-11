@@ -4,15 +4,17 @@
  */
 package com.raven.main;
 
+import Model.ThuPhi.Model_ThuPhi;
+import Model.TaiKhoan.*;
 import com.raven.event.EventHeader;
 import com.raven.event.EventMenu;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiChungCu;
+import com.raven.form.QuanLyThuPhi.Phichungcu.Form_ThuPhiChungCu;
 import com.raven.form.QuanLyNhanKhau.Form_TamTruTamVang;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiGuiXe;
+import com.raven.form.QuanLyThuPhi.Phiguixe.Form_ThuPhiGuiXe;
 import com.raven.form.QuanLyNhanKhau.Form_ThongTinHo;
 import com.raven.form.QuanLyTaiKhoan.Form_QuanLyTaiKhoan;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiDienNuoc;
-import com.raven.form.QuanLyThuPhi.Form_ThuPhiTheoDot;
+import com.raven.form.QuanLyThuPhi.Diennuoc.Form_ThuPhiDienNuoc;
+import com.raven.form.QuanLyThuPhi.Phitunguyen.Form_ThuPhiTheoDot;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -21,25 +23,29 @@ import java.awt.Component;
  * @author PC Giang
  */
 public class Main_QuanLyThuPhi extends javax.swing.JFrame {
-
+    Model_ThuPhi myModel= new Model_ThuPhi();
+    private can_bo mycb;
     
-    public Main_QuanLyThuPhi() {
+    public Main_QuanLyThuPhi(can_bo cb) {
         initComponents();        
+        myModel.setCB(cb);
+        Model_TaiKhoan model2 = new Model_TaiKhoan(); model2.setCb(cb);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
-                    showForm(new Form_ThuPhiTheoDot());
+                    showForm(new Form_ThuPhiTheoDot(myModel));
                 }
                 else if(index == 2){
-                    showForm(new Form_ThuPhiGuiXe());
+                    showForm(new Form_ThuPhiGuiXe(myModel));
                 }
                 else if(index == 3){
-                    showForm(new Form_ThuPhiDienNuoc());
+                    showForm(new Form_ThuPhiDienNuoc(myModel));
                 }
                 else if(index == 4){
                     System.out.println("Log out");
@@ -53,17 +59,17 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThuPhiChungCu());
+                    showForm(new Form_ThuPhiChungCu(myModel));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                    showForm(new Form_QuanLyTaiKhoan(model2));
                 }
 
             }
         };
         header1.init(eventHeader);
         menu1.initMenu(event);
-        showForm(new Form_ThuPhiChungCu());
+        showForm(new Form_ThuPhiChungCu(myModel));
         
 
     }
@@ -164,7 +170,7 @@ public class Main_QuanLyThuPhi extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyThuPhi().setVisible(true);
+               // new Main_QuanLyThuPhi().setVisible(true);
             }
         });
     }

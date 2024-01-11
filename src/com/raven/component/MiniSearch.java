@@ -44,4 +44,7 @@ public class MiniSearch extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
+    public String getText(){
+        return searchText1.getText();
+    }
 }

@@ -16,7 +16,8 @@ import com.raven.form.QuanLyNhanKhau.Form_ThongTinNhanKhau;
 import com.raven.form.QuanLyTaiKhoan.Form_QuanLyTaiKhoan;
 import java.awt.Color;
 import java.awt.Component;
-
+import Model.NhanKhau.*;
+import Model.TaiKhoan.*;
 /**
  *
  * @author PC Giang
@@ -26,17 +27,21 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
     /**
      * Creates new form Main_QuanLyNhanKhau
      */
-    public Main_QuanLyNhanKhau() {
+    public Main_QuanLyNhanKhau(can_bo cb) {
+
         initComponents();
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Model_NhanKhau model= new Model_NhanKhau(); model.setCB(cb);
+        Model_TaiKhoan model2 = new Model_TaiKhoan(); model2.setCb(cb);
 //        setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
                 if(index == 0){
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
-                    showForm(new Form_ThongTinNhanKhau());
+                    showForm(new Form_ThongTinNhanKhau(model));
                 }
                 else if(index == 2){
                     showForm(new Form_TamTruTamVang());
@@ -56,17 +61,17 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                  if(index == 0){
-                    showForm(new Form_ThongTinHo());
+                    showForm(new Form_ThongTinHo(model));
                 }
                 else if(index == 1){
-                    showForm(new Form_QuanLyTaiKhoan());
+                    showForm(new Form_QuanLyTaiKhoan(model2));
                 }
 
             }
         };
         header1.init(eventHeader);
         menu1.initMenu(event);
-        showForm(new Form_ThongTinHo());
+        showForm(new Form_ThongTinHo(model));
     }
     private void showForm(Component com){
          body.removeAll();
@@ -156,7 +161,7 @@ public class Main_QuanLyNhanKhau extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_QuanLyNhanKhau().setVisible(true);
+               // new Main_QuanLyNhanKhau().setVisible(true);
             }
         });
     }

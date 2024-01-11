@@ -4,7 +4,7 @@
  */
 package com.raven.form.QuanLyThuong;
 
-import com.raven.form.QuanLyThuPhi.Form_TaoKhoanThuTuNguyen;
+import com.raven.form.QuanLyThuPhi.Phitunguyen.Form_TaoKhoanThuTuNguyen;
 import java.awt.Container;
 
 /**
@@ -74,6 +74,8 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
         jButton_ThongKe = new javax.swing.JButton();
         jLabel_TenKT = new javax.swing.JLabel();
         jLabel_MaSo1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         searchText_CCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +167,8 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
 
         jButton_XuatFileExcel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_XuatFileExcel.setText("Xuất File");
+        jButton_XuatFileExcel.setMaximumSize(new java.awt.Dimension(89, 28));
+        jButton_XuatFileExcel.setMinimumSize(new java.awt.Dimension(89, 28));
         jButton_XuatFileExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_XuatFileExcelActionPerformed(evt);
@@ -184,6 +188,12 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
 
         jLabel_MaSo1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel_MaSo1.setText("jLabel_MaSo");
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton1.setText("Xóa");
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton2.setText("Kết thúc");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -217,16 +227,20 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_XuatFileExcel)
-                        .addGap(15, 15, 15)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_XuatFileExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton_ThongKe)
-                        .addGap(15, 15, 15)
+                        .addGap(12, 12, 12)
                         .addComponent(jButton_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_ChinhSua)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_Xoa)
                         .addGap(15, 15, 15)
                         .addComponent(jButton_QuayLai))
@@ -257,13 +271,15 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_ChinhSua, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_QuayLai, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_XuatFileExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jButton_ChinhSua)
+                    .addComponent(jButton_Xoa)
+                    .addComponent(jButton_QuayLai)
+                    .addComponent(jButton_ThongKe)
+                    .addComponent(jButton_XuatFileExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Them)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -331,6 +347,8 @@ private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_ChinhSua;
     private javax.swing.JButton jButton_QuayLai;
     private javax.swing.JButton jButton_Them;

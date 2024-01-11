@@ -11,7 +11,7 @@ import java.awt.Component;
 
 public class Main extends javax.swing.JFrame {
 
-
+/*
     public Main() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -136,4 +136,6 @@ public class Main extends javax.swing.JFrame {
     private com.raven.component.Menu menu1;
     private com.raven.swing.RoundPanel roundPanel1;
     // End of variables declaration//GEN-END:variables
+
+ */
 }

@@ -17,6 +17,7 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
      */
     public Form_ThemDanhSachHocTap() {
         initComponents();
+        jLabel_HoVaTen.setVisible(false); jLabel_MaHo.setVisible(false); searchText_HoVaTen.setVisible(false); searchText_MaHo.setVisible(false);
         jButton_Huy.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_HuyActionPerformed(evt);
