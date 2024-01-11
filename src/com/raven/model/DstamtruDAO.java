@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.Map;
 
 import java.util.LinkedHashMap;
+import java.util.Calendar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,44 +53,52 @@ public class DstamtruDAO {
         }
         return results;
     }
-    public Map<String, Integer> getNewTemporaryResidencyStatisticsByMonthAndDate(int year, Date selectedDate) throws SQLException {
-        Map<String, Integer> stats = new LinkedHashMap<>(); // Preserves the order of insertion
+    public Map<String, Integer> getNewTemporaryResidencyStatisticsByMonthAndYear(int year) throws SQLException {
+        Map<String, Integer> stats = new LinkedHashMap<>();
+        // Initialize the stats map with all months set to zero
+        for (String monthName : getMonthNames()) {
+            stats.put(monthName, 0);
+        }
 
-        String sql = "SELECT MONTH(tt_tu_ngay) AS Month, COUNT(*) AS Count " +
+        String sql = "SELECT tt_tu_ngay, tt_den_ngay " +
                 "FROM ds_tam_tru " +
-                "WHERE YEAR(tt_tu_ngay) = ? AND tt_tu_ngay <= ? AND tt_den_ngay >= ? " +
-                "GROUP BY Month";
+                "WHERE YEAR(tt_tu_ngay) <= ? AND YEAR(tt_den_ngay) >= ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, year);
-            pstmt.setDate(2, new java.sql.Date(selectedDate.getTime()));
-            pstmt.setDate(3, new java.sql.Date(selectedDate.getTime()));
+            pstmt.setInt(2, year);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    int month = rs.getInt("Month");
-                    int count = rs.getInt("Count");
-                    String monthName = getMonthName(month);
-                    stats.put(monthName, count);
+                    Date startDate = rs.getDate("tt_tu_ngay");
+                    Date endDate = rs.getDate("tt_den_ngay");
+                    Calendar startCal = Calendar.getInstance();
+                    startCal.setTime(startDate);
+                    Calendar endCal = Calendar.getInstance();
+                    endCal.setTime(endDate);
+
+                    while (startCal.getTimeInMillis() <= endCal.getTimeInMillis()) {
+                        if (startCal.get(Calendar.YEAR) == year) {
+                            // Get the month name from the array using the month number
+                            String monthName = getMonthNames()[startCal.get(Calendar.MONTH)];
+                            stats.put(monthName, stats.get(monthName) + 1);
+                        }
+                        // Move to the next month
+                        startCal.add(Calendar.MONTH, 1);
+                        // Set the date to the first day of the next month
+                        startCal.set(Calendar.DAY_OF_MONTH, 1);
+                    }
                 }
             }
         }
         return stats;
     }
-    private String getMonthName(int month) {
-        String[] monthNames = {
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-        };
 
-        // Check if the month number is valid
-        if (month >= 1 && month <= 12) {
-            return monthNames[month - 1]; // subtract 1 to get the correct index
-        } else {
-            throw new IllegalArgumentException("Invalid month number: " + month);
-        }
+    // The existing getMonthName method can be used here
+// Alternatively, you can have a getMonthNames method that returns all month names
+    private String[] getMonthNames() {
+        return new String[]{"January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"};
     }
 
 

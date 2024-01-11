@@ -201,14 +201,35 @@ public class DanhSachThuongHocTapDAO {
 
 
     public void themDanhSachThuongHocTap(DanhSachThuongHocTap dstht) throws SQLException {
+
         if (dstht.getCCCD().length() != 5 || !dstht.getCCCD().matches("\\d{5}")) {
             throw new IllegalArgumentException("CCCD Phai co 5 chu so.");
         }
 
+
         try (Connection conn = getConnection()) {
             // Begin transaction
             conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) FROM nhan_khau WHERE CCCD = ?")) {
+                pstmt.setString(1, dstht.getCCCD());
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) == 0) {
+                        throw new SQLException("Nhân khẩu không tồn tại nên không thêm được.");
+                    }
+                }
+            }
+            boolean isEligibleForReward;
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(1) FROM nhan_khau WHERE CCCD = ? AND Trang_thai_nhan_khau = 'Thường trú' AND Ma_Ho IS NOT NULL")) {
+                pstmt.setString(1, dstht.getCCCD());
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    rs.next();
+                    isEligibleForReward = rs.getInt(1) > 0;
+                }
+            }
 
+            if (!isEligibleForReward) {
+                throw new SQLException("Không thể thêm vào khoản thưởng ");
+            }
             String hoTen;
             int maHo;
             try (PreparedStatement pstmt = conn.prepareStatement("SELECT Ho_ten, Ma_Ho FROM nhan_khau WHERE CCCD = ?")) {

@@ -177,14 +177,12 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
         String CCCD = searchText_CCCD.getText();
         String trangThaiPhatThuong = jComboBox_TrangThai.getSelectedItem().toString();
 
+
         try {
             dao.themDanhSachThuongTet(CCCD, ms_kthg, trangThaiPhatThuong);
 
             // Display a success message
             JOptionPane.showMessageDialog(this, "Thêm danh sách thưởng Tết thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
-            // Optional: Refresh the form or redirect to another form as needed
-            // ...
 
         } catch (SQLException ex) {
             // Display an error message in case of an exception

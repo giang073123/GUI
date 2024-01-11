@@ -11,7 +11,9 @@
     import javax.swing.*;
     import java.io.FileOutputStream;
     import java.io.IOException;
-    import java.util.List;
+    import java.util.Calendar;
+    import java.util.LinkedHashMap;
+    import java.util.Map;
     public class DstamvangDAO {
         private Connection getConnection() throws SQLException {
             return DatabaseUtil.getConnection();
@@ -48,8 +50,8 @@
             try (Connection conn = getConnection();
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-                stmt.setDate(1, new java.sql.Date(fromDate.getTime()));
-                stmt.setDate(2, new java.sql.Date(toDate.getTime()));
+                stmt.setDate(1, new java.sql.Date(toDate.getTime()));
+                stmt.setDate(2, new java.sql.Date(fromDate.getTime()));
 
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
@@ -57,7 +59,7 @@
                         record.setCccd(rs.getString("cccd"));
                         record.setMaHo(rs.getInt("ma_ho"));
                         record.setHoTen(rs.getString("ho_ten"));
-                        record.setSdt(rs.getString("sdt")); // Assuming you have a column 'sdt' in your table
+                        record.setSdt(rs.getString("sdt")); // Assuming there is an 'sdt' column in ds_tam_vang
                         record.setDiachiTv(rs.getString("diachi_tv"));
                         record.setTvTuNgay(rs.getDate("tv_tu_ngay"));
                         record.setTvDenNgay(rs.getDate("tv_den_ngay"));
@@ -67,6 +69,48 @@
                 }
             }
             return results;
+        }
+        public Map<String, Integer> getNewTemporaryAbsenceStatisticsByMonthAndYear(int year) throws SQLException {
+            Map<String, Integer> stats = new LinkedHashMap<>();
+            // Initialize the stats map with all months set to zero
+            for (String monthName : getMonthNames()) {
+                stats.put(monthName, 0);
+            }
+
+            String sql = "SELECT tv_tu_ngay, tv_den_ngay " +
+                    "FROM ds_tam_vang " +
+                    "WHERE YEAR(tv_tu_ngay) <= ? AND YEAR(tv_den_ngay) >= ?";
+
+            try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, year);
+                pstmt.setInt(2, year);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        Date startDate = rs.getDate("tv_tu_ngay");
+                        Date endDate = rs.getDate("tv_den_ngay");
+                        Calendar startCal = Calendar.getInstance();
+                        startCal.setTime(startDate);
+                        Calendar endCal = Calendar.getInstance();
+                        endCal.setTime(endDate);
+
+                        while (startCal.getTimeInMillis() <= endCal.getTimeInMillis()) {
+                            if (startCal.get(Calendar.YEAR) == year) {
+                                String monthName = getMonthNames()[startCal.get(Calendar.MONTH)];
+                                stats.put(monthName, stats.get(monthName) + 1);
+                            }
+                            startCal.add(Calendar.MONTH, 1);
+                            startCal.set(Calendar.DAY_OF_MONTH, 1);
+                        }
+                    }
+                }
+            }
+            return stats;
+        }
+
+        private String[] getMonthNames() {
+            return new String[]{"January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"};
         }
         public static void exportListToExcel(List<Dstamvang> listTamVang, String path) {
             Workbook workbook = new XSSFWorkbook();

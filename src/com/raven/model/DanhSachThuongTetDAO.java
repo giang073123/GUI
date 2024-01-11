@@ -186,19 +186,50 @@ public class DanhSachThuongTetDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        boolean isEligibleForReward = false;
 
         try {
             connection = getConnection();
-                    // Get hoTen, maHo, ngaySinh from nhan_khau using CCCD
-                    String queryNhanKhau = "SELECT Ho_ten, Ma_ho, Ngay_sinh FROM nhan_khau WHERE CCCD = ?";
+            connection.setAutoCommit(false);
+
+            // Declare maHo at the method level to avoid redeclaration
+            Integer maHo = null;
+            String hoTen;
+            Date ngaySinh;
+
+            // Check if the CCCD exists and meets the conditions in nhan_khau
+            String checkQuery = "SELECT Ma_ho, Trang_thai_nhan_khau FROM nhan_khau WHERE CCCD = ?";
+            preparedStatement = connection.prepareStatement(checkQuery);
+            preparedStatement.setString(1, CCCD);
+            resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.next()) {
+                throw new SQLException("Nhân khẩu không tồn tại.");
+            }
+
+            // Get Ma_ho and Trang_thai_nhan_khau without redeclaring maHo
+            maHo = (Integer) resultSet.getObject("Ma_ho");  // Use getObject to handle possible nulls
+            String trangThaiNhanKhau = resultSet.getString("Trang_thai_nhan_khau");
+
+            if (maHo == null || !"Thường trú".equals(trangThaiNhanKhau)) {
+                throw new SQLException("Nhân khẩu không đáp ứng điều kiện Thường trú và Ma_Ho khác NULL.");
+            }
+
+            // Close the previous statement and result set before reusing them
+            resultSet.close();
+            preparedStatement.close();
+
+            // Get hoTen, maHo, ngaySinh from nhan_khau using CCCD
+            String queryNhanKhau = "SELECT Ho_ten, Ma_ho, Ngay_sinh FROM nhan_khau WHERE CCCD = ?";
             preparedStatement = connection.prepareStatement(queryNhanKhau);
             preparedStatement.setString(1, CCCD);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                String hoTen = resultSet.getString("Ho_ten");
-                int maHo = resultSet.getInt("Ma_ho");
-                Date ngaySinh = resultSet.getDate("Ngay_sinh");
+                hoTen = resultSet.getString("Ho_ten");
+                // maHo is already declared, so we just assign the value here
+                maHo = resultSet.getInt("Ma_ho");
+                ngaySinh = resultSet.getDate("Ngay_sinh");
 
                 // Get giaTriPhanQua from khoan_thuong_letet using msKThg
                 String queryKhoanThuong = "SELECT Gia_tri_phan_qua FROM khoan_thuong_letet WHERE MS_KThg = ?";
@@ -232,14 +263,29 @@ public class DanhSachThuongTetDAO {
                     capNhatTongThuong(msKThg);
                 }
             }
+            connection.commit();
+
         }  catch (SQLException ex) {
-            // Handle any SQL exceptions
-            ex.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback(); // Rollback changes if exception occurred
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle potential SQL exceptions on rollback
+                }
+            }
+            throw ex; // Rethrow the original exception
         } finally {
-            // Close resources
+            // Close resources in the finally block to ensure they are always closed
             if (resultSet != null) resultSet.close();
             if (preparedStatement != null) preparedStatement.close();
-            if (connection != null) connection.close();
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true); // Reset auto-commit to true
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle potential SQL exceptions on setting auto-commit
+                }
+                connection.close();
+            }
         }
     }
     public void xoaDanhSachThuongTet(int msKThg, String CCCD) throws SQLException {

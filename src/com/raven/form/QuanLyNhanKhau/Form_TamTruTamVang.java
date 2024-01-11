@@ -29,15 +29,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import java.util.Objects;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
-
 public class Form_TamTruTamVang extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_TamTruTamVang
-     */
     public Form_TamTruTamVang() {
         initComponents();
         setOpaque(false);
@@ -45,10 +42,9 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         setupChartProperties();
         loadTamTruStatistics();
         loadTamVangStatistics();
-
     }
 
-
+ 
     private void init(){
         chart.addLegend("Số lượng nhân khẩu tạm trú mới", new Color(12, 84, 175), new Color(0, 108, 247));
         chart.addData(new ModelChart("January", new double[]{50}));
@@ -78,7 +74,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         chart1.addData(new ModelChart("November", new double[]{10}));
         chart1.addData(new ModelChart("December", new double[]{10}));
         chart1.start();
-
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -89,10 +84,12 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         chart = new com.raven.chart.Chart();
-        jDateChooser5 = new com.toedter.calendar.JDateChooser();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jButton_ChonNam = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         chart1 = new com.raven.chart.Chart();
-        jDateChooser6 = new com.toedter.calendar.JDateChooser();
+        jYearChooser2 = new com.toedter.calendar.JYearChooser();
+        jButton_TimKiem2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         roundPanel2 = new com.raven.swing.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -133,6 +130,9 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
 
         jTextField6.setText("jTextField1");
 
+        jButton_ChonNam.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_ChonNam.setText("Tìm kiếmx");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,62 +140,48 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jButton_ChonNam)
                 .addContainerGap())
         );
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-
-
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jButton5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                exportTableToExcel();
-            }
-        });
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_ChonNam))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Thống kê tạm trú", jPanel1);
+
+        jButton_TimKiem2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_TimKiem2.setText("Tìm kiếmy");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+                .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_TimKiem2)
+                .addGap(12, 12, 12))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jDateChooser6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_TimKiem2)
+                    .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Thống kê tạm vắng", jPanel2);
@@ -229,6 +215,44 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setText("Thoát");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton_ChonNam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                jButton_ChonNamActionPerformed(evt);
+            }
+        });
+        jButton_TimKiem2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                jButton_TimKiem2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jButton5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                exportTableToExcel();
+            }
+        });
 
         searchText4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +277,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
                 searchText7ActionPerformed(evt);
             }
         });
+
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
@@ -402,7 +427,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel12.setText("Nhập ngày:");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton2.setText("Tìm kiếm");
+        jButton2.setText("Tìm kiếmz");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton5.setText("Xuất file");
@@ -496,7 +521,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel13.setText("Nhập ngày:");
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton3.setText("Tìm kiếm");
+        jButton3.setText("Tìm kiếmxy");
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton6.setText("Xuất file");
@@ -592,10 +617,41 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
 
     private void searchText7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchText7ActionPerformed
+    }
     private void setupChartProperties() {
     }
-    // Đây là sự kiện khi nhấn nút Tìm kiếm
+    private void jButton_ChonNamActionPerformed(ActionEvent evt) {
+        int year = jYearChooser1.getYear(); // Get the selected year from your YearChooser component
+        try {
+            DstamtruDAO dao = new DstamtruDAO();
+            Map<String, Integer> statistics = dao.getNewTemporaryResidencyStatisticsByMonthAndYear(year);
+
+            updateChart(chart, statistics);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error retrieving statistics: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void jButton_TimKiem2ActionPerformed(ActionEvent evt) {
+        int year = jYearChooser2.getYear(); // Get the selected year from your YearChooser component for temporary absences
+        try {
+            DstamvangDAO dao = new DstamvangDAO();
+            Map<String, Integer> statistics = dao.getNewTemporaryAbsenceStatisticsByMonthAndYear(year);
+
+            updateChart(chart1, statistics); // Assuming chart1 is the chart for temporary absences
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error retrieving statistics: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void updateChart(com.raven.chart.Chart chart, Map<String, Integer> data) {
+        chart.clear();
+        for (Map.Entry<String, Integer> entry : data.entrySet()) {
+            chart.addData(new ModelChart(entry.getKey(), new double[]{entry.getValue()}));
+        }
+        chart.start(); // Refresh the chart to display the new data
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // Rest of the code
 
@@ -660,8 +716,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             }
         }
     }
-
-    // This is the action listener for the search button related to table2
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // Get the selected date from the date chooser
         Date searchDate = jDateChooser4.getDate();
@@ -701,10 +755,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please select a date for the search.", "Search Error", JOptionPane.WARNING_MESSAGE);
         }
     }
-
-
-
-
     private void exportTableToExcel() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Specify a file to save");
@@ -759,7 +809,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             }
         }
     }
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
         // Collect data from form fields
         String cccd = searchText3.getText();
@@ -817,9 +866,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-
     private void loadTamTruStatistics() {
         try {
             DstamtruDAO dao = new DstamtruDAO();
@@ -877,9 +923,6 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
-
-
     private com.raven.chart.Chart chart;
     private com.raven.chart.Chart chart1;
     private javax.swing.JButton jButton1;
@@ -888,12 +931,12 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton_ChonNam;
+    private javax.swing.JButton jButton_TimKiem2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
-    private com.toedter.calendar.JDateChooser jDateChooser5;
-    private com.toedter.calendar.JDateChooser jDateChooser6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -913,6 +956,8 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField6;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private com.toedter.calendar.JYearChooser jYearChooser2;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
