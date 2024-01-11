@@ -43,7 +43,7 @@ public class QuanLyThuongHocTapDAO {
             conn.setAutoCommit(false); // Start transaction
 
             // Insert a new entry into khoan_thuong_hoctap with the status 'Hoạt động'
-            String insertKhoanThuongSql = "INSERT INTO khoan_thuong_hoctap (Ten_KThg, Thuong_hsg_dacbiet, Thuong_hstt, Thuong_khac, Trang_thai_khoanthuong, Ghi_chu) VALUES (?, ?, ?, ?, 'Hoạt động', ?)";
+            String insertKhoanThuongSql = "INSERT INTO khoan_thuong_hoctap (Ten_KThg, Thuong_hsg_dacbiet, Thuong_hstt, Thuong_khac, Trang_thai_khoanthuong, Ghi_chu, Ngaytao_KThg) VALUES (?, ?, ?, ?, 'Hoạt động', ?, CURDATE())";
             int msKThg = 0;
             try (PreparedStatement pstmt = conn.prepareStatement(insertKhoanThuongSql, Statement.RETURN_GENERATED_KEYS)) {
                 pstmt.setString(1, newKhoanThuong.getTenKThg());
@@ -149,8 +149,15 @@ public class QuanLyThuongHocTapDAO {
                     award = new QuanLyThuongHocTap();
                     award.setMsKThg(rs.getInt("MS_KThg"));
                     award.setTenKThg(rs.getString("Ten_KThg"));
-                    // Set các trường khác cho đối tượng award từ ResultSet
-                    // ...
+                    award.setThuongHsgDacBiet(rs.getInt("Thuong_hsg_dacbiet"));
+                    award.setThuongHstt(rs.getInt("Thuong_hstt"));
+                    award.setThuongKhac(rs.getInt("Thuong_khac"));
+                    award.setNgayTaoKThg(rs.getDate("Ngaytao_KThg"));
+                    award.setNgayKetThucKThg(rs.getDate("Ngaykthuc_KThg"));
+                    award.setTrangThai(rs.getString("Trang_thai_khoanthuong")); // Make sure the column name matches the one in the database
+                    award.setTongThuong(rs.getInt("Tong_thuong"));
+                    award.setGhiChu(rs.getString("Ghi_chu"));
+
                 }
             }
         }
@@ -208,7 +215,7 @@ public class QuanLyThuongHocTapDAO {
         return endedAwards;
     }
     public void ketThucKhoanThuong(int ms_kthg) throws SQLException {
-        String sql = "UPDATE khoan_thuong_hoctap SET Trang_thai_khoanthuong = 'Kết thúc' WHERE MS_KThg = ?";
+        String sql = "UPDATE khoan_thuong_hoctap SET Trang_thai_khoanthuong = 'Kết thúc', Ngaykthuc_KThg = CURDATE() WHERE MS_KThg = ?";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

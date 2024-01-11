@@ -1,6 +1,9 @@
 package com.raven.model;
 import com.raven.model.Dstamtru;
 import java.util.concurrent.TimeUnit;
+import java.util.Map;
+
+import java.util.LinkedHashMap;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,6 +52,45 @@ public class DstamtruDAO {
         }
         return results;
     }
+    public Map<String, Integer> getNewTemporaryResidencyStatisticsByMonthAndDate(int year, Date selectedDate) throws SQLException {
+        Map<String, Integer> stats = new LinkedHashMap<>(); // Preserves the order of insertion
+
+        String sql = "SELECT MONTH(tt_tu_ngay) AS Month, COUNT(*) AS Count " +
+                "FROM ds_tam_tru " +
+                "WHERE YEAR(tt_tu_ngay) = ? AND tt_tu_ngay <= ? AND tt_den_ngay >= ? " +
+                "GROUP BY Month";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, year);
+            pstmt.setDate(2, new java.sql.Date(selectedDate.getTime()));
+            pstmt.setDate(3, new java.sql.Date(selectedDate.getTime()));
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int month = rs.getInt("Month");
+                    int count = rs.getInt("Count");
+                    String monthName = getMonthName(month);
+                    stats.put(monthName, count);
+                }
+            }
+        }
+        return stats;
+    }
+    private String getMonthName(int month) {
+        String[] monthNames = {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        };
+
+        // Check if the month number is valid
+        if (month >= 1 && month <= 12) {
+            return monthNames[month - 1]; // subtract 1 to get the correct index
+        } else {
+            throw new IllegalArgumentException("Invalid month number: " + month);
+        }
+    }
 
 
     public List<Dstamtru> listAllTamTru() throws SQLException {
@@ -75,19 +117,7 @@ public class DstamtruDAO {
         }
         return listTamTru;
     }
-    private String getMonthName(int month) {
-        String[] monthNames = {
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-        };
 
-        // Check if the month number is valid
-        if (month >= 1 && month <= 12) {
-            return monthNames[month - 1]; // subtract 1 to get correct index
-        } else {
-            throw new IllegalArgumentException("Invalid month number: " + month);
-        }
-    }
     public void addTamTru(String cccd, String sdt, String diachiThuongtru, int soNha, String duong, Date ttTuNgay, Date ttDenNgay) throws SQLException {
         // Regular expression to match exactly 5 digits - Needs to be updated to match the correct CCCD pattern
         String cccdPattern = "^\\d{5}$";

@@ -96,10 +96,10 @@ public class Form_ThemDanhSachTet extends javax.swing.JPanel {
         jLabel_MaSo2.setText("jLabel_MaSo");
 
         jLabel_TongThuong1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel_TongThuong1.setText("Tổng thưởng: ");
+        jLabel_TongThuong1.setText("");
 
         jLabel_TongThuong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel_TongThuong.setText("jLabel_TongThuong");
+        jLabel_TongThuong.setText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

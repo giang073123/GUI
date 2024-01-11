@@ -6,6 +6,9 @@
     import com.raven.model.QuanLyThuongTetDAO;
     import java.sql.Connection;
     import java.sql.DriverManager;
+    import java.util.List;
+    import java.util.ArrayList;
+    import java.util.Date;
 
     public class QuanLyThuongTetDAO {
         private Connection getConnection() throws SQLException {
@@ -186,6 +189,33 @@
                 }
             }
         }
+        public List<QuanLyThuongTetdata> searchLetetAwardsByDate(java.sql.Date startDate, java.sql.Date endDate) throws SQLException  {
+            List<QuanLyThuongTetdata> awards = new ArrayList<>();
+            String sql = "SELECT * FROM khoan_thuong_letetMS_KThg WHERE " +
+                    "Ngaytao_KThg <= ? AND Ngaykthuc_KThg >= ? AND " +
+                    "Trang_thai_khoanthuong = 'Kết thúc'";
+
+            try (Connection connection = getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setDate(1, new java.sql.Date(endDate.getTime()));
+                preparedStatement.setDate(2, new java.sql.Date(startDate.getTime()));
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        QuanLyThuongTetdata award = new QuanLyThuongTetdata();
+                        award.setMsKThg(resultSet.getInt("MS_KThg"));
+                        award.setTenKhoanThuong(resultSet.getString("Ten_KThg"));
+                        award.setNgayTao(resultSet.getDate("Ngaytao_KThg"));
+                        award.setNgayKetThuc(resultSet.getDate("Ngaykthuc_KThg"));
+                        award.setTrangThai(resultSet.getString("Trang_thai_khoanthuong"));
+                        award.setTongThuong(resultSet.getInt("Tong_thuong"));
+                        award.setGhiChu(resultSet.getString("Ghi_chu"));
+                        awards.add(award);
+                    }
+                }
+            }
+            return awards;
+        }
 
 
 
@@ -211,11 +241,21 @@
             }
 
         public void ketThucKhoanThuong(int msKThg) throws SQLException {
-            String sql = "UPDATE khoan_thuong_letet SET Trang_thai_khoanthuong='Kết Thúc' WHERE MS_KThg=?";
+            String sql = "UPDATE khoan_thuong_letet SET Trang_thai_khoanthuong='Kết Thúc', Ngaykthuc_KThg=? WHERE MS_KThg=?";
+
             try (Connection conn = getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, msKThg);
+
+                // Đặt Ngaykthuc_KThg là ngày hiện tại
+                java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                pstmt.setDate(1, currentDate);
+
+                // Đặt MS_KThg cho khoản thưởng cần kết thúc
+                pstmt.setInt(2, msKThg);
+
+                // Thực hiện cập nhật
                 int rowsUpdated = pstmt.executeUpdate();
+
                 if (rowsUpdated > 0) {
                     System.out.println("Kết thúc khoản thưởng thành công!");
                 } else {
@@ -223,7 +263,6 @@
                 }
             }
         }
-
             public void xoaKhoanThuong(int msKThg) throws SQLException {
                 String sql = "DELETE FROM khoan_thuong_letet WHERE MS_KThg=?";
                 try (Connection conn = getConnection();
