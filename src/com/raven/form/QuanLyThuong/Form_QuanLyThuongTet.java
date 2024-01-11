@@ -326,7 +326,46 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // Sử dụng jDateChooser1 để lấy ngày bắt đầu
+        java.util.Date startDate = jDateChooser1.getDate();
+
+        // Đặt ngày kết thúc bằng ngày bắt đầu để tìm khoản thưởng trong ngày đó
+        java.util.Date endDate = startDate;
+
+        if (startDate == null) {
+            // Hiển thị thông báo nếu ngày bắt đầu chưa được chọn
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày.");
+            return;
+        }
+
+        try {
+            // Chuyển đổi từ java.util.Date sang java.sql.Date
+            java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
+            java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
+
+            // Gọi phương thức searchLetetAwardsByDate
+            QuanLyThuongTetDAO dao = new QuanLyThuongTetDAO();
+            List<QuanLyThuongTetdata> awards = dao.searchLetetAwardsByDate(sqlStartDate, sqlEndDate);
+
+            // Cập nhật dữ liệu vào bảng
+            updateAwardsTable(awards);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Hiển thị thông báo lỗi
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi tìm kiếm: " + e.getMessage());
+        }
+    }
+    private void updateAwardsTable(List<QuanLyThuongTetdata> awards) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ
+
+        for (QuanLyThuongTetdata award : awards) {
+            Vector<Object> row = new Vector<>();
+            row.add(award.getMsKThg());
+            row.add(award.getTenKhoanThuong());
+            // Thêm các trường dữ liệu khác tương ứng
+            model.addRow(row);
+        }
     }
 
     private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {

@@ -131,7 +131,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jTextField6.setText("jTextField1");
 
         jButton_ChonNam.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_ChonNam.setText("Tìm kiếmx");
+        jButton_ChonNam.setText("Tìm kiếm");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,7 +159,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jTabbedPane1.addTab("Thống kê tạm trú", jPanel1);
 
         jButton_TimKiem2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_TimKiem2.setText("Tìm kiếmy");
+        jButton_TimKiem2.setText("Tìm kiếm");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -427,7 +427,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel12.setText("Nhập ngày:");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton2.setText("Tìm kiếmz");
+        jButton2.setText("Tìm kiếm");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton5.setText("Xuất file");
@@ -521,7 +521,7 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         jLabel13.setText("Nhập ngày:");
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton3.setText("Tìm kiếmxy");
+        jButton3.setText("Tìm kiếm");
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton6.setText("Xuất file");

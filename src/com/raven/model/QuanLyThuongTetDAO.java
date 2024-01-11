@@ -191,7 +191,7 @@
         }
         public List<QuanLyThuongTetdata> searchLetetAwardsByDate(java.sql.Date startDate, java.sql.Date endDate) throws SQLException  {
             List<QuanLyThuongTetdata> awards = new ArrayList<>();
-            String sql = "SELECT * FROM khoan_thuong_letetMS_KThg WHERE " +
+            String sql = "SELECT * FROM khoan_thuong_letet WHERE " +
                     "Ngaytao_KThg <= ? AND Ngaykthuc_KThg >= ? AND " +
                     "Trang_thai_khoanthuong = 'Kết thúc'";
 
