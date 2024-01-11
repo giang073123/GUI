@@ -343,7 +343,6 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
             java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
             java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
 
-            // Gọi phương thức searchLetetAwardsByDate
             QuanLyThuongTetDAO dao = new QuanLyThuongTetDAO();
             List<QuanLyThuongTetdata> awards = dao.searchLetetAwardsByDate(sqlStartDate, sqlEndDate);
 
@@ -361,13 +360,13 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
 
         for (QuanLyThuongTetdata award : awards) {
             Vector<Object> row = new Vector<>();
-            row.add(award.getMsKThg());
-            row.add(award.getTenKhoanThuong());
-            row.add(award.getGiaTriPhanQua());
-            row.add(award.getNgayTao());
-            row.add(award.getNgayKetThuc());
-            row.add(award.getTongThuong());
-            row.add(award.getGhiChu());
+            row.add(award.getMsKThg()); // Mã số
+            row.add(award.getTenKhoanThuong()); // Tên khoản thưởng
+            row.add(award.getGiaTriPhanQua()); // Giá trị phần quà
+            row.add(award.getNgayTao()); // Ngày tạo
+            row.add(award.getNgayKetThuc()); // Ngày kết thúc
+            row.add(award.getTongThuong()); // Tổng thưởng
+            row.add(award.getGhiChu()); // Ghi chú
             model.addRow(row);
         }
     }
