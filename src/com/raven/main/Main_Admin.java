@@ -239,7 +239,7 @@ public class Main_Admin extends javax.swing.JFrame {
                 Connection conn = conDB.connect();
 
                 can_bo cb = new can_bo();
-                String sql = "select * from can_bo where username= 'user1' and password = 'password1' ";
+                String sql = "select * from can_bo where username= 'user1' and password = 'password' ";
                 try (PreparedStatement stm = conn.prepareStatement(sql)) {
 
                     ResultSet resultSet = stm.executeQuery();

@@ -7,18 +7,28 @@ package com.raven.form.QuanLyTaiKhoan;
 import com.raven.form.QuanLyNhanKhau.Form_NhanKhauMoi;
 import java.awt.Container;
 import Model.TaiKhoan.*;
+import Model.ThuPhi.khoan_thu_phichungcu;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
         
 public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     Model_TaiKhoan myModel;
     can_bo mycb;
     ArrayList<can_bo> myList = new ArrayList<>();
+    int checkchange =0;
+    
+    
     public Form_QuanLyTaiKhoan(Model_TaiKhoan model) {
         initComponents();
         table_DanhSach.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JComboBox<>(new String[]{"Tổ trưởng", "Tổ phó", "Cán bộ quản lý nhân khẩu","Cán bộ quản lý thu phí", "Cán bộ quản lý phát thưởng"})));
+        table_DanhSach.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor( new JPasswordField()));
         myModel = model;
         mycb =model.getCb();
         
@@ -26,6 +36,8 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
         getList();
         updateTable();
         if(mycb.getChuc_vu().compareTo("Tổ trưởng")!=0 && mycb.getChuc_vu().compareTo("Tổ phó")!=0) jTabbedPane1.removeTabAt(1);
+        
+        
         jButton_DoiMK.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_DoiMKActionPerformed(evt);
@@ -33,9 +45,39 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     });
         jButton_Them.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton_DoiMKActionPerformed(evt);
+            jButton_ThemActionPerformed(evt);
         }
     });
+        
+//        jButton_Xoa.addActionListener(new java.awt.event.ActionListener() {
+//        public void actionPerformed(java.awt.event.ActionEvent evt) {
+//            
+//
+//            
+//            
+//            
+//            
+//            
+//        }
+//    });
+        
+        table_DanhSach.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                //DefaultTableModel model = (DefaultTableModel)table_DanhSach.getModel();
+                if(checkchange==1) return;
+                int idx = e.getFirstRow();
+                myList.get(idx).setCCCD(table_DanhSach.getValueAt(idx,1).toString());
+                myList.get(idx).setChuc_vu(table_DanhSach.getValueAt(idx,5 ).toString());
+                myList.get(idx).setTen_CB(table_DanhSach.getValueAt(idx, 2).toString());
+                myList.get(idx).setPassword(table_DanhSach.getValueAt(idx,4 ).toString());         
+                
+                myModel.update_cb( myList.get(idx));
+                JOptionPane.showMessageDialog(null, "Đã thay đổi thông tin");
+            }
+         });        
+        
+        
     }
     
     
@@ -54,12 +96,13 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     
     private void updateTable(){
         DefaultTableModel model = (DefaultTableModel)table_DanhSach.getModel();
+        checkchange=1;
         model.setRowCount(0);
-        
+         
          for(can_bo cb : myList){
             table_DanhSach.addRow(new Object[]{cb.getMa_CB(),cb.getCCCD(),cb.getTen_CB(),cb.getUsername(),cb.getPassword(),cb.getChuc_vu()});
         }
-    
+        checkchange=0;
     }
     
 
@@ -86,11 +129,10 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
         jLabel_CCCD = new javax.swing.JLabel();
         jLabel_CCCD1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton_CapNhat2 = new javax.swing.JButton();
+        jButton_Xoa = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_DanhSach = new com.raven.swing.Table();
         jButton_Them = new javax.swing.JButton();
-        jButton_CapNhat = new javax.swing.JButton();
         jLabel_TieuDe1 = new javax.swing.JLabel();
 
         jLabel_TieuDe.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -188,11 +230,11 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Thông tin cá nhân", jPanel3);
 
-        jButton_CapNhat2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_CapNhat2.setText("Xóa");
-        jButton_CapNhat2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Xoa.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_Xoa.setText("Xóa");
+        jButton_Xoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CapNhat2ActionPerformed(evt);
+                jButton_XoaActionPerformed(evt);
             }
         });
 
@@ -210,7 +252,7 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, true, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -231,14 +273,6 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
             }
         });
 
-        jButton_CapNhat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_CapNhat.setText("Cập nhật");
-        jButton_CapNhat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CapNhatActionPerformed(evt);
-            }
-        });
-
         jLabel_TieuDe1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel_TieuDe1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_TieuDe1.setText("Danh sách cán bộ");
@@ -252,11 +286,9 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton_CapNhat)
-                        .addGap(15, 15, 15)
                         .addComponent(jButton_Them)
                         .addGap(15, 15, 15)
-                        .addComponent(jButton_CapNhat2))
+                        .addComponent(jButton_Xoa))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -272,9 +304,8 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Them)
-                    .addComponent(jButton_CapNhat)
-                    .addComponent(jButton_CapNhat2))
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addComponent(jButton_Xoa))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Danh sách tài khoản cán bộ", jPanel1);
@@ -321,12 +352,49 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     parentContainer.repaint();
     }//GEN-LAST:event_jButton_DoiMKActionPerformed
 
-    private void jButton_CapNhat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhat2ActionPerformed
+    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_CapNhat2ActionPerformed
+        if(table_DanhSach.getSelectedRow()<0) return;
+            
+            
+            Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn xóa cán bộ này ",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                     int i= table_DanhSach.getSelectedRow();
+                    int cnt=0;
+                      for(can_bo cb: myList){
+                         if(cb.getChuc_vu().compareTo("Tổ trưởng")==0 || cb.getChuc_vu().compareTo("Tổ phó")==0 )
+                         { cnt++; }
+                      }
+                      
+                      if(cnt<=1 && (myList.get(i).getChuc_vu().compareTo("Tổ trưởng")==0 || myList.get(i).getChuc_vu().compareTo("Tổ phó")==0) ){
+                          JOptionPane.showMessageDialog(null, "Danh sách cán bộ cần có ít nhất tổ trưởng hoặc tổ phó"); return;
+                      }
+                      
+                      myModel.delete_cb(myList.get(i));
+                      
+                      myList= myModel.getds();  
+                      updateTable();
+                      
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+    }//GEN-LAST:event_jButton_XoaActionPerformed
 
     private void jButton_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemActionPerformed
-        Form_ThemCanBo formThemCanBo= new Form_ThemCanBo();
+        Form_ThemCanBo formThemCanBo= new Form_ThemCanBo(myModel);
 
     // Get the parent container (JFrame or another container)
     Container parentContainer = this.getParent();
@@ -342,16 +410,11 @@ public class Form_QuanLyTaiKhoan extends javax.swing.JPanel {
     parentContainer.repaint();
     }//GEN-LAST:event_jButton_ThemActionPerformed
 
-    private void jButton_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_CapNhatActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_CapNhat;
-    private javax.swing.JButton jButton_CapNhat2;
     private javax.swing.JButton jButton_DoiMK;
     private javax.swing.JButton jButton_Them;
+    private javax.swing.JButton jButton_Xoa;
     private javax.swing.JLabel jLabel_CCCD;
     private javax.swing.JLabel jLabel_CCCD1;
     private javax.swing.JLabel jLabel_ChucVu;

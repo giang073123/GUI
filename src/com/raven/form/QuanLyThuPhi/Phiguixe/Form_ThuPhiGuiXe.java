@@ -830,6 +830,9 @@ public class Form_ThuPhiGuiXe extends javax.swing.JPanel {
                       DefaultTableModel model = (DefaultTableModel)table1.getModel();
                       model.setRowCount(0);
                       checkRowCount();
+                      
+                      getHistory();
+                      updateTable5();
                 
                       return;
                 }else if (choosen == JOptionPane.NO_OPTION){

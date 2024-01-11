@@ -123,5 +123,62 @@ public class Model_TaiKhoan {
         }
 
     }
+    
+    
+    public void insert_canbo(can_bo cb){
+        try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = "Insert into can_bo(CCCD, username, password, Ten_CB,Chuc_vu) values(?,?,?,?,?)";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            // Set parameters for the query
+            preparedStatement.setString(1, cb.getCCCD());
+            preparedStatement.setString(2, cb.getUsername());
+            preparedStatement.setString(3, cb.getPassword());
+            preparedStatement.setString(4, cb.getTen_CB());
+            preparedStatement.setString(5, cb.getChuc_vu());          
+
+            // Execute the update
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    public void delete_cb(can_bo cb){
+          try {
+            open_conn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = "Delete from can_bo where Ma_CB=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            // Set parameters for the query
+            preparedStatement.setInt(1, cb.getMa_CB());
+                
+            // Execute the update
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
 
 }

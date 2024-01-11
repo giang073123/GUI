@@ -117,6 +117,9 @@ public class Form_ThuPhiDienNuoc extends javax.swing.JPanel {
                     myModel.khoan_thu_Ketthuc("khoan_thu_khac", current.get(idx).getMS_KThu());
                     DefaultTableModel model = (DefaultTableModel) table1.getModel();
                     model.removeRow(idx);
+                    getHistory();
+                    updateTable3();
+                    
                     JOptionPane.showMessageDialog(null, "Đã kết thúc khoản thu");
 
                     return;

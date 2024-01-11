@@ -369,13 +369,13 @@ public class Model_ThuPhi{
         // mylist.get(0).setTrangthai_Thu("Đã thu"); mylist.get(0).setNgay_thu(Date.valueOf(LocalDate.now()));
 
         //  m.thu_tien_CapNhat(mylist.get(0));
-        boolean check=false;
-        try {
-            float num = Float.parseFloat("abc");
-        } catch (NumberFormatException e) {
-            check = false;
-        }
-        System.out.println(check);
+//        boolean check=false;
+//        try {
+//            float num = Float.parseFloat("abc");
+//        } catch (NumberFormatException e) {
+//            check = false;
+//        }
+      //  System.out.println(m);
         
         
         //   DRAFT CHO KIỂM TRA THAY ĐỔI HỢP LỆ TRONG BẢNG

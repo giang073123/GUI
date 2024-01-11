@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Form_ThongTinChiTiet extends javax.swing.JPanel {
@@ -21,11 +23,9 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         initComponents();
         table1.setDefaultEditor(Object.class, null);
 
-        //jLabel5.setVisible(false);
-        //  jLabel12.setVisible(false);
-        jLabel23.setVisible(true);
-        searchText1.setVisible(true);
-        jButton1.setVisible(true);
+
+       
+        jButton_Tachho.setVisible(true);
         jButton4.setVisible(true);
 
         myModel = model;
@@ -51,11 +51,11 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
             }
         });
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+//        jButton_Tachho.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jButton_TachhoActionPerformed(evt);
+//            }
+//        });
 
 //        jButton4.addActionListener(new java.awt.event.ActionListener() {
 //            public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,53 +117,53 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 //        
 //        
 //    }
-    // THÊM NHÂN KHẨU
-    private void jButton1ActionPerformed(ActionEvent evt) {
-         if (searchText1.getText().length() < 1) {
-                return;
-            }
-
-        Object[] options = {"Xác nhận", "Hủy"};
-        int choosen = JOptionPane.showOptionDialog(null,
-                "Bạn có chắc chắn muốn thêm nhân khẩu này",
-                "Xác nhận",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-        if (choosen == JOptionPane.YES_OPTION) {
-           
-            nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
-             
-            if (nk == null) {
-                JOptionPane.showMessageDialog(null, "Không tồn tại số CCCD này trong dữ liệu nhân khẩu");
-                return;
-            } else if (nk.getMa_Ho() > 0) {
-                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã thuộc một hộ khác");
-                return;
-            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "Đã xóa")) {
-                JOptionPane.showMessageDialog(null, "Nhân khẩu này không thường trú trên địa bàn");
-                return;
-            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "khai tử")) {
-                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã được khai tử");
-                return;
-            }
-
-            nk.setMa_Ho(family.getMa_Ho());
-            myModel.nhan_khau_update(nk);
-            update_members();
-
-            return;
-        } else if (choosen == JOptionPane.NO_OPTION) {
-            return;
-        } else if (choosen == JOptionPane.CANCEL_OPTION) {
-            return;
-        } else {
-            return;
-        }
-
-    }
+//    // THÊM NHÂN KHẨU
+//    private void jButton1ActionPerformed(ActionEvent evt) {
+//         if (searchText1.getText().length() < 1) {
+//                return;
+//            }
+//
+//        Object[] options = {"Xác nhận", "Hủy"};
+//        int choosen = JOptionPane.showOptionDialog(null,
+//                "Bạn có chắc chắn muốn thêm nhân khẩu này",
+//                "Xác nhận",
+//                JOptionPane.YES_NO_CANCEL_OPTION,
+//                JOptionPane.QUESTION_MESSAGE,
+//                null,
+//                options,
+//                options[0]);
+//        if (choosen == JOptionPane.YES_OPTION) {
+//           
+//            nhan_khau nk = myModel.nhan_khau_get(searchText1.getText());
+//             
+//            if (nk == null) {
+//                JOptionPane.showMessageDialog(null, "Không tồn tại số CCCD này trong dữ liệu nhân khẩu");
+//                return;
+//            } else if (nk.getMa_Ho() > 0) {
+//                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã thuộc một hộ khác");
+//                return;
+//            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "Đã xóa")) {
+//                JOptionPane.showMessageDialog(null, "Nhân khẩu này không thường trú trên địa bàn");
+//                return;
+//            } else if (myModel.check_samestring(nk.getTrang_thai_nhan_khau(), "khai tử")) {
+//                JOptionPane.showMessageDialog(null, "Nhân khẩu này đã được khai tử");
+//                return;
+//            }
+//
+//            nk.setMa_Ho(family.getMa_Ho());
+//            myModel.nhan_khau_update(nk);
+//            update_members();
+//
+//            return;
+//        } else if (choosen == JOptionPane.NO_OPTION) {
+//            return;
+//        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+//            return;
+//        } else {
+//            return;
+//        }
+//
+//    }
 
     private void jButton_XemchitietActionPerformed(ActionEvent evt) {
         if (table1.getSelectedRow() < 0) {
@@ -218,7 +218,11 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
             return;
         }
         // JOptionPane.showMessageDialog(null,table1.getSelectedRow());
-
+        int idx = table1.getSelectedRow();
+        if (myModel.tam_vang_check(members.get(idx).getCCCD(), java.sql.Date.valueOf(LocalDate.now()))) {
+              JOptionPane.showMessageDialog(null,"Nhân khẩu hiện đang tạm vắng"); return;
+          }
+        
         Form_KhaiBaoTamVang formKhaiBaoTamVang = new Form_KhaiBaoTamVang(members.get(table1.getSelectedRow()), myModel);
 
         // Get the parent container (JFrame or another container)
@@ -236,7 +240,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
     }
 
     
-    // XÓA NHÂN KHẨU
+    // CHUYỂN HỘ
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 
         if (table1.getSelectedRow() < 0) {
@@ -245,7 +249,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
         Object[] options = {"Xác nhận", "Hủy"};
         int choosen = JOptionPane.showOptionDialog(null,
-                "Bạn có chắc chắn muốn xóa nhân khẩu này",
+                "Bạn có chắc chắn muốn chuyển nhân khẩu này",
                 "Xác nhận",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -255,18 +259,20 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         if (choosen == JOptionPane.YES_OPTION) {
             int s = table1.getSelectedRow();
             
-            if ( myModel.check_samestring(members.get(s).getQH_chuho(), "Chủ hộ") ) {
-                family.setCCCD_Chuho(" ");
-            }
-            myModel.ho_gia_dinh_update(family);
-            myModel.ho_gia_dinh_xoank(members.get(s));
-            
-            
-           //members.remove(s);
-            update_members();
-            update_family_info();
+            Form_Chuyenho fch = new Form_Chuyenho(myModel, members.get(s));
+                     // Get the parent container (JFrame or another contai
+        Container parentContainer = this.getParent();
 
-            return;
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(fch);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+            
         } else if (choosen == JOptionPane.NO_OPTION) {
             return;
         } else if (choosen == JOptionPane.CANCEL_OPTION) {
@@ -332,16 +338,14 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jTextField5 = new javax.swing.JTextField();
         jButton_CapNhat = new javax.swing.JButton();
         roundPanel3 = new com.raven.swing.RoundPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table1 = new com.raven.swing.Table();
         jButton4 = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
-        searchText1 = new com.raven.swing.SearchText();
         jButton6 = new javax.swing.JButton();
         jButton_Xemchitiet = new javax.swing.JButton();
+        jButton_Tachho = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -456,7 +460,7 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                                 .addComponent(jButton_CapNhat)
                                 .addGap(130, 130, 130))))))
         );
@@ -503,9 +507,6 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton1.setText("Thêm nhân khẩu");
-
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton2.setText("Khai báo tạm vắng");
 
@@ -538,19 +539,10 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jScrollPane2.setViewportView(table1);
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton4.setText("Xóa nhân khẩu khỏi hộ");
+        jButton4.setText("Chuyển hộ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
-            }
-        });
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel23.setText("CCCD:");
-
-        searchText1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText1ActionPerformed(evt);
             }
         });
 
@@ -565,6 +557,14 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
         jButton_Xemchitiet.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_Xemchitiet.setText("Xem chi tiết");
 
+        jButton_Tachho.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_Tachho.setText("Tách hộ");
+        jButton_Tachho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_TachhoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel3Layout = new javax.swing.GroupLayout(roundPanel3);
         roundPanel3.setLayout(roundPanel3Layout);
         roundPanel3Layout.setHorizontalGroup(
@@ -574,44 +574,35 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
                 .addComponent(jScrollPane2)
                 .addGap(5, 5, 5))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
-                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(roundPanel3Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel23)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton_Xemchitiet)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton_Tachho)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addGap(44, 44, 44))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6))
+                    .addComponent(jButton_Xemchitiet, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         roundPanel3Layout.setVerticalGroup(
             roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel23)
-                    .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Xemchitiet)
+                .addGap(32, 32, 32)
                 .addGroup(roundPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton6)
-                    .addComponent(jButton_Xemchitiet))
+                    .addComponent(jButton_Tachho))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -689,14 +680,56 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton_CapNhatActionPerformed
 
+    private void jButton_TachhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TachhoActionPerformed
+        // TODO add your handling code here:
+         if (table1.getSelectedRow() < 0) {
+            return;
+        }
+
+        Object[] options = {"Xác nhận", "Hủy"};
+        int choosen = JOptionPane.showOptionDialog(null,
+                "Bạn có chắc chắn muốn tách nhân khẩu này ra một hộ mới",
+                "Xác nhận",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (choosen == JOptionPane.YES_OPTION) {
+            int s = table1.getSelectedRow();
+            
+            Form_ThemHo fth = new Form_ThemHo(myModel, members.get(s));
+                     // Get the parent container (JFrame or another contai
+        Container parentContainer = this.getParent();
+
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(fth);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+            
+        } else if (choosen == JOptionPane.NO_OPTION) {
+            return;
+        } else if (choosen == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else {
+            return;
+        }
+        
+    }//GEN-LAST:event_jButton_TachhoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton_CapNhat;
+    private javax.swing.JButton jButton_Tachho;
     private javax.swing.JButton jButton_Xemchitiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -704,7 +737,6 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -721,7 +753,6 @@ public class Form_ThongTinChiTiet extends javax.swing.JPanel {
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
-    private com.raven.swing.SearchText searchText1;
     private com.raven.swing.Table table1;
     // End of variables declaration//GEN-END:variables
 
