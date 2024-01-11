@@ -4,10 +4,59 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NhanKhauDAO {
     private Connection getConnection() throws SQLException {
         return DatabaseUtil.getConnection();
+    }
+    public Map<String, Map<String, Integer>> getStatisticsByAgeAndGender() throws SQLException {
+        // SQL query to get age groups and gender count
+        String sql = "SELECT TIMESTAMPDIFF(YEAR, Ngay_sinh, CURDATE()) AS Age, Gioi_tinh, COUNT(*) AS Count " +
+                "FROM nhan_khau " +
+                "GROUP BY Age, Gioi_tinh";
+
+        // A map to hold the statistics
+        Map<String, Map<String, Integer>> stats = new HashMap<>();
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int age = rs.getInt("Age");
+                String gender = rs.getString("Gioi_tinh").trim();
+                int count = rs.getInt("Count");
+                String ageGroup = getAgeGroup(age);
+
+                // Initialize maps for each gender within the age group with zero count
+                stats.putIfAbsent(ageGroup, new HashMap<>());
+                Map<String, Integer> genderMap = stats.get(ageGroup);
+                genderMap.putIfAbsent("Nam", 0);
+                genderMap.putIfAbsent("Nữ", 0);
+
+                // Update the count for the current gender
+                genderMap.put(gender, genderMap.get(gender) + count);
+            }
+        }
+        return stats;
+    }
+
+
+
+    private String getAgeGroup(int age) {
+        if (age <= 12) return "0-12";
+        else if (age <= 17) return "13-17";
+        else if (age <= 24) return "18-24";
+        else if (age <= 34) return "25-34";
+        else if (age <= 44) return "35-44";
+        else if (age <= 54) return "45-54";
+        else if (age <= 64) return "55-64";
+        else return "65+";
     }
     public void addTamTru(String cccd, String sdt, String diachiThuongtru, int soNha, String duong, Date ttTuNgay, Date ttDenNgay) throws SQLException {
         // Regular expression to match exactly 5 digits

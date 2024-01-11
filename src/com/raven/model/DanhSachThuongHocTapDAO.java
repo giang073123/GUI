@@ -202,7 +202,7 @@ public class DanhSachThuongHocTapDAO {
 
     public void themDanhSachThuongHocTap(DanhSachThuongHocTap dstht) throws SQLException {
         if (dstht.getCCCD().length() != 5 || !dstht.getCCCD().matches("\\d{5}")) {
-            throw new IllegalArgumentException("CCCD must be exactly 5 digits.");
+            throw new IllegalArgumentException("CCCD Phai co 5 chu so.");
         }
 
         try (Connection conn = getConnection()) {
@@ -252,7 +252,14 @@ public class DanhSachThuongHocTapDAO {
                 pstmt.setString(7, dstht.getMinhChung());
                 pstmt.setInt(8, giaTriPhanQua);
                 pstmt.setString(9, dstht.getTrangThaiPhatThuong());
-                pstmt.setDate(10, new java.sql.Date(dstht.getNgayThuong().getTime()));
+
+                // Kiểm tra trạng thái để gán giá trị cho Ngay_thuong
+                if ("Đã hoàn thành".equals(dstht.getTrangThaiPhatThuong())) {
+                    pstmt.setDate(10, new java.sql.Date(new java.util.Date().getTime())); // Gán ngày hiện tại
+                } else {
+                    pstmt.setNull(10, java.sql.Types.DATE); // Gán NULL nếu không phải 'Đã hoàn thành'
+                }
+
                 pstmt.executeUpdate();
             }
 

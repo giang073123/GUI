@@ -23,7 +23,7 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
         this.ms_kthg = ms_kthg;
         this.tenKthg = tenKthg;
         jLabel_TenKT.setText(tenKthg);
-        jLabel_MaSo.setText(String.valueOf(ms_kthg));
+        jLabel_MaSo1.setText(String.valueOf(ms_kthg));
     }
 
     /**

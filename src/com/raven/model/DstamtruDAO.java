@@ -1,5 +1,6 @@
 package com.raven.model;
 import com.raven.model.Dstamtru;
+import java.util.concurrent.TimeUnit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -112,7 +113,14 @@ public class DstamtruDAO {
                 // CCCD exists in ds_tam_tru, throw an exception or handle accordingly
                 throw new IllegalArgumentException("Người này đã tạm trú rồi không thể khai báo được nữa ");
             }
+            long diff = ttDenNgay.getTime() - ttTuNgay.getTime();
+            long diffDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            long maxDaysFor2Years = 365 * 2; // Gần đúng cho 2 năm, không tính năm nhuận
 
+            // Kiểm tra xem số ngày có vượt quá 2 năm không
+            if (diffDays > maxDaysFor2Years) {
+                throw new IllegalArgumentException("Không được phép tạm trú trên 2 năm.");
+            }
             // If CCCD does not exist, proceed with the insert
             String sql = "INSERT INTO ds_tam_tru (CCCD, Ma_Ho, Ho_Ten, SDT, Diachi_thuongtru, So_nha, Duong_, Tt_tu_ngay, Tt_den_ngay) " +
                     "SELECT ?, nk.Ma_Ho, nk.Ho_Ten, ?, ?, ?, ?, ?, ? FROM nhan_khau nk WHERE nk.CCCD = ?";
