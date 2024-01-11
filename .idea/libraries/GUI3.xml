@@ -1,0 +1,50 @@
+<component name="libraryTable">
+  <library name="GUI3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/miglayout-4.0 (1).jar!/" />
+      <root url="jar://$PROJECT_DIR$/TimingFramework-0.55 (1).jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-codec-1.15.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-collections4-4.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-compress-1.21.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-io-2.11.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/commons-math3-3.6.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/curvesapi-1.07.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jakarta.activation-2.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jakarta.xml.bind-api-3.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/javax.activation-api-1.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jaxb-api-2.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jgoodies-common-1.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/junit-4.6.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/log4j-api-2.18.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/log4j-api-3.0.0-alpha1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/log4j-core-3.0.0-alpha1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/log4j-plugins-3.0.0-alpha1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/miglayout-4.0 (1).jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/mysql-connector-j-8.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-examples-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-excelant-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-ooxml-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-ooxml-full-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-ooxml-lite-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-scratchpad-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/slf4j-api-1.7.36.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/SparseBitSet-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/stax2-api-4.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/TimingFramework-0.55 (1).jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/woodstox-core-6.5.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/xmlbeans-5.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jcalendar-1.4/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/jcalendar-1.4/lib/junit-4.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/se02-lib/poi-javadoc-5.2.3.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

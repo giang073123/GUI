@@ -1,23 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.raven.form.QuanLyThuong;
 
 import com.raven.form.QuanLyThuong.Form_ThemKhoanThuongHocTap;
+import com.raven.model.QuanLyThuongHocTapDAO;
+import com.raven.model.QuanLyThuongHocTap; // Adjust the package path if different.
+import java.util.List;
 import java.awt.Container;
+import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
+import java.sql.SQLException;
+import com.raven.model.QuanLyThuongTetDAO;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.JTabbedPane;
 
-/**
- *
- * @author PC Giang
- */
 public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_QuanLyThuongHocTap
-     */
+    private com.raven.swing.Table table_LichSuKhoanThuong;
     public Form_QuanLyThuongHocTap() {
         initComponents();
+        loadActiveAwards();
+
+        loadEndedAwards();
         jButton_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_XemChiTietActionPerformed(evt);
@@ -36,8 +44,6 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
     }
 
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -81,7 +87,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Ngày kết thúc", "Trạng thái", "Ghi chú"
+                "Mã số", "Họ và tên", "Học sinh giỏi", "Học sinh tiên tiến", "Khác", "Ngày tạo", "Ngày kết thúc", "Tổng thưởng", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
@@ -151,6 +157,7 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Khoản thưởng học tập", jPanel1);
+
 
         jPanel2.setPreferredSize(new java.awt.Dimension(855, 683));
 
@@ -253,33 +260,82 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_KetThucActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_KetThucActionPerformed
+    private void jButton_KetThucActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+        if (selectedRow >= 0) {
+            Integer ms_kthg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
+            try {
+                QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                dao.ketThucKhoanThuong(ms_kthg);
+                JOptionPane.showMessageDialog(this, "Khoản thưởng đã được kết thúc thành công.");
+                loadActiveAwards(); // Làm mới danh sách khoản thưởng
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn một khoản thưởng để kết thúc.");
+        }
+    }
 
-    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_XoaActionPerformed
 
-    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTietActionPerformed
-        // TODO add your handling code here:    // Create an instance of Form_ThongTinChiTiet
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
 
-        // Get the parent container (JFrame or another container)
-        Container parentContainer = this.getParent();
+    private void jButton_XoaActionPerformed(java.awt.event.ActionEvent evt) {
+        // Get the selected row index from the table.
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Confirm before deleting.
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Bạn có chắc chắn muốn xóa khoản thưởng này không?",
+                    "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
 
-        // Remove the current panel (Form_ThongTinHo) from the parent container
-        parentContainer.remove(this);
+            // If the user confirms the delete action.
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Get the MS_KThg (ID) of the award from the table.
+                Integer ms_kthg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0);
 
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formDanhSachThuongHocTap);
+                try {
+                    // Create an instance of the DAO and call the delete method.
+                    QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                    dao.deleteKhoanThuong(ms_kthg);
 
-        // Repaint the container to reflect the changes
-        parentContainer.revalidate();
-        parentContainer.repaint();
-    }//GEN-LAST:event_jButton_XemChiTietActionPerformed
+                    // Show success message.
+                    JOptionPane.showMessageDialog(this, "Khoản thưởng đã được xóa thành công.");
+
+                    // Reload the table data to reflect the deletion.
+                    loadActiveAwards();
+                } catch (SQLException ex) {
+                    // Show error message if there's an exception.
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa khoản thưởng: " + ex.getMessage());
+                }
+            }
+        } else {
+            // If no row is selected, prompt the user to select a row.
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn một khoản thưởng để xóa.");
+        }
+    }
+
+    //siuu quan trong
+    private void jButton_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {
+        // Bước 1 và 2: Bắt sự kiện và lấy mã số
+        int selectedRow = table_DanhSachKhoanThuong.getSelectedRow();
+        if (selectedRow >= 0) {
+            Integer ms_kthg = (Integer) table_DanhSachKhoanThuong.getValueAt(selectedRow, 0); // Lấy mã số từ cột đầu tiên
+            String tenKthg = (String) table_DanhSachKhoanThuong.getValueAt(selectedRow, 1);
+            Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap(ms_kthg, tenKthg);
+            Container parentContainer = this.getParent();
+            parentContainer.remove(this);
+            parentContainer.add(formDanhSachThuongHocTap);
+            parentContainer.revalidate();
+            parentContainer.repaint();
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn một khoản thưởng để xem chi tiết.");
+        }
+    }
+
+
+
 
     private void jButton_ThemKhoanThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemKhoanThuongActionPerformed
         Form_ThemKhoanThuongHocTap formThemKhoanThuongHocTap = new Form_ThemKhoanThuongHocTap();
@@ -298,28 +354,135 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.repaint();
     }//GEN-LAST:event_jButton_ThemKhoanThuongActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        java.util.Date utilDate = jDateChooser1.getDate();
+        if (utilDate != null) {
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            try {
+                QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                List<QuanLyThuongHocTap> searchResults = dao.searchAwardsByDate(sqlDate, sqlDate);
+                updateTableWithSearchResults(searchResults);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn một ngày để tìm kiếm.");
+        }
+    }
 
-    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XemChiTiet1ActionPerformed
-        Form_LichSuDanhSachThuongHocTap formLichSuDanhSachThuongHocTap = new Form_LichSuDanhSachThuongHocTap();
+    private void updateTableWithSearchResults(List<QuanLyThuongHocTap> searchResults) {
+        // Create a vector for column names
+        Vector<String> columnNames = new Vector<>();
+        columnNames.add("Mã số");
+        columnNames.add("Tên");
+        columnNames.add("Học sinh giỏi");
+        columnNames.add("Học sinh tiên tiến");
+        columnNames.add("Khác");
+        columnNames.add("Ngày tạo");
+        columnNames.add("Ngày kết thúc");
+        columnNames.add("Tổng thưởng");
+        columnNames.add("Ghi chú");
 
-        // Get the parent container (JFrame or another container)
-        Container parentContainer = this.getParent();
+        // Create a vector that will contain all the rows of data
+        Vector<Vector<Object>> dataVector = new Vector<>();
 
-        // Remove the current panel (Form_ThongTinHo) from the parent container
-        parentContainer.remove(this);
+        for (QuanLyThuongHocTap award : searchResults) {
+            // Create a vector for a single row
+            Vector<Object> row = new Vector<>();
+            row.add(award.getMsKThg());
+            row.add(award.getTenKThg());
+            row.add(award.getThuongHsgDacBiet());
+            row.add(award.getThuongHstt());
+            row.add(award.getThuongKhac());
+            row.add(award.getNgayTaoKThg());
+            row.add(award.getNgayKetThucKThg());
+            row.add(award.getTongThuong());
+            row.add(award.getGhiChu());
 
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formLichSuDanhSachThuongHocTap);
+            // Add the single row to the data vector
+            dataVector.add(row);
+        }
 
-        // Repaint the container to reflect the changes
-        parentContainer.revalidate();
-        parentContainer.repaint();
-    }//GEN-LAST:event_jButton_XemChiTiet1ActionPerformed
+        DefaultTableModel model = new DefaultTableModel(dataVector, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+    }
 
 
+
+
+
+
+    private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = table.getSelectedRow(); // Use 'table' instead of 'table_DanhSach'
+        if (selectedRow >= 0) {
+            Integer msKthg = Integer.valueOf(table.getModel().getValueAt(selectedRow, 0).toString());
+            String tenKthg = table.getModel().getValueAt(selectedRow, 1).toString();
+
+            Form_LichSuDanhSachThuongHocTap formLichSuDanhSachThuongHocTap = new Form_LichSuDanhSachThuongHocTap(msKthg, tenKthg);
+
+            Container parentContainer = this.getParent();
+            parentContainer.remove(this);
+            parentContainer.add(formLichSuDanhSachThuongHocTap);
+            parentContainer.revalidate();
+            parentContainer.repaint();
+        }
+    }
+
+
+    private void loadActiveAwards() {
+        try {
+            QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+            List<QuanLyThuongHocTap> activeAwards = dao.getActiveAwards();
+            DefaultTableModel model = (DefaultTableModel) table_DanhSachKhoanThuong.getModel();
+            model.setRowCount(0); // Xóa dữ liệu cũ khỏi bảng
+
+            for (QuanLyThuongHocTap award : activeAwards) {
+                Vector row = new Vector();
+                row.add(award.getMsKThg());
+                row.add(award.getTenKThg());
+                row.add(award.getThuongHsgDacBiet());
+                row.add(award.getThuongHstt());
+                row.add(award.getThuongKhac());
+                row.add(award.getNgayTaoKThg());
+                row.add(award.getNgayKetThucKThg());
+                row.add(award.getTongThuong());
+                row.add(award.getGhiChu());
+
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu: " + ex.getMessage());
+        }
+    }
+    private void loadEndedAwards() {
+        try {
+            QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+            List<QuanLyThuongHocTap> endedAwards = dao.getEndedAwards();
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0); // Xóa dữ liệu cũ
+
+            for (QuanLyThuongHocTap award : endedAwards) {
+                Vector<Object> row = new Vector<>();
+                row.add(award.getMsKThg());
+                row.add(award.getTenKThg());
+                row.add(award.getThuongHsgDacBiet());
+                row.add(award.getThuongHstt());
+                row.add(award.getThuongKhac());
+                row.add(award.getNgayTaoKThg());
+                row.add(award.getNgayKetThucKThg());
+                row.add(award.getTongThuong());
+                row.add(award.getGhiChu());
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu: " + ex.getMessage());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_KetThuc;
