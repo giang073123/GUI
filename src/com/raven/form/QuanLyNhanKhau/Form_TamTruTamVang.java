@@ -2,6 +2,8 @@
 package com.raven.form.QuanLyNhanKhau;
 import com.raven.model.Dstamtru;
 import com.raven.model.DstamtruDAO;
+import com.raven.model.DstamvangDAO;
+import com.raven.model.Dstamvang;
 import com.raven.chart.ModelChart;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -26,9 +28,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import java.util.Objects;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
+
 public class Form_TamTruTamVang extends javax.swing.JPanel {
 
     /**
@@ -40,6 +44,8 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
         init();
         setupChartProperties();
         loadTamTruStatistics();
+        loadTamVangStatistics();
+
     }
 
 
@@ -142,6 +148,18 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+
 
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -614,6 +632,78 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày để tìm kiếm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Open a file chooser dialog
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Specify a file to save");
+        fileChooser.setSelectedFile(new File("Danh_Sach_Tam_Vang.xlsx")); // Suggest a file name
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+            if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                filePath += ".xlsx"; // Append .xlsx if not present
+            }
+
+            try {
+                // Retrieve data from database
+                DstamvangDAO dao = new DstamvangDAO();
+                List<Dstamvang> listTamVang = dao.getAllTamVang();
+
+                // Export to Excel
+                DstamvangDAO.exportListToExcel(listTamVang, filePath);
+                JOptionPane.showMessageDialog(null, "Dữ liệu đã được truyền tới " + filePath, "Export Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error retrieving data from database: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // This is the action listener for the search button related to table2
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Get the selected date from the date chooser
+        Date searchDate = jDateChooser4.getDate();
+        if (searchDate != null) {
+            java.sql.Date sqlSearchDate = new java.sql.Date(searchDate.getTime());
+
+            // Create an instance of the DAO class
+            DstamvangDAO dao = new DstamvangDAO();
+            try {
+                // Use the DAO to get the list of temporary absences by date range
+                List<Dstamvang> listTamVang = dao.searchByDateRange(sqlSearchDate, sqlSearchDate);
+
+                // Get the table model and clear the existing data
+                DefaultTableModel model = (DefaultTableModel) table2.getModel();
+                model.setRowCount(0);
+
+                // Add the retrieved data to the table model
+                for (Dstamvang tamVang : listTamVang) {
+                    model.addRow(new Object[]{
+                            tamVang.getCccd(),
+                            tamVang.getMaHo(),
+                            tamVang.getHoTen(),
+                            tamVang.getSdt(),
+                            tamVang.getDiachiTv(),
+                            tamVang.getTvTuNgay(),
+                            tamVang.getTvDenNgay(),
+                            tamVang.getLyDo()
+                    });
+                }
+            } catch (SQLException ex) {
+                // Handle any SQL exceptions
+                JOptionPane.showMessageDialog(this, "Error while searching: " + ex.getMessage(), "Search Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        } else {
+            // Prompt the user to select a date if they have not
+            JOptionPane.showMessageDialog(this, "Please select a date for the search.", "Search Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+
+
 
     private void exportTableToExcel() {
         JFileChooser fileChooser = new JFileChooser();
@@ -760,6 +850,35 @@ public class Form_TamTruTamVang extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    private void loadTamVangStatistics() {
+        DstamvangDAO dao = new DstamvangDAO();
+        try {
+            List<Dstamvang> listTamVang = dao.getAllTamVang(); // Make sure this method exists and works correctly
+
+            // Assuming table2 is a com.raven.swing.Table which uses a DefaultTableModel
+            DefaultTableModel model = (DefaultTableModel) table2.getModel();
+            model.setRowCount(0); // Clear the table before adding new data
+
+            for (Dstamvang tamVang : listTamVang) {
+                Object[] row = new Object[]{
+                        tamVang.getCccd(),
+                        tamVang.getMaHo(),
+                        tamVang.getHoTen(),
+                        tamVang.getSdt(),
+                        tamVang.getDiachiTv(),
+                        tamVang.getTvTuNgay(),
+                        tamVang.getTvDenNgay(),
+                        tamVang.getLyDo()
+                };
+                model.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading temporary absence data: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+
 
     private com.raven.chart.Chart chart;
     private com.raven.chart.Chart chart1;

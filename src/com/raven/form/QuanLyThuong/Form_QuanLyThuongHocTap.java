@@ -354,9 +354,68 @@ public class Form_QuanLyThuongHocTap extends javax.swing.JPanel {
         parentContainer.repaint();
     }//GEN-LAST:event_jButton_ThemKhoanThuongActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        java.util.Date utilDate = jDateChooser1.getDate();
+        if (utilDate != null) {
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            try {
+                QuanLyThuongHocTapDAO dao = new QuanLyThuongHocTapDAO();
+                List<QuanLyThuongHocTap> searchResults = dao.searchAwardsByDate(sqlDate, sqlDate);
+                updateTableWithSearchResults(searchResults);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn phải chọn một ngày để tìm kiếm.");
+        }
+    }
+
+    private void updateTableWithSearchResults(List<QuanLyThuongHocTap> searchResults) {
+        // Create a vector for column names
+        Vector<String> columnNames = new Vector<>();
+        columnNames.add("Mã số");
+        columnNames.add("Tên");
+        columnNames.add("Học sinh giỏi");
+        columnNames.add("Học sinh tiên tiến");
+        columnNames.add("Khác");
+        columnNames.add("Ngày tạo");
+        columnNames.add("Ngày kết thúc");
+        columnNames.add("Tổng thưởng");
+        columnNames.add("Ghi chú");
+
+        // Create a vector that will contain all the rows of data
+        Vector<Vector<Object>> dataVector = new Vector<>();
+
+        for (QuanLyThuongHocTap award : searchResults) {
+            // Create a vector for a single row
+            Vector<Object> row = new Vector<>();
+            row.add(award.getMsKThg());
+            row.add(award.getTenKThg());
+            row.add(award.getThuongHsgDacBiet());
+            row.add(award.getThuongHstt());
+            row.add(award.getThuongKhac());
+            row.add(award.getNgayTaoKThg());
+            row.add(award.getNgayKetThucKThg());
+            row.add(award.getTongThuong());
+            row.add(award.getGhiChu());
+
+            // Add the single row to the data vector
+            dataVector.add(row);
+        }
+
+        DefaultTableModel model = new DefaultTableModel(dataVector, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+    }
+
+
+
+
+
 
     private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
         int selectedRow = table.getSelectedRow(); // Use 'table' instead of 'table_DanhSach'

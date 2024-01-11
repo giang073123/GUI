@@ -305,22 +305,24 @@ public class Form_QuanLyThuongTet extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void jButton_XemChiTiet1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // Assuming jTabbedPane1 is a member variable that holds the JTabbedPane instance
-        Form_LichSuDanhSachThuongTet formLichSuDanhSachThuongTet = new Form_LichSuDanhSachThuongTet();
+        // Lấy chỉ số dòng được chọn
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy dữ liệu từ dòng được chọn
+            Integer msKThg = (Integer) table.getValueAt(selectedRow, 0); // Mã số khoản thưởng
+            String tenKThg = (String) table.getValueAt(selectedRow, 1); // Tên khoản thưởng
 
-        // Get the parent container (JFrame or another container)
-        Container parentContainer = this.getParent();
+            // Tạo đối tượng Form_LichSuDanhSachThuongTet với dữ liệu đã lấy
+            Form_LichSuDanhSachThuongTet formLichSu = new Form_LichSuDanhSachThuongTet(msKThg, tenKThg);
 
-        // Remove the current panel (Form_ThongTinHo) from the parent container
-        parentContainer.remove(this);
-
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
-        parentContainer.add(formLichSuDanhSachThuongTet);
-
-        // Repaint the container to reflect the changes
-        parentContainer.revalidate();
-        parentContainer.repaint();
+            // Hiển thị form mới
+            showPanel(formLichSu);
+        } else {
+            // Hiển thị thông báo nếu không có dòng nào được chọn
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng từ bảng.");
+        }
     }
+
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

@@ -9,6 +9,26 @@ import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
 import java.awt.Container;
 import javax.swing.JTabbedPane;
 
+
+import com.raven.model.DanhSachThuongTetDAO;
+import com.raven.model.ThongKeThuongTetDAO;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import com.raven.model.QuanLyThuongTetdata;
+import java.sql.ResultSet;
+import java.util.Arrays;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.JPanel;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author dangk
@@ -16,7 +36,9 @@ import javax.swing.JTabbedPane;
 public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
 
     private JTabbedPane tabbedPane;
-
+    private Integer ms_kthg;
+    private String tenKthg;
+    private DanhSachThuongTetDAO danhSachThuongTetDAO;
     public Form_LichSuDanhSachThuongTet() {
         this.tabbedPane = tabbedPane;
         initComponents();
@@ -26,6 +48,23 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
         }
     });
     }
+    Form_LichSuDanhSachThuongTet(Integer ms_kthg, String tenKthg)
+    {
+        this.ms_kthg = ms_kthg;
+        this.tenKthg = tenKthg;
+        initComponents();
+        jLabel_TenKT1.setText(tenKthg);
+        jLabel_MaSo2.setText(String.valueOf(ms_kthg));
+        loadDanhSachThuongTet(ms_kthg); // Gọi hàm để tải dữ liệu vào bảng
+        danhSachThuongTetDAO = new DanhSachThuongTetDAO();
+        this.danhSachThuongTetDAO = new DanhSachThuongTetDAO();
+        jButton_QuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_QuayLaiActionPerformed(evt);
+            }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,7 +91,7 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã số", "Họ và tên", "CCCD", "Mã hộ", "Ngày sinh", "Giá trị phần quà", "Ngày thưởng"
+                "Họ và tên", "CCCD", "Mã hộ", "Ngày sinh", "Giá trị phần quà", "Trạng thái phát thưởng", "Ngày thưởng"
             }
         ) {
             Class[] types = new Class [] {
@@ -207,9 +246,50 @@ public class Form_LichSuDanhSachThuongTet extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchText_MaHoActionPerformed
 
-    private void jButton_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_TimKiemActionPerformed
+    private void jButton_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {
+        // Retrieve text from search fields
+        String hoTen = searchText_Ten.getText().trim();
+        String cccd = searchText_CCCD.getText().trim();
+        String maHo = searchText_MaHo.getText().trim();
+
+        // Perform the search and update the table with the results
+        try {
+            // Ensure ms_kthg is not null and has a valid value
+            if (ms_kthg == null) {
+                JOptionPane.showMessageDialog(this, "Mã số khoản thưởng không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Use the DAO to search with the provided parameters
+            Vector<Vector<Object>> results = danhSachThuongTetDAO.searchDanhSachThuongTet(hoTen, cccd, maHo, ms_kthg);
+            updateTableWithSearchResults(results);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi xảy ra trong quá trình tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateTableWithSearchResults(Vector<Vector<Object>> data) {
+        Vector<String> columnNames = new Vector<>(Arrays.asList(
+                "Họ và tên", "CCCD", "Mã hộ", "Ngày sinh", "Giá trị phần quà", "Trạng thái phát thưởng", "Ngày thưởng"
+        ));
+        DefaultTableModel model = (DefaultTableModel) table_DanhSach.getModel();
+        model.setDataVector(data, columnNames);
+    }
+
+    private void loadDanhSachThuongTet(int msKThg) {
+        try {
+            DanhSachThuongTetDAO dao = new DanhSachThuongTetDAO();
+            Vector<Vector<Object>> data = dao.layDanhSachThuongTetTheoMaKhoanThuong(msKThg);
+            DefaultTableModel model = (DefaultTableModel) table_DanhSach.getModel();
+            model.setRowCount(0); // Xóa dữ liệu cũ
+            for (Vector<Object> row : data) {
+                model.addRow(row); // Thêm dữ liệu mới
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu: " + e.getMessage());
+        }
+    }
 
     private void jButton_QuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuayLaiActionPerformed
         Form_QuanLyThuongTet formQuanLyThuongTet = new Form_QuanLyThuongTet();

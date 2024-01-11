@@ -104,6 +104,36 @@ public class QuanLyThuongHocTapDAO {
             }
         }
     }
+    public List<QuanLyThuongHocTap> searchAwardsByDate(java.sql.Date startDate, java.sql.Date endDate) throws SQLException  {
+        List<QuanLyThuongHocTap> awards = new ArrayList<>();
+        String sql = "SELECT * FROM khoan_thuong_hoctap WHERE " +
+                "Ngaytao_KThg <= ? AND Ngaykthuc_KThg >= ? AND " +
+                "Trang_thai_khoanthuong = 'Kết thúc'";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setDate(1, new java.sql.Date(endDate.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(startDate.getTime()));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    QuanLyThuongHocTap award = new QuanLyThuongHocTap();
+                    award.setMsKThg(resultSet.getInt("MS_KThg"));
+                    award.setTenKThg(resultSet.getString("Ten_KThg"));
+                    award.setThuongHsgDacBiet(resultSet.getInt("Thuong_hsg_dacbiet"));
+                    award.setThuongHstt(resultSet.getInt("Thuong_hstt"));
+                    award.setThuongKhac(resultSet.getInt("Thuong_khac"));
+                    award.setNgayTaoKThg(resultSet.getDate("Ngaytao_KThg"));
+                    award.setNgayKetThucKThg(resultSet.getDate("Ngaykthuc_KThg"));
+                    award.setTrangThai(resultSet.getString("Trang_thai_khoanthuong"));
+                    award.setTongThuong(resultSet.getInt("Tong_thuong"));
+                    award.setGhiChu(resultSet.getString("Ghi_chu"));
+                    awards.add(award);
+                }
+            }
+        }
+        return awards;
+    }
 
 
 

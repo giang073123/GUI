@@ -88,7 +88,7 @@ public class DstamtruDAO {
         }
     }
     public void addTamTru(String cccd, String sdt, String diachiThuongtru, int soNha, String duong, Date ttTuNgay, Date ttDenNgay) throws SQLException {
-        // Regular expression to match exactly 5 digits
+        // Regular expression to match exactly 5 digits - Needs to be updated to match the correct CCCD pattern
         String cccdPattern = "^\\d{5}$";
 
         // Check if cccd matches the pattern
@@ -96,11 +96,27 @@ public class DstamtruDAO {
             throw new IllegalArgumentException("CCCD must be exactly 5 digits.");
         }
 
-        String sql = "INSERT INTO ds_tam_tru (CCCD, Ma_Ho, Ho_Ten, SDT, Diachi_thuongtru, So_nha, Duong_, Tt_tu_ngay, Tt_den_ngay) " +
-                "SELECT ?, nk.Ma_Ho, nk.Ho_Ten, ?, ?, ?, ?, ?, ? FROM nhan_khau nk WHERE nk.CCCD = ?";
+        Connection connection = null;
+        PreparedStatement checkExistStmt = null;
+        PreparedStatement statement = null;
+        try {
+            connection = getConnection();
 
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Check if CCCD already exists in ds_tam_tru
+            String checkExistSql = "SELECT COUNT(*) FROM ds_tam_tru WHERE CCCD = ?";
+            checkExistStmt = connection.prepareStatement(checkExistSql);
+
+            checkExistStmt.setString(1, cccd);
+            ResultSet resultSet = checkExistStmt.executeQuery();
+            if (resultSet.next() && resultSet.getInt(1) > 0) {
+                // CCCD exists in ds_tam_tru, throw an exception or handle accordingly
+                throw new IllegalArgumentException("Người này đã tạm trú rồi không thể khai báo được nữa ");
+            }
+
+            // If CCCD does not exist, proceed with the insert
+            String sql = "INSERT INTO ds_tam_tru (CCCD, Ma_Ho, Ho_Ten, SDT, Diachi_thuongtru, So_nha, Duong_, Tt_tu_ngay, Tt_den_ngay) " +
+                    "SELECT ?, nk.Ma_Ho, nk.Ho_Ten, ?, ?, ?, ?, ?, ? FROM nhan_khau nk WHERE nk.CCCD = ?";
+            statement = connection.prepareStatement(sql);
 
             statement.setString(1, cccd);
             statement.setString(2, sdt);
@@ -118,8 +134,20 @@ public class DstamtruDAO {
         } catch (SQLException e) {
             // Handle exceptions as needed
             throw e;
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (checkExistStmt != null) {
+                checkExistStmt.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
+
+
     public void exportToExcel(List<Dstamtru> list, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Temporary Residency");

@@ -5,6 +5,7 @@ public class Dstamvang {
     private String cccd;
     private int maHo;
     private String hoTen;
+    private String sdt;
     private String diachiTv;
     private Date tvTuNgay;
     private Date tvDenNgay;
@@ -23,6 +24,7 @@ public class Dstamvang {
         this.tvTuNgay = tvTuNgay;
         this.tvDenNgay = tvDenNgay;
         this.lyDo = lyDo;
+        this.sdt = sdt;
     }
 
     // Getters và Setters
@@ -48,6 +50,13 @@ public class Dstamvang {
 
     public void setHoTen(String hoTen) {
         this.hoTen = hoTen;
+    }
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public String getDiachiTv() {
@@ -93,6 +102,7 @@ public class Dstamvang {
                 ", tvTuNgay=" + tvTuNgay +
                 ", tvDenNgay=" + tvDenNgay +
                 ", lyDo='" + lyDo + '\'' +
+                ", sdt='" + sdt + '\'' + // Include SDT in the toString method
                 '}';
     }
 }

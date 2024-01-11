@@ -34,6 +34,7 @@ public class Form_LichSuDanhSachThuongHocTap extends javax.swing.JPanel {
         }
     });
     }
+
     public Form_LichSuDanhSachThuongHocTap(Integer ms_kthg, String tenKthg) {
         initComponents();
         this.ms_kthg = ms_kthg;
