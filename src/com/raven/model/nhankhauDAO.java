@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class NhanKhauDAO {
     private Connection getConnection() throws SQLException {
@@ -21,8 +22,8 @@ public class NhanKhauDAO {
                 "FROM nhan_khau " +
                 "GROUP BY Age, Gioi_tinh";
 
-        // A map to hold the statistics
-        Map<String, Map<String, Integer>> stats = new HashMap<>();
+        // A TreeMap to hold the statistics in a sorted order by age group
+        Map<String, Map<String, Integer>> stats = new TreeMap<>();
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -45,8 +46,6 @@ public class NhanKhauDAO {
         }
         return stats;
     }
-
-
 
     private String getAgeGroup(int age) {
         if (age <= 12) return "0-12";

@@ -42,7 +42,7 @@ public class Form_TaoKhoanThuChungCu extends javax.swing.JPanel {
                     return;
                 }
 
-                if (myModel.getVal().validate_int(searchText3.getText()) || myModel.getVal().validate_int(searchText4.getText())) {
+                if (!myModel.getVal().validate_int(searchText3.getText()) || !myModel.getVal().validate_int(searchText4.getText())) {
                     JOptionPane.showMessageDialog(null, "Các giá trị khoản phí không hợp lệ");
                     return;
                 }

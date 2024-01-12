@@ -39,7 +39,7 @@ public class Form_TaoKhoanThuGuiXe extends javax.swing.JPanel {
                          JOptionPane.showMessageDialog(null,"Hãy nhập đủ các thông tin yêu cầu"); return;
                      }
                      
-                     if (myModel.getVal().validate_int(searchText3.getText()) || myModel.getVal().validate_int(searchText4.getText()) || myModel.getVal().validate_int(searchText6.getText())) {
+                     if (!myModel.getVal().validate_int(searchText3.getText()) || !myModel.getVal().validate_int(searchText4.getText()) || !myModel.getVal().validate_int(searchText6.getText())) {
                     JOptionPane.showMessageDialog(null, "Các giá trị khoản phí không hợp lệ");
                     return;
                       }

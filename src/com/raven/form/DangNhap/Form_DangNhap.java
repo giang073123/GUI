@@ -243,7 +243,8 @@ public class Form_DangNhap extends javax.swing.JFrame {
 
         String username = usernameField.getText();
         String pw = String.valueOf(passwordField.getPassword());
-        String sql = "select * from can_bo where username= user1 and password = password1 ";
+        String sql = "select * from can_bo where username= ? and password = ? ";
+       // String sql = "select * from can_bo where username= user1 and password = password1 ";
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
 
             stm.setString(1, username);

@@ -4,7 +4,7 @@
  */
 package com.raven.form.QuanLyThuPhi.Phitunguyen;
 
-import com.raven.form.QuanLyThuPhi.*;
+import com.raven.form.QuanLyThuPhi.Phitunguyen.*;
 import Model.ThuPhi.*;
 import java.awt.Container;
 import java.awt.Rectangle;
