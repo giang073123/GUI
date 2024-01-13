@@ -91,15 +91,17 @@ public class DanhSachThuongTetDAO {
                 Cell cell = row.createCell(j);
                 Object value = model.getValueAt(i, j);
 
-                if (value instanceof Integer) {
-                    cell.setCellValue((Integer) value);
-                } else if (value instanceof Boolean) {
-                    cell.setCellValue((Boolean) value);
-                } else if (value instanceof Date) {
-                    cell.setCellValue((Date) value);
-                    cell.setCellStyle(dateCellStyle); // Apply date format
-                } else {
-                    cell.setCellValue(value.toString());
+                if (value != null) { // Kiểm tra xem giá trị có phải là null không
+                    if (value instanceof Integer) {
+                        cell.setCellValue((Integer) value);
+                    } else if (value instanceof Boolean) {
+                        cell.setCellValue((Boolean) value);
+                    } else if (value instanceof Date) {
+                        cell.setCellValue((Date) value);
+                        cell.setCellStyle(dateCellStyle); // Apply date format
+                    } else {
+                        cell.setCellValue(value.toString());
+                    }
                 }
             }
         }

@@ -64,8 +64,8 @@ public class Form_ThemHo extends javax.swing.JPanel {
               if(chuho.getTrang_thai_nhan_khau()==null){myModel.nhan_khau_insertchuho(chuho);}  // NHÂN KHẨU MỚI 
               else if(chuho.getTrang_thai_nhan_khau().compareTo("Đã xóa")==0){                  // NHÂN KHẨU TRƯỚC ĐÂY TỪNG THƯỜNG TRÚ
                chuho.setTrang_thai_nhan_khau("Thường trú");
-               chuho.setMa_Ho(0);
-               myModel.nhan_khau_update(chuho);
+//               chuho.setMa_Ho(0);
+//               myModel.nhan_khau_update(chuho);
             }      
               else if(chuho.getTrang_thai_nhan_khau().compareTo("Thường trú")==0){ }            // NHÂN KHẨU TÁCH RA TỪ HỘ KHÁC
            
@@ -80,7 +80,7 @@ public class Form_ThemHo extends javax.swing.JPanel {
         myModel.ho_gia_dinh_taomoi(f);
         
         f= myModel.ho_gia_dinh_getfamily(chuho.getCCCD());
-        chuho.setMa_Ho(f.getMa_Ho()); chuho.setQH_chuho("Chủ hộ");
+        chuho.setMa_Ho(f.getMa_Ho()); chuho.setQH_chuho("Chủ hộ"); chuho.setTrang_thai_nhan_khau("Thường trú");
         myModel.nhan_khau_update(chuho);
         
         JOptionPane.showMessageDialog(null,"Đã thêm hộ mới");
