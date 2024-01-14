@@ -20,7 +20,6 @@ public class NhanKhauDAO {
         // SQL query to get age groups and gender count
         String sql = "SELECT TIMESTAMPDIFF(YEAR, Ngay_sinh, CURDATE()) AS Age, Gioi_tinh, COUNT(*) AS Count " +
                 "FROM nhan_khau " +
-                "WHERE trang_thai_nhan_khau = 'Thường trú' " +
                 "GROUP BY Age, Gioi_tinh";
 
         // A TreeMap to hold the statistics in a sorted order by age group
