@@ -4,17 +4,44 @@
  */
 package com.raven.form.QuanLyTaiKhoan;
 
+import Model.NhanKhau.Model_NhanKhau;
+import Model.TaiKhoan.*;
+
+import javax.swing.JOptionPane;
+import Service.*;
+import java.awt.Container;
+
 /**
  *
  * @author dangk
  */
 public class Form_ThemCanBo extends javax.swing.JPanel {
-
+Model_TaiKhoan myModel;
     /**
      * Creates new form Form_ThemCanBo
      */
-    public Form_ThemCanBo() {
+    public Form_ThemCanBo(Model_TaiKhoan model) {
         initComponents();
+        myModel = model;
+    }
+    
+     private void exit(){
+        Form_QuanLyTaiKhoan formQuanLyTaiKhoan = new Form_QuanLyTaiKhoan(myModel);
+
+        // Get the parent container (JFrame or another container)
+        Container parentContainer = this.getParent();
+
+        // Remove the current panel (Form_ThongTinHo) from the parent container
+        parentContainer.remove(this);
+
+        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        parentContainer.add(formQuanLyTaiKhoan);
+
+        // Repaint the container to reflect the changes
+        parentContainer.revalidate();
+        parentContainer.repaint();
+    
+    
     }
 
     /**
@@ -26,23 +53,25 @@ public class Form_ThemCanBo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchText_MkCu = new com.raven.swing.SearchText();
-        searchText_MkCu1 = new com.raven.swing.SearchText();
+        searchText_TenCB = new com.raven.swing.SearchText();
+        searchText_CCCD = new com.raven.swing.SearchText();
         jLabel1 = new javax.swing.JLabel();
         jLabel_CCCD1 = new javax.swing.JLabel();
         jLabel_CCCD2 = new javax.swing.JLabel();
         jLabel_TenCB = new javax.swing.JLabel();
         jLabel_ChucVu = new javax.swing.JLabel();
-        searchText_MkCu2 = new com.raven.swing.SearchText();
-        jButton_DoiMK = new javax.swing.JButton();
-        searchText_MkCu3 = new com.raven.swing.SearchText();
+        searchText_Taikhoan = new com.raven.swing.SearchText();
+        jButton_Quaylai = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton_DoiMK1 = new javax.swing.JButton();
+        jButton_Xacnhan = new javax.swing.JButton();
         jLabel_CCCD = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
 
-        searchText_MkCu1.addActionListener(new java.awt.event.ActionListener() {
+        searchText_CCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText_MkCu1ActionPerformed(evt);
+                searchText_CCCDActionPerformed(evt);
             }
         });
 
@@ -62,38 +91,44 @@ public class Form_ThemCanBo extends javax.swing.JPanel {
         jLabel_ChucVu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_ChucVu.setText("Chức vụ:");
 
-        searchText_MkCu2.addActionListener(new java.awt.event.ActionListener() {
+        searchText_Taikhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText_MkCu2ActionPerformed(evt);
+                searchText_TaikhoanActionPerformed(evt);
             }
         });
 
-        jButton_DoiMK.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_DoiMK.setText("Quay lại");
-        jButton_DoiMK.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Quaylai.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_Quaylai.setText("Quay lại");
+        jButton_Quaylai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_DoiMKActionPerformed(evt);
-            }
-        });
-
-        searchText_MkCu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchText_MkCu3ActionPerformed(evt);
+                jButton_QuaylaiActionPerformed(evt);
             }
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổ trưởng", "Tổ phó", "Cán bộ quản lý nhân khẩu", "Cán bộ quản lý thưởng", "Cán bộ quản lý thu chi" }));
 
-        jButton_DoiMK1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton_DoiMK1.setText("Xác nhận");
-        jButton_DoiMK1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Xacnhan.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButton_Xacnhan.setText("Xác nhận");
+        jButton_Xacnhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_DoiMK1ActionPerformed(evt);
+                jButton_XacnhanActionPerformed(evt);
             }
         });
 
         jLabel_CCCD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_CCCD.setText("CCCD:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Nhập lại mật khẩu");
+
+        jPasswordField1.setText("jPasswordField1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+
+        jPasswordField2.setText("jPasswordField2qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,94 +138,154 @@ public class Form_ThemCanBo extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_TenCB)
                     .addComponent(jLabel_CCCD)
-                    .addComponent(jLabel_ChucVu)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton_DoiMK1)
-                            .addGap(27, 27, 27)
-                            .addComponent(jButton_DoiMK))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel_TenCB)
-                                .addComponent(jLabel_CCCD2)
-                                .addComponent(jLabel_CCCD1))
-                            .addGap(92, 92, 92)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(searchText_MkCu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchText_MkCu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, 409, Short.MAX_VALUE)
-                                .addComponent(searchText_MkCu2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchText_MkCu3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(50, 50, 50))
+                            .addComponent(jLabel_CCCD1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(searchText_Taikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel_ChucVu)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton_Xacnhan)
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton_Quaylai))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_CCCD2)
+                                    .addComponent(jLabel2))
+                                .addGap(92, 92, 92)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(searchText_TenCB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(searchText_CCCD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1)
+                                    .addComponent(jPasswordField2))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_TenCB)
-                    .addComponent(searchText_MkCu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(searchText_TenCB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_CCCD)
-                    .addComponent(searchText_MkCu1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(searchText_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_ChucVu)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_CCCD1)
-                    .addComponent(searchText_MkCu2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(searchText_Taikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_CCCD2)
-                    .addComponent(searchText_MkCu3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_DoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jButton_DoiMK1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_Quaylai, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jButton_Xacnhan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(127, 127, 127))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchText_MkCu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_MkCu1ActionPerformed
+    private void searchText_CCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_CCCDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchText_MkCu1ActionPerformed
+    }//GEN-LAST:event_searchText_CCCDActionPerformed
 
-    private void searchText_MkCu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_MkCu2ActionPerformed
+    private void searchText_TaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_TaikhoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchText_MkCu2ActionPerformed
+        
+    }//GEN-LAST:event_searchText_TaikhoanActionPerformed
 
-    private void jButton_DoiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DoiMKActionPerformed
+    private void jButton_QuaylaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_QuaylaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_DoiMKActionPerformed
+        exit();
+    }//GEN-LAST:event_jButton_QuaylaiActionPerformed
 
-    private void searchText_MkCu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_MkCu3ActionPerformed
+    private void jButton_XacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XacnhanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchText_MkCu3ActionPerformed
+         Object[] options = {"Xác nhận", "Hủy"};
+                int choosen = JOptionPane.showOptionDialog(null,
+                        "Bạn có chắc chắn muốn thêm cán bộ này ",
+                        "Xác nhận",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                if(choosen == JOptionPane.YES_OPTION){
+                        if (jPasswordField1.getText().isEmpty() || jPasswordField2.getText().isEmpty() || searchText_TenCB.getText().isEmpty()
+                                || searchText_CCCD.getText().isEmpty() || searchText_Taikhoan.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hãy nhập đủ các thông tin yêu cầu");
+            return;
+        }
+                        Validater v = new Validater();
+                if(!v.validate_CCCD(searchText_CCCD.getText())){
+                   JOptionPane.showMessageDialog(null, "CCCD không hợp lệ");
+            return;
+                }                       
+        
 
-    private void jButton_DoiMK1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DoiMK1ActionPerformed
+        if (jPasswordField2.getText().compareTo(jPasswordField1.getText()) != 0) {
+            JOptionPane.showMessageDialog(null, "Mật khẩu mới nhập lại không chính xác");
+            return;
+        }
+           can_bo canBo = new can_bo();
+                
+                canBo.setCCCD(searchText_CCCD.getText());
+                canBo.setUsername(searchText_Taikhoan.getText());
+                canBo.setPassword(jPasswordField1.getText());
+                canBo.setTen_CB(searchText_TenCB.getText());
+                canBo.setChuc_vu(jComboBox1.getSelectedItem().toString());
+           myModel.insert_canbo(canBo);
+           JOptionPane.showMessageDialog(null, "Thêm thành công");
+                      exit();
+                      return;
+                }else if (choosen == JOptionPane.NO_OPTION){
+                      return;
+                } else if (choosen == JOptionPane.CANCEL_OPTION) {
+                      return;
+                }else {
+                    return;
+                }
+
+    }//GEN-LAST:event_jButton_XacnhanActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_DoiMK1ActionPerformed
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_DoiMK;
-    private javax.swing.JButton jButton_DoiMK1;
+    private javax.swing.JButton jButton_Quaylai;
+    private javax.swing.JButton jButton_Xacnhan;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_CCCD;
     private javax.swing.JLabel jLabel_CCCD1;
     private javax.swing.JLabel jLabel_CCCD2;
     private javax.swing.JLabel jLabel_ChucVu;
     private javax.swing.JLabel jLabel_TenCB;
-    private com.raven.swing.SearchText searchText_MkCu;
-    private com.raven.swing.SearchText searchText_MkCu1;
-    private com.raven.swing.SearchText searchText_MkCu2;
-    private com.raven.swing.SearchText searchText_MkCu3;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private com.raven.swing.SearchText searchText_CCCD;
+    private com.raven.swing.SearchText searchText_Taikhoan;
+    private com.raven.swing.SearchText searchText_TenCB;
     // End of variables declaration//GEN-END:variables
 }

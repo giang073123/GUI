@@ -1,27 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.raven.form.QuanLyThuong;
-
 import java.awt.Container;
-
-/**
- *
- * @author dangk
- */
+import com.raven.model.DanhSachThuongHocTapDAO;
+import com.raven.model.DanhSachThuongHocTap;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Form_ThemDanhSachHocTap
-     */
+    private Integer ms_kthg;
+    private String tenKthg;
     public Form_ThemDanhSachHocTap() {
         initComponents();
+        jLabel_HoVaTen.setVisible(false); jLabel_MaHo.setVisible(false); searchText_HoVaTen.setVisible(false); searchText_MaHo.setVisible(false);
         jButton_Huy.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton_HuyActionPerformed(evt);
         }
     });
+    }
+    public Form_ThemDanhSachHocTap(Integer ms_kthg, String tenKthg) {
+        this();
+        this.ms_kthg = ms_kthg;
+        this.tenKthg = tenKthg;
+        jLabel_TenKT.setText(tenKthg);
+        jLabel_MaSo1.setText(String.valueOf(ms_kthg));
     }
 
     /**
@@ -91,9 +93,42 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
         jButton_XacNhan.setText("Xác nhận");
         jButton_XacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_XacNhanActionPerformed(evt);
+                try {
+                    // Get input data from GUI fields
+                    String cccd = searchText_CCCD.getText();
+                    String truongHoc = searchText_TruongHoc.getText();
+                    String thanhTich = jComboBox_ThanhTich.getSelectedItem().toString();
+                    String minhChung = searchText_MinhChung.getText();
+                    String trangThaiPhatThuong = jComboBox_TrangThai.getSelectedItem().toString();
+
+                    // Get ms_kthg and tenKthg from the current form object
+                    Integer msKthg = Form_ThemDanhSachHocTap.this.ms_kthg;
+
+                    // Create a new DanhSachThuongHocTap object and set its fields
+                    DanhSachThuongHocTap dstht = new DanhSachThuongHocTap();
+                    dstht.setMsKThg(msKthg);
+                    dstht.setCCCD(cccd);
+                    dstht.setTruongHoc(truongHoc);
+                    dstht.setThanhTich(thanhTich);
+                    dstht.setMinhChung(minhChung);
+                    dstht.setTrangThaiPhatThuong(trangThaiPhatThuong);
+                    // Assume that the date is set elsewhere or use the current date for ngayThuong
+                    dstht.setNgayThuong(new java.util.Date());
+
+                    // Call the method to add the award
+                    DanhSachThuongHocTapDAO dao = new DanhSachThuongHocTapDAO();
+                    dao.themDanhSachThuongHocTap(dstht);
+
+                    // Display success message
+                    JOptionPane.showMessageDialog(null, "Khoản thưởng đã được thêm thành công!");
+                } catch (Exception e) {
+                    // Display error message
+                    JOptionPane.showMessageDialog(null, "Lỗi khi thêm khoản thưởng: " + e.getMessage());
+                }
             }
         });
+
+
 
         jButton_Huy.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton_Huy.setText("Hủy");
@@ -213,15 +248,20 @@ public class Form_ThemDanhSachHocTap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_XacNhanActionPerformed
 
     private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
-        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap();
+        // Lấy ms_kthg và tenKthg từ instance hiện tại
+        Integer msKthg = this.ms_kthg;
+        String tenKthg = this.tenKthg;
+
+        // Tạo một instance mới của Form_DanhSachThuongHocTap với ms_kthg và tenKthg
+        Form_DanhSachThuongHocTap formDanhSachThuongHocTap = new Form_DanhSachThuongHocTap(msKthg, tenKthg);
 
         // Get the parent container (JFrame or another container)
         Container parentContainer = this.getParent();
 
-        // Remove the current panel (Form_ThongTinHo) from the parent container
+        // Remove the current panel (Form_ThemDanhSachHocTap) from the parent container
         parentContainer.remove(this);
 
-        // Add the new panel (Form_ThongTinChiTiet) to the parent container
+        // Add the new panel (Form_DanhSachThuongHocTap) to the parent container
         parentContainer.add(formDanhSachThuongHocTap);
 
         // Repaint the container to reflect the changes

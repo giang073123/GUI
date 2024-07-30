@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -104,7 +104,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jLabel_TieuDe" min="-2" pref="47" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel_MaCB" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel_MaCB1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -235,11 +235,9 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton_CapNhat" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   <Component id="jButton_Them" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="jButton_CapNhat2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButton_Xoa" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
@@ -260,16 +258,15 @@
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton_Them" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_CapNhat" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_CapNhat2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Xoa" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                          <EmptySpace pref="39" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton_CapNhat2">
+                <Component class="javax.swing.JButton" name="jButton_Xoa">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="15" style="1"/>
@@ -277,7 +274,7 @@
                     <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_CapNhat2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_XoaActionPerformed"/>
                   </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -294,10 +291,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="6" rowCount="0">
-                            <Column editable="true" title="M&#xe3; c&#xe1;n b&#x1ed9;" type="java.lang.Integer"/>
+                            <Column editable="false" title="M&#xe3; c&#xe1;n b&#x1ed9;" type="java.lang.Integer"/>
                             <Column editable="true" title="CCCD" type="java.lang.Integer"/>
                             <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
-                            <Column editable="true" title="T&#xea;n t&#xe0;i kho&#x1ea3;n" type="java.lang.String"/>
+                            <Column editable="false" title="T&#xea;n t&#xe0;i kho&#x1ea3;n" type="java.lang.String"/>
                             <Column editable="true" title="M&#x1ead;t kh&#x1ea9;u" type="java.lang.String"/>
                             <Column editable="true" title="Ch&#x1ee9;c v&#x1ee5;" type="java.lang.String"/>
                           </Table>
@@ -352,17 +349,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ThemActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton_CapNhat">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="15" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_CapNhatActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel_TieuDe1">

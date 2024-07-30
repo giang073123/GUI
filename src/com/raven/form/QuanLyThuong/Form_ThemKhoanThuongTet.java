@@ -6,7 +6,13 @@ package com.raven.form.QuanLyThuong;
 
 import com.raven.form.QuanLyThuong.Form_DanhSachThuongTet;
 import com.raven.form.QuanLyThuong.Form_QuanLyThuongTet;
+import com.raven.model.QuanLyThuongTetDAO;
+import com.raven.model.QuanLyThuongTetdata;
+
 import java.awt.Container;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -150,8 +156,46 @@ public class Form_ThemKhoanThuongTet extends javax.swing.JPanel {
     }//GEN-LAST:event_searchText_TenKhoanThuongActionPerformed
 
     private void jButton_XacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XacNhanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_XacNhanActionPerformed
+        // Get the data from the form fields
+        String tenKhoanThuong = searchText_TenKhoanThuong.getText().trim();
+        String giaTriPhanQuaStr = searchText_GiaTriQua.getText().trim();
+        String ghiChu = searchText_GhiChu.getText().trim();
+
+        // Validate the input
+        if (tenKhoanThuong.isEmpty() || giaTriPhanQuaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khoản thưởng và Giá trị phần quà không được để trống.");
+            return;
+        }
+
+        int giaTriPhanQua;
+        try {
+            giaTriPhanQua = Integer.parseInt(giaTriPhanQuaStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá trị phần quà phải là một số nguyên.");
+            return;
+        }
+
+        // Create a new instance of the QuanLyThuongTetdata class
+        QuanLyThuongTetdata khoanThuong = new QuanLyThuongTetdata();
+        khoanThuong.setTenKhoanThuong(tenKhoanThuong);
+        khoanThuong.setGiaTriPhanQua(giaTriPhanQua);
+        khoanThuong.setGhiChu(ghiChu);
+
+        QuanLyThuongTetDAO dao = new QuanLyThuongTetDAO();
+        try {
+            dao.themKhoanThuong(khoanThuong);
+            JOptionPane.showMessageDialog(this, "Khoản thưởng mới đã được thêm thành công.");
+            searchText_TenKhoanThuong.setText("");
+            searchText_GiaTriQua.setText("");
+            searchText_GhiChu.setText("");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi khi thêm khoản thưởng mới: " + e.getMessage());
+        }
+    }
+
+
+
 
     private void searchText_GiaTriQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchText_GiaTriQuaActionPerformed
         // TODO add your handling code here:

@@ -126,7 +126,7 @@
                         <Column editable="true" title="Kh&#xe1;c" type="java.lang.Integer"/>
                         <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.String"/>
                         <Column editable="true" title="Ng&#xe0;y k&#x1ebf;t th&#xfa;c" type="java.lang.String"/>
-                        <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
+                        <Column editable="true" title="T&#x1ed5;ng th&#x1b0;&#x1edf;ng" type="java.lang.String"/>
                         <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.String"/>
                       </Table>
                     </Property>
